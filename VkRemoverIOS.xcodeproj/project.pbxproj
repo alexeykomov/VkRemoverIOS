@@ -1,0 +1,595 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5A3FCF972365A72700203C0E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3FCF962365A72700203C0E /* AppDelegate.swift */; };
+		5A3FCF992365A72700203C0E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3FCF982365A72700203C0E /* SceneDelegate.swift */; };
+		5A3FCF9B2365A72700203C0E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3FCF9A2365A72700203C0E /* ViewController.swift */; };
+		5A3FCF9E2365A72700203C0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A3FCF9C2365A72700203C0E /* Main.storyboard */; };
+		5A3FCFA02365A72A00203C0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A3FCF9F2365A72A00203C0E /* Assets.xcassets */; };
+		5A3FCFA32365A72A00203C0E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A3FCFA12365A72A00203C0E /* LaunchScreen.storyboard */; };
+		5A3FCFAE2365A72A00203C0E /* VkRemoverIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3FCFAD2365A72A00203C0E /* VkRemoverIOSTests.swift */; };
+		5A3FCFB92365A72A00203C0E /* VkRemoverIOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3FCFB82365A72A00203C0E /* VkRemoverIOSUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5A3FCFAA2365A72A00203C0E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A3FCF8B2365A72700203C0E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5A3FCF922365A72700203C0E;
+			remoteInfo = VkRemoverIOS;
+		};
+		5A3FCFB52365A72A00203C0E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A3FCF8B2365A72700203C0E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5A3FCF922365A72700203C0E;
+			remoteInfo = VkRemoverIOS;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5A3FCF932365A72700203C0E /* VkRemoverIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VkRemoverIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A3FCF962365A72700203C0E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5A3FCF982365A72700203C0E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		5A3FCF9A2365A72700203C0E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5A3FCF9D2365A72700203C0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5A3FCF9F2365A72A00203C0E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5A3FCFA22365A72A00203C0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5A3FCFA42365A72A00203C0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5A3FCFA92365A72A00203C0E /* VkRemoverIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VkRemoverIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A3FCFAD2365A72A00203C0E /* VkRemoverIOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VkRemoverIOSTests.swift; sourceTree = "<group>"; };
+		5A3FCFAF2365A72A00203C0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5A3FCFB42365A72A00203C0E /* VkRemoverIOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VkRemoverIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A3FCFB82365A72A00203C0E /* VkRemoverIOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VkRemoverIOSUITests.swift; sourceTree = "<group>"; };
+		5A3FCFBA2365A72A00203C0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5A3FCF902365A72700203C0E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A3FCFA62365A72A00203C0E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A3FCFB12365A72A00203C0E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5A3FCF8A2365A72700203C0E = {
+			isa = PBXGroup;
+			children = (
+				5A3FCF952365A72700203C0E /* VkRemoverIOS */,
+				5A3FCFAC2365A72A00203C0E /* VkRemoverIOSTests */,
+				5A3FCFB72365A72A00203C0E /* VkRemoverIOSUITests */,
+				5A3FCF942365A72700203C0E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5A3FCF942365A72700203C0E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5A3FCF932365A72700203C0E /* VkRemoverIOS.app */,
+				5A3FCFA92365A72A00203C0E /* VkRemoverIOSTests.xctest */,
+				5A3FCFB42365A72A00203C0E /* VkRemoverIOSUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5A3FCF952365A72700203C0E /* VkRemoverIOS */ = {
+			isa = PBXGroup;
+			children = (
+				5A3FCF962365A72700203C0E /* AppDelegate.swift */,
+				5A3FCF982365A72700203C0E /* SceneDelegate.swift */,
+				5A3FCF9A2365A72700203C0E /* ViewController.swift */,
+				5A3FCF9C2365A72700203C0E /* Main.storyboard */,
+				5A3FCF9F2365A72A00203C0E /* Assets.xcassets */,
+				5A3FCFA12365A72A00203C0E /* LaunchScreen.storyboard */,
+				5A3FCFA42365A72A00203C0E /* Info.plist */,
+			);
+			path = VkRemoverIOS;
+			sourceTree = "<group>";
+		};
+		5A3FCFAC2365A72A00203C0E /* VkRemoverIOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				5A3FCFAD2365A72A00203C0E /* VkRemoverIOSTests.swift */,
+				5A3FCFAF2365A72A00203C0E /* Info.plist */,
+			);
+			path = VkRemoverIOSTests;
+			sourceTree = "<group>";
+		};
+		5A3FCFB72365A72A00203C0E /* VkRemoverIOSUITests */ = {
+			isa = PBXGroup;
+			children = (
+				5A3FCFB82365A72A00203C0E /* VkRemoverIOSUITests.swift */,
+				5A3FCFBA2365A72A00203C0E /* Info.plist */,
+			);
+			path = VkRemoverIOSUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5A3FCF922365A72700203C0E /* VkRemoverIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5A3FCFBD2365A72A00203C0E /* Build configuration list for PBXNativeTarget "VkRemoverIOS" */;
+			buildPhases = (
+				5A3FCF8F2365A72700203C0E /* Sources */,
+				5A3FCF902365A72700203C0E /* Frameworks */,
+				5A3FCF912365A72700203C0E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VkRemoverIOS;
+			productName = VkRemoverIOS;
+			productReference = 5A3FCF932365A72700203C0E /* VkRemoverIOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5A3FCFA82365A72A00203C0E /* VkRemoverIOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5A3FCFC02365A72A00203C0E /* Build configuration list for PBXNativeTarget "VkRemoverIOSTests" */;
+			buildPhases = (
+				5A3FCFA52365A72A00203C0E /* Sources */,
+				5A3FCFA62365A72A00203C0E /* Frameworks */,
+				5A3FCFA72365A72A00203C0E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5A3FCFAB2365A72A00203C0E /* PBXTargetDependency */,
+			);
+			name = VkRemoverIOSTests;
+			productName = VkRemoverIOSTests;
+			productReference = 5A3FCFA92365A72A00203C0E /* VkRemoverIOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5A3FCFB32365A72A00203C0E /* VkRemoverIOSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5A3FCFC32365A72A00203C0E /* Build configuration list for PBXNativeTarget "VkRemoverIOSUITests" */;
+			buildPhases = (
+				5A3FCFB02365A72A00203C0E /* Sources */,
+				5A3FCFB12365A72A00203C0E /* Frameworks */,
+				5A3FCFB22365A72A00203C0E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5A3FCFB62365A72A00203C0E /* PBXTargetDependency */,
+			);
+			name = VkRemoverIOSUITests;
+			productName = VkRemoverIOSUITests;
+			productReference = 5A3FCFB42365A72A00203C0E /* VkRemoverIOSUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5A3FCF8B2365A72700203C0E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
+				ORGANIZATIONNAME = "Alex K";
+				TargetAttributes = {
+					5A3FCF922365A72700203C0E = {
+						CreatedOnToolsVersion = 11.0;
+					};
+					5A3FCFA82365A72A00203C0E = {
+						CreatedOnToolsVersion = 11.0;
+						TestTargetID = 5A3FCF922365A72700203C0E;
+					};
+					5A3FCFB32365A72A00203C0E = {
+						CreatedOnToolsVersion = 11.0;
+						TestTargetID = 5A3FCF922365A72700203C0E;
+					};
+				};
+			};
+			buildConfigurationList = 5A3FCF8E2365A72700203C0E /* Build configuration list for PBXProject "VkRemoverIOS" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5A3FCF8A2365A72700203C0E;
+			productRefGroup = 5A3FCF942365A72700203C0E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5A3FCF922365A72700203C0E /* VkRemoverIOS */,
+				5A3FCFA82365A72A00203C0E /* VkRemoverIOSTests */,
+				5A3FCFB32365A72A00203C0E /* VkRemoverIOSUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5A3FCF912365A72700203C0E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A3FCFA32365A72A00203C0E /* LaunchScreen.storyboard in Resources */,
+				5A3FCFA02365A72A00203C0E /* Assets.xcassets in Resources */,
+				5A3FCF9E2365A72700203C0E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A3FCFA72365A72A00203C0E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A3FCFB22365A72A00203C0E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5A3FCF8F2365A72700203C0E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A3FCF9B2365A72700203C0E /* ViewController.swift in Sources */,
+				5A3FCF972365A72700203C0E /* AppDelegate.swift in Sources */,
+				5A3FCF992365A72700203C0E /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A3FCFA52365A72A00203C0E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A3FCFAE2365A72A00203C0E /* VkRemoverIOSTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A3FCFB02365A72A00203C0E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A3FCFB92365A72A00203C0E /* VkRemoverIOSUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5A3FCFAB2365A72A00203C0E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5A3FCF922365A72700203C0E /* VkRemoverIOS */;
+			targetProxy = 5A3FCFAA2365A72A00203C0E /* PBXContainerItemProxy */;
+		};
+		5A3FCFB62365A72A00203C0E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5A3FCF922365A72700203C0E /* VkRemoverIOS */;
+			targetProxy = 5A3FCFB52365A72A00203C0E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		5A3FCF9C2365A72700203C0E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5A3FCF9D2365A72700203C0E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5A3FCFA12365A72A00203C0E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5A3FCFA22365A72A00203C0E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5A3FCFBB2365A72A00203C0E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5A3FCFBC2365A72A00203C0E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5A3FCFBE2365A72A00203C0E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NWSTPFC433;
+				INFOPLIST_FILE = VkRemoverIOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.alexeykomov.VkRemoverIOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5A3FCFBF2365A72A00203C0E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NWSTPFC433;
+				INFOPLIST_FILE = VkRemoverIOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.alexeykomov.VkRemoverIOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		5A3FCFC12365A72A00203C0E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NWSTPFC433;
+				INFOPLIST_FILE = VkRemoverIOSTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.alexeykomov.VkRemoverIOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VkRemoverIOS.app/VkRemoverIOS";
+			};
+			name = Debug;
+		};
+		5A3FCFC22365A72A00203C0E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NWSTPFC433;
+				INFOPLIST_FILE = VkRemoverIOSTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.alexeykomov.VkRemoverIOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VkRemoverIOS.app/VkRemoverIOS";
+			};
+			name = Release;
+		};
+		5A3FCFC42365A72A00203C0E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NWSTPFC433;
+				INFOPLIST_FILE = VkRemoverIOSUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.alexeykomov.VkRemoverIOSUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = VkRemoverIOS;
+			};
+			name = Debug;
+		};
+		5A3FCFC52365A72A00203C0E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NWSTPFC433;
+				INFOPLIST_FILE = VkRemoverIOSUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.alexeykomov.VkRemoverIOSUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = VkRemoverIOS;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5A3FCF8E2365A72700203C0E /* Build configuration list for PBXProject "VkRemoverIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A3FCFBB2365A72A00203C0E /* Debug */,
+				5A3FCFBC2365A72A00203C0E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5A3FCFBD2365A72A00203C0E /* Build configuration list for PBXNativeTarget "VkRemoverIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A3FCFBE2365A72A00203C0E /* Debug */,
+				5A3FCFBF2365A72A00203C0E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5A3FCFC02365A72A00203C0E /* Build configuration list for PBXNativeTarget "VkRemoverIOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A3FCFC12365A72A00203C0E /* Debug */,
+				5A3FCFC22365A72A00203C0E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5A3FCFC32365A72A00203C0E /* Build configuration list for PBXNativeTarget "VkRemoverIOSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A3FCFC42365A72A00203C0E /* Debug */,
+				5A3FCFC52365A72A00203C0E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5A3FCF8B2365A72700203C0E /* Project object */;
+}
