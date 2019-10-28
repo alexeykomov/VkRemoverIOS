@@ -16,6 +16,11 @@
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>vkauthorize</string>
+      <string>vk7144627</string>
+    </array>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

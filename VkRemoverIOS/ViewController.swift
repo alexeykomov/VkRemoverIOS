@@ -40,7 +40,7 @@ class ViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
         // Do any additional setup after loading the view.
         
         
-        let SCOPE = [VK_PER_FRIENDS, VK_PER_WALL, VK_PER_AUDIO, VK_PER_PHOTOS, VK_PER_NOHTTPS, VK_PER_EMAIL, VK_PER_MESSAGES];
+        let SCOPE = [VK_PER_FRIENDS];
            
         let instance = VKSdk.initialize(withAppId: "7144627")
         instance?.uiDelegate = self
@@ -56,7 +56,13 @@ class ViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
     }
     
     func startWorking() {
-        
+        VKRequest.init(method:"friends.getRequests",
+                       parameters:["count":100, "offset": 0, "out": 1]).execute(
+            resultBlock: { response in
+                print("response: \(response)")
+        }, errorBlock:  { error in
+            print("error: \(error)")
+        })
     }
 
 
