@@ -9,6 +9,9 @@
 import UIKit
 
 class ViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
+    @IBOutlet weak var tableView: UITableView!
+    private let dataSource = RequestsTabeDataSource()
+    
     func vkSdkAccessAuthorizationFinished(with result: VKAuthorizationResult!) {
         if (result.token != nil) {
             self.startWorking()
@@ -53,18 +56,34 @@ class ViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
             }
         })
         VKSdk.authorize(SCOPE)
+        tableView.dataSource = dataSource
     }
     
     func startWorking() {
         VKRequest.init(method:"friends.getRequests",
-                       parameters:["count":100, "offset": 0, "out": 1]).execute(
+                       parameters:["count":1000, "offset": 0, "out": 1,
+                                   "extended": 1, "fields": "photo_50"]).execute(
             resultBlock: { response in
-                print("response: \(response)")
+                guard let dict = response?.json as? Dictionary<String, Any> else {
+                    return
+                }
+                guard let items = dict["items"] as? [Dictionary<String, Any>] else {
+                    return
+                }
+                let parsedItems = RequestEntry.fromDictList(items)
+                print("parsed items: \(parsedItems)")
+                self.dataSource.addData(RequestEntry.fromDictList(items))
+                self.tableView.reloadData()
         }, errorBlock:  { error in
             print("error: \(error)")
         })
     }
 
+    
+}
 
+struct FriendRequests: Decodable {
+    let count: Int
+    let items: [RequestEntry]
 }
 
