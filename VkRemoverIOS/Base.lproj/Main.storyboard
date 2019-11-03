@@ -94,6 +94,13 @@
                                     <action selector="deleteAllAction:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="OJg-c0-KSy"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XGR-bx-CQJ">
+                                <rect key="frame" x="13" y="10" width="53" height="30"/>
+                                <state key="normal" title="Refresh"/>
+                                <connections>
+                                    <action selector="refresh:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="YvQ-8G-BFm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -104,6 +111,7 @@
                             <constraint firstItem="Ilz-sl-qh8" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="XgG-LA-7bY"/>
                             <constraint firstItem="Ilz-sl-qh8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="29" id="dFo-ye-mGF"/>
                             <constraint firstItem="Ilz-sl-qh8" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="jD9-oV-EbL"/>
+                            <constraint firstItem="XGR-bx-CQJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="lUG-Td-sKW"/>
                             <constraint firstItem="PGc-Xe-0a7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="rEg-3c-YSe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

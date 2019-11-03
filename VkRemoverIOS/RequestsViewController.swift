@@ -13,17 +13,34 @@ class ViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
     private let dataSource = RequestsTabeDataSource()
     @IBOutlet weak var deleteAllButton: UIButton!
     private var requestsTimer: Timer?
+    private var deleting = false
     
     @IBAction func deleteAllAction(_ sender: Any) {
+        updateDeletionProcess(deleting: !self.deleting)
+    }
+    
+    func updateDeletionProcess(deleting: Bool) {
+        if deleting && dataSource.getData().isEmpty {
+            return
+        }
+        
         requestsTimer?.invalidate()
-        requestsTimer = Timer.scheduledTimer(timeInterval: 1, target: self,
-                                             selector: #selector(onTick),
-                                             userInfo: nil, repeats: true)
+        if (deleting) {
+            requestsTimer = Timer.scheduledTimer(timeInterval: 1, target: self,
+            selector: #selector(onTick),
+            userInfo: nil, repeats: true)
+        }
+        
+        self.deleting = deleting
+        deleteAllButton.setTitle(deleting ? "Stop deleting" : "Delete All", for: .normal)
+    }
+    
+    @IBAction func refresh(_ sender: Any) {
     }
     
     @objc func onTick() {
         if dataSource.getData().isEmpty {
-            requestsTimer?.invalidate()
+            updateDeletionProcess(deleting: false)
             return
         }
         let first = dataSource.getData()[0]
@@ -80,7 +97,7 @@ class ViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        updateDeletionProcess(deleting: false)
         
         let SCOPE = [VK_PER_FRIENDS];
            
