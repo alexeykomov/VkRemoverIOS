@@ -9,13 +9,14 @@
 import Foundation
 
 class RequestsTabeDataSource: NSObject, UITableViewDataSource {
-    private var data:[RequestEntry] = []
+    private var data:[RequestEntry] = [
+//        RequestEntry(userId: "177234906",
+//                     photo50: "",
+//                     firstName: "Some",
+//                     lastName: "Name")
+    ]
     
-    override init() {
-        for var i in 0...1000 {
-         
-        }
-        
+    override init() {        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -27,9 +28,9 @@ class RequestsTabeDataSource: NSObject, UITableViewDataSource {
     }
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellReuseIdentifier")!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellReuseIdentifier") as! RequestTableCell
         let userData = data[indexPath.row]
-        cell.textLabel?.text = userData.getLabel()
+        cell.userName.text = userData.getLabel()
         return cell
     }
     
@@ -37,10 +38,17 @@ class RequestsTabeDataSource: NSObject, UITableViewDataSource {
         data.append(contentsOf: items)
     }
     
+    func getData() -> [RequestEntry] {
+        return data
+    }
+    
+    func remove(at: Int) -> Void {
+         data.remove(at: at)
+    }
 }
 
 struct RequestEntry: Decodable {
-    let userId: String
+    let userId: Int
     let photo50: String
     let firstName: String
     let lastName: String
@@ -52,7 +60,7 @@ struct RequestEntry: Decodable {
     static func fromDictList(_ items: [Dictionary<String, Any>]) -> [RequestEntry] {
         return items.map({item in
 
-            return RequestEntry(userId: item["user_id"] as? String ?? "",
+            return RequestEntry(userId: item["user_id"] as? Int ?? 0,
                                 photo50: item["photo_50"] as? String ?? "",
                                 firstName: item["first_name"] as? String ?? "",
                                 lastName: item["last_name"] as? String ?? "")

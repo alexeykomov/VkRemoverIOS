@@ -11,6 +11,45 @@ import UIKit
 class ViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
     @IBOutlet weak var tableView: UITableView!
     private let dataSource = RequestsTabeDataSource()
+    @IBOutlet weak var deleteAllButton: UIButton!
+    private var requestsTimer: Timer?
+    
+    @IBAction func deleteAllAction(_ sender: Any) {
+        requestsTimer?.invalidate()
+        requestsTimer = Timer.scheduledTimer(timeInterval: 1, target: self,
+                                             selector: #selector(onTick),
+                                             userInfo: nil, repeats: true)
+    }
+    
+    @objc func onTick() {
+        if dataSource.getData().isEmpty {
+            requestsTimer?.invalidate()
+            return
+        }
+        let first = dataSource.getData()[0]
+        
+        print("first: \(first)")
+        
+        VKRequest.init(method:"friends.delete",
+                       parameters:["user_id":first.userId]).execute(
+            resultBlock: { response in
+                print("response: \(response)")
+                self.removeFromDataAndTable(entry: first)
+        }, errorBlock:  { error in
+            print("error: \(error)")
+            self.removeFromDataAndTable(entry: first)
+        })
+    }
+
+    func removeFromDataAndTable(entry: RequestEntry) {
+        guard let indexToDelete = self.dataSource.getData().firstIndex(where: {r in r.userId == entry.userId}) else {
+            print("Cannont find index in data for userId: \(entry.userId)")
+            return
+        }
+        dataSource.remove(at: indexToDelete)
+        self.tableView.deleteRows(at: [IndexPath(row: indexToDelete, section: 0)],
+                             with: UITableView.RowAnimation.automatic)
+    }
     
     func vkSdkAccessAuthorizationFinished(with result: VKAuthorizationResult!) {
         if (result.token != nil) {
@@ -70,9 +109,10 @@ class ViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
                 guard let items = dict["items"] as? [Dictionary<String, Any>] else {
                     return
                 }
+                print("items: \(items)")
                 let parsedItems = RequestEntry.fromDictList(items)
                 print("parsed items: \(parsedItems)")
-                self.dataSource.addData(RequestEntry.fromDictList(items))
+                self.dataSource.addData(parsedItems)
                 self.tableView.reloadData()
         }, errorBlock:  { error in
             print("error: \(error)")
