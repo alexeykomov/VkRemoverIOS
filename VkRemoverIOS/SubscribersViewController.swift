@@ -1,32 +1,38 @@
 //
-//  ViewController.swift
+//  SubscribersViewController.swift
 //  VkRemoverIOS
 //
-//  Created by Alex K on 10/27/19.
+//  Created by Alex K on 12/26/19.
 //  Copyright © 2019 Alex K. All rights reserved.
 //
 
+import Foundation
+
 import UIKit
 
-class RequestsViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
-    @IBOutlet weak var tableView: UITableView!
+class SubscribersViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
     private let dataSource = RequestsTableDataSource()
-    @IBOutlet weak var deleteAllButton: UIButton!
     private var deleting = false
     
-    @IBAction func deleteAllAction(_ sender: Any) {
+    @IBOutlet weak var refreshButton: UIButton!
+    @IBAction func refresh(_ sender: UIButton) {
+    }
+    @IBOutlet weak var deleteAllButton: UIButton!
+    @IBAction func deleteAll(_ sender: UIButton) {
         updateDeletionProcess(deleting: !self.deleting)
     }
+    @IBOutlet weak var tableView: UITableView!
     
     func updateDeletionProcess(deleting: Bool) {
         if deleting && dataSource.getData().isEmpty {
             return
         }
         if deleting {
-            gScheduler.scheduleOps(operationType: OperationType.friendsDelete,
-                ops: dataSource.getData().map({d in Operation(name: OperationType.friendsDelete, userId: d.userId)}),
+            gScheduler.scheduleOps(operationType: OperationType.accountBan,
+                ops: dataSource.getData().map({d in Operation(name: OperationType.accountBan, userId: d.userId)}),
                 successCb: {userId, r in
                     self.removeFromDataAndTable(userId: userId)
+                    Storage.shared.addToBanned(id: userId)
                     if self.dataSource.getData().isEmpty {
                         self.deleting = false
                     }},
@@ -38,9 +44,6 @@ class RequestsViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
         deleteAllButton.setTitle(deleting ? "Stop deleting" : "Delete All", for: .normal)
     }
     
-    @IBAction func refresh(_ sender: Any) {
-    }
-
     func removeFromDataAndTable(userId: Int) {
         guard let indexToDelete = self.dataSource.getData().firstIndex(where: {r in r.userId == userId}) else {
             print("Cannont find index in data for userId: \(userId)")
@@ -99,9 +102,9 @@ class RequestsViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
     }
     
     func startWorking() {
-        VKRequest.init(method:"friends.getRequests",
-                       parameters:["count":1000, "offset": 0, "out": 1,
-                                   "extended": 1, "fields": "photo_50"]).execute(
+        VKRequest.init(method:"users.getFollowers",
+                       parameters:["count":1000, "offset": 0,
+                                   "fields": "photo_50"]).execute(
             resultBlock: { response in
                 guard let dict = response?.json as? Dictionary<String, Any> else {
                     return
@@ -118,10 +121,5 @@ class RequestsViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
             print("error: \(error)")
         })
     }
-}
-
-struct FriendRequests: Decodable {
-    let count: Int
-    let items: [RequestEntry]
 }
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class RequestsTabeDataSource: NSObject, UITableViewDataSource {
+class RequestsTableDataSource: NSObject, UITableViewDataSource {
     private var data:[RequestEntry] = [
 //        RequestEntry(userId: "177234906",
 //                     photo50: "",

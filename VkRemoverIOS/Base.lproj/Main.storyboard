@@ -1,33 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wYF-N9-Wkp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wYF-N9-Wkp">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item 2-->
-        <scene sceneID="lfN-8d-1wS">
-            <objects>
-                <viewController id="sfC-aJ-yNc" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="6vS-n9-Twf">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="Sfn-X7-hTD"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="VVf-RY-iqt"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hqM-We-kDJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-362" y="195"/>
-        </scene>
-        <!--Tab Bar Controller-->
+        <!--Hello-->
         <scene sceneID="h0G-cW-4zV">
             <objects>
-                <tabBarController id="wYF-N9-Wkp" sceneMemberID="viewController">
+                <tabBarController id="wYF-N9-Wkp" customClass="Hello" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XWL-om-PIA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -35,17 +19,17 @@
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="CfH-ei-UVr"/>
-                        <segue destination="sfC-aJ-yNc" kind="relationship" relationship="viewControllers" id="UaW-Nu-zyx"/>
+                        <segue destination="jje-qP-WMW" kind="relationship" relationship="viewControllers" id="QKG-PF-MJf"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dUw-hY-TuG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1314" y="-138"/>
         </scene>
-        <!--Item-->
+        <!--Requests-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="VkRemoverIOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="RequestsViewController" customModule="VkRemoverIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -87,18 +71,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PGc-Xe-0a7">
-                                <rect key="frame" x="299" y="10" width="66" height="30"/>
-                                <state key="normal" title="Delete All"/>
-                                <connections>
-                                    <action selector="deleteAllAction:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="OJg-c0-KSy"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XGR-bx-CQJ">
-                                <rect key="frame" x="13" y="10" width="53" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XGR-bx-CQJ">
+                                <rect key="frame" x="16" y="5" width="53" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Refresh"/>
                                 <connections>
                                     <action selector="refresh:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="YvQ-8G-BFm"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PGc-Xe-0a7">
+                                <rect key="frame" x="299" y="5" width="66" height="30"/>
+                                <state key="normal" title="Delete All"/>
+                                <connections>
+                                    <action selector="deleteAllAction:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="OJg-c0-KSy"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -111,12 +96,10 @@
                             <constraint firstItem="Ilz-sl-qh8" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="XgG-LA-7bY"/>
                             <constraint firstItem="Ilz-sl-qh8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="29" id="dFo-ye-mGF"/>
                             <constraint firstItem="Ilz-sl-qh8" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="jD9-oV-EbL"/>
-                            <constraint firstItem="XGR-bx-CQJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="lUG-Td-sKW"/>
-                            <constraint firstItem="PGc-Xe-0a7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="rEg-3c-YSe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="ivp-gr-dEu"/>
+                    <tabBarItem key="tabBarItem" title="Requests" id="ivp-gr-dEu" userLabel="Requests"/>
                     <connections>
                         <outlet property="deleteAllButton" destination="PGc-Xe-0a7" id="YLI-7Z-oRo"/>
                         <outlet property="tableView" destination="Ilz-sl-qh8" id="9sr-dK-XhB"/>
@@ -125,6 +108,91 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="530" y="-274"/>
+        </scene>
+        <!--Followers-->
+        <scene sceneID="tGU-CZ-YEc">
+            <objects>
+                <viewController id="jje-qP-WMW" userLabel="Followers" customClass="SubscribersViewController" customModule="VkRemoverIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xPH-yv-17W">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wMb-t5-ncM">
+                                <rect key="frame" x="0.0" y="29" width="375" height="589"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellReuseIdentifier" id="t5D-QY-Rmn" customClass="RequestTableCell" customModule="VkRemoverIOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="t5D-QY-Rmn" id="LWh-qN-t0U" customClass="Reqe">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d01-5g-r9X">
+                                                    <rect key="frame" x="15" y="5" width="42" height="33"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQh-cS-M9C">
+                                                    <rect key="frame" x="65" y="11" width="295" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="avatarImg" destination="d01-5g-r9X" id="qyO-RC-dZs"/>
+                                            <outlet property="userName" destination="LQh-cS-M9C" id="eux-t8-B4x"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Followers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xSa-fg-CE9">
+                                <rect key="frame" x="151" y="10" width="73" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wfS-Jv-nL7">
+                                <rect key="frame" x="16" y="5" width="53" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Refresh"/>
+                                <connections>
+                                    <action selector="refresh:" destination="jje-qP-WMW" eventType="primaryActionTriggered" id="TjA-VK-lhx"/>
+                                    <action selector="refresh:" destination="jje-qP-WMW" eventType="touchUpInside" id="d4d-1H-M8p"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q70-If-h00">
+                                <rect key="frame" x="299" y="5" width="66" height="30"/>
+                                <state key="normal" title="Delete All"/>
+                                <connections>
+                                    <action selector="deleteAll:" destination="jje-qP-WMW" eventType="touchUpInside" id="ftU-3Y-wpe"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="xSa-fg-CE9" firstAttribute="centerX" secondItem="xPH-yv-17W" secondAttribute="centerX" id="3VG-ln-AN4"/>
+                            <constraint firstItem="wMb-t5-ncM" firstAttribute="bottom" secondItem="q4m-Xx-fjk" secondAttribute="bottom" id="8mE-6T-vRz"/>
+                            <constraint firstAttribute="trailing" secondItem="q70-If-h00" secondAttribute="trailing" constant="10" id="Jcc-tt-1n1"/>
+                            <constraint firstItem="wMb-t5-ncM" firstAttribute="leading" secondItem="q4m-Xx-fjk" secondAttribute="leading" id="Tuw-Ri-xYA"/>
+                            <constraint firstItem="wMb-t5-ncM" firstAttribute="top" secondItem="q4m-Xx-fjk" secondAttribute="top" constant="29" id="acd-Pq-LYI"/>
+                            <constraint firstItem="xSa-fg-CE9" firstAttribute="top" secondItem="q4m-Xx-fjk" secondAttribute="top" constant="10" id="cLF-96-a8X"/>
+                            <constraint firstItem="wMb-t5-ncM" firstAttribute="trailing" secondItem="q4m-Xx-fjk" secondAttribute="trailing" id="eTi-Yh-BJ5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="q4m-Xx-fjk"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Followers" id="UC8-gX-qbd" userLabel="Followers"/>
+                    <connections>
+                        <outlet property="deleteAllButton" destination="q70-If-h00" id="0MT-1u-WFa"/>
+                        <outlet property="refreshButton" destination="wfS-Jv-nL7" id="ku5-X3-z1Z"/>
+                        <outlet property="tableView" destination="wMb-t5-ncM" id="rZG-J1-jtw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aCI-dn-FaU" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-434" y="287"/>
         </scene>
     </scenes>
 </document>

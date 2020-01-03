@@ -1,17 +1,18 @@
 //
-//  ViewController.swift
+//  RemovablesViewController.swift
 //  VkRemoverIOS
 //
-//  Created by Alex K on 10/27/19.
+//  Created by Alex K on 12/26/19.
 //  Copyright © 2019 Alex K. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class RequestsViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
+class RemovablesViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
     @IBOutlet weak var tableView: UITableView!
     private let dataSource = RequestsTableDataSource()
     @IBOutlet weak var deleteAllButton: UIButton!
+    private var requestsTimer: Timer?
     private var deleting = false
     
     @IBAction func deleteAllAction(_ sender: Any) {
@@ -22,28 +23,44 @@ class RequestsViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
         if deleting && dataSource.getData().isEmpty {
             return
         }
-        if deleting {
-            gScheduler.scheduleOps(operationType: OperationType.friendsDelete,
-                ops: dataSource.getData().map({d in Operation(name: OperationType.friendsDelete, userId: d.userId)}),
-                successCb: {userId, r in
-                    self.removeFromDataAndTable(userId: userId)
-                    if self.dataSource.getData().isEmpty {
-                        self.deleting = false
-                    }},
-                errorCb: {e in })
-        } else {
-            gScheduler.clearOps(operationType: OperationType.friendsDelete)
+        
+        requestsTimer?.invalidate()
+        if (deleting) {
+            requestsTimer = Timer.scheduledTimer(timeInterval: 1, target: self,
+            selector: #selector(onTick),
+            userInfo: nil, repeats: true)
         }
+        
         self.deleting = deleting
         deleteAllButton.setTitle(deleting ? "Stop deleting" : "Delete All", for: .normal)
     }
     
     @IBAction func refresh(_ sender: Any) {
     }
+    
+    @objc func onTick() {
+        if dataSource.getData().isEmpty {
+            updateDeletionProcess(deleting: false)
+            return
+        }
+        let first = dataSource.getData()[0]
+        
+        print("first: \(first)")
+        
+        VKRequest.init(method:"friends.delete",
+                       parameters:["user_id":first.userId]).execute(
+            resultBlock: { response in
+                print("response: \(response)")
+                self.removeFromDataAndTable(entry: first)
+        }, errorBlock:  { error in
+            print("error: \(error)")
+            self.removeFromDataAndTable(entry: first)
+        })
+    }
 
-    func removeFromDataAndTable(userId: Int) {
-        guard let indexToDelete = self.dataSource.getData().firstIndex(where: {r in r.userId == userId}) else {
-            print("Cannont find index in data for userId: \(userId)")
+    func removeFromDataAndTable(entry: RequestEntry) {
+        guard let indexToDelete = self.dataSource.getData().firstIndex(where: {r in r.userId == entry.userId}) else {
+            print("Cannont find index in data for userId: \(entry.userId)")
             return
         }
         dataSource.remove(at: indexToDelete)
@@ -68,6 +85,7 @@ class RequestsViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
         self.navigationController?.topViewController?.present(controller,
                                                               animated: true,
                                                               completion: {})
+          
     }
     
     func vkSdkNeedCaptchaEnter(_ captchaError: VKError!) {
@@ -75,6 +93,7 @@ class RequestsViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
         vc?.present(in: self.navigationController?.topViewController)
     }
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -89,9 +108,7 @@ class RequestsViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
             if (state == VKAuthorizationState.authorized) {
                 self.startWorking()
             } else if (error != nil) {
-                UIAlertView(title: "", message: error.debugDescription,
-                            delegate: self as! UIAlertViewDelegate,
-                            cancelButtonTitle: "Ok").show()
+                UIAlertView(title: "", message: error.debugDescription, delegate: self as! UIAlertViewDelegate, cancelButtonTitle: "Ok").show()
             }
         })
         VKSdk.authorize(SCOPE)
@@ -118,10 +135,6 @@ class RequestsViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
             print("error: \(error)")
         })
     }
-}
 
-struct FriendRequests: Decodable {
-    let count: Int
-    let items: [RequestEntry]
+    
 }
-

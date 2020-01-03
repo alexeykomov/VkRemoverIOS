@@ -20,6 +20,11 @@
 		5A4248E8236D964A00223AB0 /* RequestsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4248E7236D964A00223AB0 /* RequestsTableDataSource.swift */; };
 		5A4248EA236DC7A200223AB0 /* RequestTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4248E9236DC7A000223AB0 /* RequestTableCell.swift */; };
 		5A4248EC236EDB3400223AB0 /* InitialTabsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4248EB236EDB3300223AB0 /* InitialTabsViewController.swift */; };
+		5AB198B323BF835000542E62 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB198B223BF835000542E62 /* Storage.swift */; };
+		5AF5314723B4C73A008D01E4 /* SubscribersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5314623B4C73A008D01E4 /* SubscribersViewController.swift */; };
+		5AF5314923B4F9C8008D01E4 /* RemovablesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5314823B4F9C8008D01E4 /* RemovablesViewController.swift */; };
+		5AF5314B23B754A9008D01E4 /* HelloViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5314A23B754A9008D01E4 /* HelloViewController.swift */; };
+		5AF5314D23B76302008D01E4 /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5314C23B76301008D01E4 /* Scheduler.swift */; };
 		5B8BEBF00AC6087CA4C5DE9E /* libPods-VkRemoverIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD42DFB4CBD2E91AA55C271 /* libPods-VkRemoverIOS.a */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +67,11 @@
 		5A4248E7236D964A00223AB0 /* RequestsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsTableDataSource.swift; sourceTree = "<group>"; };
 		5A4248E9236DC7A000223AB0 /* RequestTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTableCell.swift; sourceTree = "<group>"; };
 		5A4248EB236EDB3300223AB0 /* InitialTabsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialTabsViewController.swift; sourceTree = "<group>"; };
+		5AB198B223BF835000542E62 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		5AF5314623B4C73A008D01E4 /* SubscribersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribersViewController.swift; sourceTree = "<group>"; };
+		5AF5314823B4F9C8008D01E4 /* RemovablesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemovablesViewController.swift; sourceTree = "<group>"; };
+		5AF5314A23B754A9008D01E4 /* HelloViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloViewController.swift; sourceTree = "<group>"; };
+		5AF5314C23B76301008D01E4 /* Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
 		8C1D5BC28CEDFE66CF3537A2 /* Pods-VkRemoverIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VkRemoverIOS.release.xcconfig"; path = "Target Support Files/Pods-VkRemoverIOS/Pods-VkRemoverIOS.release.xcconfig"; sourceTree = "<group>"; };
 		9FD42DFB4CBD2E91AA55C271 /* libPods-VkRemoverIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VkRemoverIOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -121,6 +131,7 @@
 				5A3FCF962365A72700203C0E /* AppDelegate.swift */,
 				5A3FCF982365A72700203C0E /* SceneDelegate.swift */,
 				5A3FCF9A2365A72700203C0E /* RequestsViewController.swift */,
+				5AF5314623B4C73A008D01E4 /* SubscribersViewController.swift */,
 				5A4248E9236DC7A000223AB0 /* RequestTableCell.swift */,
 				5A3FCF9C2365A72700203C0E /* Main.storyboard */,
 				5A3FCF9F2365A72A00203C0E /* Assets.xcassets */,
@@ -130,6 +141,10 @@
 				5A4248E42365C2CA00223AB0 /* VkRemoverIOS-Bridging-Header.h */,
 				5A4248E7236D964A00223AB0 /* RequestsTableDataSource.swift */,
 				5A4248EB236EDB3300223AB0 /* InitialTabsViewController.swift */,
+				5AF5314823B4F9C8008D01E4 /* RemovablesViewController.swift */,
+				5AF5314A23B754A9008D01E4 /* HelloViewController.swift */,
+				5AF5314C23B76301008D01E4 /* Scheduler.swift */,
+				5AB198B223BF835000542E62 /* Storage.swift */,
 			);
 			path = VkRemoverIOS;
 			sourceTree = "<group>";
@@ -349,10 +364,15 @@
 				5A4248E8236D964A00223AB0 /* RequestsTableDataSource.swift in Sources */,
 				5A4248E62365C2CA00223AB0 /* Empty.m in Sources */,
 				5A4248E32365B9CE00223AB0 /* Empty.swift in Sources */,
+				5AF5314923B4F9C8008D01E4 /* RemovablesViewController.swift in Sources */,
 				5A3FCF972365A72700203C0E /* AppDelegate.swift in Sources */,
+				5AF5314723B4C73A008D01E4 /* SubscribersViewController.swift in Sources */,
 				5A4248EC236EDB3400223AB0 /* InitialTabsViewController.swift in Sources */,
 				5A3FCF992365A72700203C0E /* SceneDelegate.swift in Sources */,
+				5AF5314D23B76302008D01E4 /* Scheduler.swift in Sources */,
 				5A4248EA236DC7A200223AB0 /* RequestTableCell.swift in Sources */,
+				5AF5314B23B754A9008D01E4 /* HelloViewController.swift in Sources */,
+				5AB198B323BF835000542E62 /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,6 +549,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NWSTPFC433;
 				INFOPLIST_FILE = VkRemoverIOS/Info.plist;
@@ -539,6 +560,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.alexeykomov.VkRemoverIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "VkRemoverIOS/VkRemoverIOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -552,6 +574,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NWSTPFC433;
 				INFOPLIST_FILE = VkRemoverIOS/Info.plist;
@@ -562,6 +585,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.alexeykomov.VkRemoverIOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "VkRemoverIOS/VkRemoverIOS-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
