@@ -127,7 +127,7 @@ class RemovablesViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate
                     return
                 }
                 print("items: \(items)")
-                let parsedItems = RequestEntry.fromDictList(items)
+                let parsedItems = RequestEntry.fromRequestsList(items)
                 print("parsed items: \(parsedItems)")
                 self.dataSource.addData(parsedItems)
                 self.tableView.reloadData()

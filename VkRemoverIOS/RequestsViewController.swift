@@ -23,8 +23,11 @@ class RequestsViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
             return
         }
         if deleting {
-            gScheduler.scheduleOps(operationType: OperationType.friendsDelete,
-                ops: dataSource.getData().map({d in Operation(name: OperationType.friendsDelete, userId: d.userId)}),
+            requestScheduler.scheduleOps(operationType: OperationType.friendsDelete,
+                ops: dataSource.getData().map({d in Operation(
+                    name: OperationType.friendsDelete,
+                    paramName: ParamName.userId,
+                    userId: d.userId)}),
                 successCb: {userId, r in
                     self.removeFromDataAndTable(userId: userId)
                     if self.dataSource.getData().isEmpty {
@@ -32,7 +35,7 @@ class RequestsViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
                     }},
                 errorCb: {e in })
         } else {
-            gScheduler.clearOps(operationType: OperationType.friendsDelete)
+            requestScheduler.clearOps(operationType: OperationType.friendsDelete)
         }
         self.deleting = deleting
         deleteAllButton.setTitle(deleting ? "Stop deleting" : "Delete All", for: .normal)
@@ -110,7 +113,7 @@ class RequestsViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
                     return
                 }
                 print("items: \(items)")
-                let parsedItems = RequestEntry.fromDictList(items)
+                let parsedItems = RequestEntry.fromRequestsList(items)
                 print("parsed items: \(parsedItems)")
                 self.dataSource.addData(parsedItems)
                 self.tableView.reloadData()

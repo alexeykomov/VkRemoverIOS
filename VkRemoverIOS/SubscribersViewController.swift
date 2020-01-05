@@ -28,8 +28,10 @@ class SubscribersViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegat
             return
         }
         if deleting {
-            gScheduler.scheduleOps(operationType: OperationType.accountBan,
-                ops: dataSource.getData().map({d in Operation(name: OperationType.accountBan, userId: d.userId)}),
+            requestScheduler.scheduleOps(operationType: OperationType.accountBan,
+                ops: dataSource.getData().map({d in Operation(name: OperationType.accountBan,
+                                                              paramName: ParamName.ownerId,
+                                                              userId: d.userId)}),
                 successCb: {userId, r in
                     self.removeFromDataAndTable(userId: userId)
                     Storage.shared.addToBanned(id: userId)
@@ -38,7 +40,7 @@ class SubscribersViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegat
                     }},
                 errorCb: {e in })
         } else {
-            gScheduler.clearOps(operationType: OperationType.friendsDelete)
+            requestScheduler.clearOps(operationType: OperationType.friendsDelete)
         }
         self.deleting = deleting
         deleteAllButton.setTitle(deleting ? "Stop deleting" : "Delete All", for: .normal)
@@ -113,7 +115,7 @@ class SubscribersViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegat
                     return
                 }
                 print("items: \(items)")
-                let parsedItems = RequestEntry.fromDictList(items)
+                let parsedItems = RequestEntry.fromFollowersList(items)
                 print("parsed items: \(parsedItems)")
                 self.dataSource.addData(parsedItems)
                 self.tableView.reloadData()

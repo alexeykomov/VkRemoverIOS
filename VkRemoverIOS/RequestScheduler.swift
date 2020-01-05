@@ -1,5 +1,5 @@
 //
-//  Scheduler.swift
+//  RequestScheduler.swift
 //  VkRemoverIOS
 //
 //  Created by Alex K on 12/28/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Scheduler: NSObject {
+class RequestScheduler: NSObject {
     private var processQueue:Dictionary<OperationType, [Operation]> = [
         OperationType.friendsDelete:[],
         OperationType.accountBan:[],
@@ -20,7 +20,6 @@ class Scheduler: NSObject {
         OperationType.accountUnban: nil
     ]
     private var requestsTimer: Timer?
-    private var bgTimer: Timer?
     
     func scheduleOps(operationType: OperationType,
                      ops: [Operation],
@@ -33,7 +32,7 @@ class Scheduler: NSObject {
         }
         
         if requestsTimer == nil {
-            requestsTimer = Timer.scheduledTimer(timeInterval: 1, target: self,
+            requestsTimer = Timer.scheduledTimer(timeInterval: 10, target: self,
                                                  selector: #selector(onTick),
                                                  userInfo: nil, repeats: true)
         }
@@ -57,9 +56,6 @@ class Scheduler: NSObject {
     
     func isProcessQueueEmpty() -> Bool {
         return processQueue.map({k, v in v.count}).reduce(0, {a, b in a + b}) == 0
-    }
-    
-    @IBAction func refresh(_ sender: Any) {
     }
     
     func performNextOperation() {
@@ -87,11 +83,9 @@ class Scheduler: NSObject {
             print("opsOfType: \(opsOfType.count)")
             if let first = opsOfType.popLast() {
                 processQueue[randomOpType] = opsOfType
-                
-                print("first: \(first.name.rawValue)")
-                found = true
+                print("first.userId: \(first.userId)")
                 VKRequest.init(method: first.name.rawValue,
-                               parameters:["user_id":first.userId]).execute(
+                               parameters:[first.paramName.rawValue:first.userId]).execute(
                     resultBlock: { response in
                         print("response: \(response)")
                         self.callbacks[randomOpType]??.successCb(first.userId, response)
@@ -99,17 +93,17 @@ class Scheduler: NSObject {
                     print("error: \(error)")
                     self.callbacks[randomOpType]??.errorCb(error)
                 })
+                found = true
             }
         }
     }
     
     @objc func onTick() {
-        
         performNextOperation()
     }
 }
 
-let gScheduler = Scheduler()
+let requestScheduler = RequestScheduler()
 
 let operationIndexes = [
     OperationType.friendsDelete: 0,
@@ -125,16 +119,18 @@ enum OperationType: String {
     case accountUnban = "account.unban"
 }
 
+enum ParamName: String {
+    case userId = "user_id"
+    case ownerId = "owner_id"
+}
+
 struct Operation: Hashable {
     let name: OperationType
+    let paramName: ParamName
     let userId: Int
 }
 
 struct OperationCallbacks {
     let successCb: (Int, VKResponse<VKApiObject>?) -> Void
     let errorCb: (Error?) -> Void
-}
-
-func getOpType() -> OperationType {
-    return OperationType.friendsDelete
 }

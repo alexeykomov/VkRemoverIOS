@@ -57,13 +57,21 @@ struct RequestEntry: Decodable {
         return "\(firstName) \(lastName)"
     }
     
-    static func fromDictList(_ items: [Dictionary<String, Any>]) -> [RequestEntry] {
+    static func fromRequestsList(_ items: [Dictionary<String, Any>]) -> [RequestEntry] {
         return items.map({item in
-
             return RequestEntry(userId: item["user_id"] as? Int ?? 0,
                                 photo50: item["photo_50"] as? String ?? "",
                                 firstName: item["first_name"] as? String ?? "",
                                 lastName: item["last_name"] as? String ?? "")
         })
     }
+    
+    static func fromFollowersList(_ items: [Dictionary<String, Any>]) -> [RequestEntry] {
+           return items.map({item in
+               return RequestEntry(userId: item["id"] as? Int ?? 0,
+                                   photo50: item["photo_50"] as? String ?? "",
+                                   firstName: item["first_name"] as? String ?? "",
+                                   lastName: item["last_name"] as? String ?? "")
+           })
+       }
 }
