@@ -38,9 +38,9 @@ class SubscribersViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegat
                     if self.dataSource.getData().isEmpty {
                         self.deleting = false
                     }},
-                errorCb: {e in })
+                errorCb: {userId, e in })
         } else {
-            requestScheduler.clearOps(operationType: OperationType.friendsDelete)
+            requestScheduler.clearOps(operationType: OperationType.accountBan)
         }
         self.deleting = deleting
         deleteAllButton.setTitle(deleting ? "Stop deleting" : "Delete All", for: .normal)

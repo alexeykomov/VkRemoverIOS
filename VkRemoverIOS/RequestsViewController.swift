@@ -33,7 +33,7 @@ class RequestsViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
                     if self.dataSource.getData().isEmpty {
                         self.deleting = false
                     }},
-                errorCb: {e in })
+                errorCb: {userId, e in })
         } else {
             requestScheduler.clearOps(operationType: OperationType.friendsDelete)
         }

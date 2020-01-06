@@ -20,22 +20,43 @@ class RequestScheduler: NSObject {
         OperationType.accountUnban: nil
     ]
     private var requestsTimer: Timer?
+    private var period: Double = 1
+    private let MULT_FACTOR = 2
+    private var successCounter = 0
+    private let MAX_SUCCESSES = 5
     
     func scheduleOps(operationType: OperationType,
                      ops: [Operation],
                      successCb: @escaping (Int, VKResponse<VKApiObject>?) -> Void,
-                     errorCb: @escaping (Error?) -> Void) {
+                     errorCb: @escaping (Int, Error?) -> Void) {
         processQueue[operationType] = ops
         callbacks[operationType] = OperationCallbacks(successCb: successCb, errorCb: errorCb)
         if isProcessQueueEmpty() {
             return
         }
-        
         if requestsTimer == nil {
-            requestsTimer = Timer.scheduledTimer(timeInterval: 10, target: self,
-                                                 selector: #selector(onTick),
-                                                 userInfo: nil, repeats: true)
+            scheduleTimer()
         }
+    }
+        
+    func rescheduleTimer(up: Bool) {
+        let currentPeriod = Int(self.period)
+        if currentPeriod == 1 && !up {
+            return
+        }
+        if successCounter < MAX_SUCCESSES && !up {
+            return
+        }
+        successCounter = 0
+        self.period = Double(currentPeriod * (up ? MULT_FACTOR : 1/MULT_FACTOR))
+        requestsTimer?.invalidate()
+        scheduleTimer()
+    }
+    
+    func scheduleTimer() {
+        requestsTimer = Timer.scheduledTimer(timeInterval: period, target: self,
+                                             selector: #selector(onTick),
+                                             userInfo: nil, repeats: true)
     }
     
     func clearOps(operationType: OperationType) {
@@ -62,19 +83,16 @@ class RequestScheduler: NSObject {
         var found = false
         while !found {
             let processQueueEmpty = isProcessQueueEmpty()
-            print("processQueueEmpty: \(processQueueEmpty)")
             if isProcessQueueEmpty() {
                 requestsTimer?.invalidate()
                 requestsTimer = nil
                 return
             }
-            
             let opsTypeCount = operationIndexes.count
             let randomOpTypeIndex = Int.random(in: 0..<opsTypeCount)
-            let randomOpType = operationsByIndex[randomOpTypeIndex]
+            let opType = operationsByIndex[randomOpTypeIndex]
             print("randomOpTypeIndex: \(randomOpTypeIndex)")
-            
-            guard var opsOfType = processQueue[randomOpType] else {
+            guard var opsOfType = processQueue[opType] else {
                 continue
             }
             guard !opsOfType.isEmpty else {
@@ -82,20 +100,42 @@ class RequestScheduler: NSObject {
             }
             print("opsOfType: \(opsOfType.count)")
             if let first = opsOfType.popLast() {
-                processQueue[randomOpType] = opsOfType
+                processQueue[opType] = opsOfType
                 print("first.userId: \(first.userId)")
                 VKRequest.init(method: first.name.rawValue,
                                parameters:[first.paramName.rawValue:first.userId]).execute(
                     resultBlock: { response in
                         print("response: \(response)")
-                        self.callbacks[randomOpType]??.successCb(first.userId, response)
+                        self.successCounter += 1
+                        self.rescheduleTimer(up: false)
+                        self.callbacks[opType]??.successCb(first.userId, response)
                 }, errorBlock:  { error in
+                    guard let error = error else {
+                        return
+                    }
+                    let desc = error.localizedDescription
+                    switch desc {
+                    case "Flood control":
+                        self.rescheduleTimer(up: true)
+                        self.replayOperation(op: first)
+                    case "One of the parameters specified was missing or invalid: owner_id is incorrect":
+                        break
+                    default:
+                        self.replayOperation(op: first)
+                    }
+                    print("desc: \(desc)")
                     print("error: \(error)")
-                    self.callbacks[randomOpType]??.errorCb(error)
+                    self.callbacks[opType]??.errorCb(first.userId, error)
                 })
                 found = true
             }
         }
+    }
+    
+    func replayOperation(op: Operation) {
+        let opType = op.name
+        let opsOfTypeBeforeError = processQueue[opType] ?? []
+        processQueue[opType] = [op] + opsOfTypeBeforeError
     }
     
     @objc func onTick() {
@@ -132,5 +172,5 @@ struct Operation: Hashable {
 
 struct OperationCallbacks {
     let successCb: (Int, VKResponse<VKApiObject>?) -> Void
-    let errorCb: (Error?) -> Void
+    let errorCb: (Int, Error?) -> Void
 }
