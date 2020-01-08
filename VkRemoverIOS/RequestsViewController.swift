@@ -42,6 +42,7 @@ class RequestsViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
     }
     
     @IBAction func refresh(_ sender: Any) {
+        startWorking()
     }
 
     func removeFromDataAndTable(userId: Int) {
@@ -103,7 +104,7 @@ class RequestsViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
     
     func startWorking() {
         VKRequest.init(method:"friends.getRequests",
-                       parameters:["count":1000, "offset": 0, "out": 1,
+                       parameters:["count":10, "offset": 0, "out": 1,
                                    "extended": 1, "fields": "photo_50"]).execute(
             resultBlock: { response in
                 guard let dict = response?.json as? Dictionary<String, Any> else {

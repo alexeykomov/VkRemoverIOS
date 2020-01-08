@@ -120,6 +120,10 @@ class RequestScheduler: NSObject {
                         self.replayOperation(op: first)
                     case "One of the parameters specified was missing or invalid: owner_id is incorrect":
                         break
+                    case "Access denied: user not blacklisted":
+                        break
+                    case "Access denied: No friend or friend request found.":
+                        break
                     default:
                         self.replayOperation(op: first)
                     }
