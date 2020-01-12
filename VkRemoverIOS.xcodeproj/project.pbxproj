@@ -20,6 +20,7 @@
 		5A4248E8236D964A00223AB0 /* RequestsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4248E7236D964A00223AB0 /* RequestsTableDataSource.swift */; };
 		5A4248EA236DC7A200223AB0 /* RequestTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4248E9236DC7A000223AB0 /* RequestTableCell.swift */; };
 		5A4248EC236EDB3400223AB0 /* InitialTabsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4248EB236EDB3300223AB0 /* InitialTabsViewController.swift */; };
+		5A8EE69523CA0705006EE05B /* BasicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EE69423CA0704006EE05B /* BasicListViewController.swift */; };
 		5AB198B323BF835000542E62 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB198B223BF835000542E62 /* Storage.swift */; };
 		5AB198B523C0997A00542E62 /* BackgroundScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB198B423C0997A00542E62 /* BackgroundScheduler.swift */; };
 		5AF5314723B4C73A008D01E4 /* SubscribersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5314623B4C73A008D01E4 /* SubscribersViewController.swift */; };
@@ -68,6 +69,7 @@
 		5A4248E7236D964A00223AB0 /* RequestsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsTableDataSource.swift; sourceTree = "<group>"; };
 		5A4248E9236DC7A000223AB0 /* RequestTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTableCell.swift; sourceTree = "<group>"; };
 		5A4248EB236EDB3300223AB0 /* InitialTabsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialTabsViewController.swift; sourceTree = "<group>"; };
+		5A8EE69423CA0704006EE05B /* BasicListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicListViewController.swift; sourceTree = "<group>"; };
 		5AB198B223BF835000542E62 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		5AB198B423C0997A00542E62 /* BackgroundScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundScheduler.swift; sourceTree = "<group>"; };
 		5AF5314623B4C73A008D01E4 /* SubscribersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribersViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				5AF5314C23B76301008D01E4 /* RequestScheduler.swift */,
 				5AB198B223BF835000542E62 /* Storage.swift */,
 				5AB198B423C0997A00542E62 /* BackgroundScheduler.swift */,
+				5A8EE69423CA0704006EE05B /* BasicListViewController.swift */,
 			);
 			path = VkRemoverIOS;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				5A4248E8236D964A00223AB0 /* RequestsTableDataSource.swift in Sources */,
 				5A4248E62365C2CA00223AB0 /* Empty.m in Sources */,
 				5A4248E32365B9CE00223AB0 /* Empty.swift in Sources */,
+				5A8EE69523CA0705006EE05B /* BasicListViewController.swift in Sources */,
 				5AF5314923B4F9C8008D01E4 /* RemovablesViewController.swift in Sources */,
 				5A3FCF972365A72700203C0E /* AppDelegate.swift in Sources */,
 				5AF5314723B4C73A008D01E4 /* SubscribersViewController.swift in Sources */,
