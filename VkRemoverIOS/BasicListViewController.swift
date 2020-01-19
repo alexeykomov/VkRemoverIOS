@@ -156,7 +156,7 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
                 let filtered = parsedItems.filter({e in !self.userIds.contains(e.userId)})
                 self.userIds = self.userIds.union(filtered.map({user in user.userId}))
                 print("parsed items: \(parsedItems)")
-                self.getDataSource().addData(parsedItems)
+                self.getDataSource().addData(filtered)
                 self.getTableView().reloadData()
         }, errorBlock:  { error in
             print("error: \(error)")

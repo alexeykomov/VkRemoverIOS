@@ -64,6 +64,7 @@ class BannedViewController: BasicListViewController {
         instance?.uiDelegate = self
         instance?.register(self)
         getTableView().dataSource = getDataSource()
+        startWorking()
     }
     
     override func startWorking() {
