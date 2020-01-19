@@ -12,6 +12,8 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
     private let dataSource = RequestsTableDataSource()
     private var userIds = Set<Int>()
     private var deleting = false
+    func setDeleting(_ deleting: Bool) { self.deleting = deleting }
+    func getDeleting() -> Bool { return deleting }
     
     func getDataSource() ->RequestsTableDataSource {
         return dataSource
@@ -30,36 +32,52 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
     }
     
     func getParamName() -> ParamName {
-        return ParamName.userId
+        return ParamName.ownerId
     }
     
     func getVKMethodName() -> String {
         return "friends.getRequests"
     }
     
+    func playFeedback() {
+        if #available(iOS 10.0, *) {
+            let feedbackGenerator = UISelectionFeedbackGenerator()
+            feedbackGenerator.prepare()
+            feedbackGenerator.selectionChanged()
+        }
+    }
+    
     func updateDeletionProcess(deleting: Bool) {
-        if deleting && getDataSource().getData().isEmpty {
+        if getDeleting() && getDataSource().getData().isEmpty {
             return
         }
-        if deleting {
+        if getDeleting() {
             requestScheduler.scheduleOps(operationType: getOperationType(),
-                ops: getDataSource().getData().map({d in Operation(
+                ops: getDataSource().getData().map({d in
+                    print("user: \(d.userId) \(d.firstName) \(d.lastName)")
+                    
+                    return Operation(
                     name: getOperationType(),
                     paramName: getParamName(),
-                    userId: d.userId)}),
-                successCb: {userId, r in
-                    self.removeFromDataAndTable(userId: userId)
+                    user: d)}),
+                successCb: {user, r in
+                    self.removeFromDataAndTable(userId: user.userId)
+                    self.userDidDelete(user: user)
                     if self.getDataSource().getData().isEmpty {
-                        self.deleting = false
+                        self.setDeleting(false)
                     }},
+                
                 errorCb: {userId, e in })
         } else {
             requestScheduler.clearOps(operationType: getOperationType())
         }
-        self.deleting = deleting
-        getDeleteAllButton().setTitle(deleting ? "Stop deleting" : "Delete All", for: .normal)
+        self.setDeleting(deleting)
+        getDeleteAllButton().setTitle(getDeleting() ? "Stop deleting" : "Delete All", for: .normal)
     }
 
+    func userDidDelete(user: RequestEntry) {
+    }
+    
     func removeFromDataAndTable(userId: Int) {
         guard let indexToDelete = self.getDataSource().getData().firstIndex(where: {r in r.userId == userId}) else {
             print("Cannont find index in data for userId: \(userId)")
@@ -118,6 +136,10 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
         getTableView().dataSource = getDataSource()
     }
     
+    func vkEntitiesToInternalEntities(_ items: [Dictionary<String, Any>]) -> [RequestEntry] {
+        return RequestEntry.fromRequestsList(items)
+    }
+    
     func startWorking() {
         VKRequest.init(method: getVKMethodName(),
                        parameters:["count":1000, "offset": 0, "out": 1,
@@ -130,7 +152,7 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
                     return
                 }
                 print("items: \(items)")
-                let parsedItems = RequestEntry.fromRequestsList(items)
+                let parsedItems = self.vkEntitiesToInternalEntities(items)
                 let filtered = parsedItems.filter({e in !self.userIds.contains(e.userId)})
                 self.userIds = self.userIds.union(filtered.map({user in user.userId}))
                 print("parsed items: \(parsedItems)")

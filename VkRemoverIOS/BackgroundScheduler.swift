@@ -35,14 +35,14 @@ class BackgroundScheduler: NSObject {
                 .map({ storedId in
                     Operation(name: OperationType.accountUnban,
                               paramName: ParamName.ownerId,
-                              userId: storedId.userId)
+                              user: storedId.user)
                 })
         if !unbanOperations.isEmpty {
             requestScheduler.scheduleOps(operationType: OperationType.accountUnban,
                                          ops: unbanOperations,
-                                         successCb: {userId,_ in Storage.shared.removeFromBanned(id: userId)},
-                                         errorCb: {userId,_ in
-                                            Storage.shared.removeFromBanned(id: userId)})
+                                         successCb: {user,_ in Storage.shared.removeFromBanned(id: user.userId)},
+                                         errorCb: {user,_ in
+                                            Storage.shared.removeFromBanned(id: user.userId)})
         }
     }
 }

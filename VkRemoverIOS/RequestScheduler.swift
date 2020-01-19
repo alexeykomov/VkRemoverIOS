@@ -27,8 +27,8 @@ class RequestScheduler: NSObject {
     
     func scheduleOps(operationType: OperationType,
                      ops: [Operation],
-                     successCb: @escaping (Int, VKResponse<VKApiObject>?) -> Void,
-                     errorCb: @escaping (Int, Error?) -> Void) {
+                     successCb: @escaping (RequestEntry, VKResponse<VKApiObject>?) -> Void,
+                     errorCb: @escaping (RequestEntry, Error?) -> Void) {
         processQueue[operationType] = ops
         callbacks[operationType] = OperationCallbacks(successCb: successCb, errorCb: errorCb)
         if isProcessQueueEmpty() {
@@ -83,7 +83,7 @@ class RequestScheduler: NSObject {
         var found = false
         while !found {
             let processQueueEmpty = isProcessQueueEmpty()
-            if isProcessQueueEmpty() {
+            if processQueueEmpty {
                 requestsTimer?.invalidate()
                 requestsTimer = nil
                 return
@@ -98,17 +98,18 @@ class RequestScheduler: NSObject {
             guard !opsOfType.isEmpty else {
                 continue
             }
-            print("opsOfType: \(opsOfType.count)")
-            if let first = opsOfType.popLast() {
-                processQueue[opType] = opsOfType
-                print("first.userId: \(first.userId)")
+            print("opsOfType: \(opsOfType.map({op in op.user}))")
+            if !opsOfType.isEmpty {
+                let first = opsOfType[0]
+                processQueue[opType] = Array(opsOfType.dropFirst())
+                print("first.userId: \(first.user.userId)")
                 VKRequest.init(method: first.name.rawValue,
-                               parameters:[first.paramName.rawValue:first.userId]).execute(
+                               parameters:[first.paramName.rawValue:first.user.userId]).execute(
                     resultBlock: { response in
                         print("response: \(response)")
                         self.successCounter += 1
                         self.rescheduleTimer(up: false)
-                        self.callbacks[opType]??.successCb(first.userId, response)
+                        self.callbacks[opType]??.successCb(first.user, response)
                 }, errorBlock:  { error in
                     guard let error = error else {
                         return
@@ -129,7 +130,7 @@ class RequestScheduler: NSObject {
                     }
                     print("desc: \(desc)")
                     print("error: \(error)")
-                    self.callbacks[opType]??.errorCb(first.userId, error)
+                    self.callbacks[opType]??.errorCb(first.user, error)
                 })
                 found = true
             }
@@ -171,10 +172,10 @@ enum ParamName: String {
 struct Operation: Hashable {
     let name: OperationType
     let paramName: ParamName
-    let userId: Int
+    let user: RequestEntry
 }
 
 struct OperationCallbacks {
-    let successCb: (Int, VKResponse<VKApiObject>?) -> Void
-    let errorCb: (Int, Error?) -> Void
+    let successCb: (RequestEntry, VKResponse<VKApiObject>?) -> Void
+    let errorCb: (RequestEntry, Error?) -> Void
 }

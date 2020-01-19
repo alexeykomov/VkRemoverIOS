@@ -11,22 +11,21 @@ import UIKit
 class RequestsViewController: BasicListViewController {
     private let dataSource = RequestsTableDataSource()
     private var deleting = false
+    override func setDeleting(_ deleting: Bool) { self.deleting = deleting }
+    override func getDeleting() -> Bool { return deleting }
     
     @IBAction func refresh(_ sender: Any) {
+        playFeedback()
         startWorking()
     }
     @IBOutlet weak var deleteAllButton: UIButton!
     @IBAction func deleteAllAction(_ sender: Any) {
-        if #available(iOS 10.0, *) {
-            let feedbackGenerator = UISelectionFeedbackGenerator()
-            feedbackGenerator.prepare()
-            feedbackGenerator.selectionChanged()
-        } else {
-            // Fallback on earlier versions
-        }
-        
-        
-        updateDeletionProcess(deleting: !self.deleting)
+        playFeedback()
+        updateDeletionProcess(deleting: !getDeleting())
+    }
+    
+    override func getDeleteAllButton() -> UIButton! {
+        return deleteAllButton
     }
     
     @IBOutlet weak var tableView: UITableView!
@@ -49,6 +48,10 @@ class RequestsViewController: BasicListViewController {
     
     override func getDataSource() -> RequestsTableDataSource {
         return dataSource
+    }
+    
+    override func vkEntitiesToInternalEntities(_ items: [Dictionary<String, Any>]) -> [RequestEntry] {
+        return RequestEntry.fromRequestsList(items)
     }
 }
 

@@ -1,16 +1,17 @@
 //
-//  SubscribersViewController.swift
+//  BannedViewController.swift
 //  VkRemoverIOS
 //
-//  Created by Alex K on 12/26/19.
-//  Copyright © 2019 Alex K. All rights reserved.
+//  Created by Alex K on 1/18/20.
+//  Copyright © 2020 Alex K. All rights reserved.
 //
 
 import Foundation
 
 import UIKit
 
-class SubscribersViewController: BasicListViewController {
+class BannedViewController: BasicListViewController {
+    private var userIds = Set<Int>()
     private let dataSource = RequestsTableDataSource()
     private var deleting = false
     override func setDeleting(_ deleting: Bool) { self.deleting = deleting }
@@ -54,12 +55,26 @@ class SubscribersViewController: BasicListViewController {
         return dataSource
     }
     
-    override func vkEntitiesToInternalEntities(_ items: [Dictionary<String, Any>]) -> [RequestEntry] {
-        return RequestEntry.fromFollowersList(items)
+    override func viewDidLoad() {
+        // Do any additional setup after loading the view.
+        updateDeletionProcess(deleting: false)
+        
+        let SCOPE = [VK_PER_FRIENDS];
+        let instance = VKSdk.initialize(withAppId: "7144627")
+        instance?.uiDelegate = self
+        instance?.register(self)
+        getTableView().dataSource = getDataSource()
     }
     
-    override func userDidDelete(user: RequestEntry) {
-        Storage.shared.addToBanned(user: user)
+    override func startWorking() {
+        let items = Storage.shared.getBanned()
+        print("items: \(items)")
+        let filtered = items.map({item in item.user}).filter({e in !self.userIds.contains(e.userId)})
+        self.userIds = self.userIds.union(filtered.map({user in user.userId}))
+        print("parsed items: \(filtered)")
+        self.getDataSource().addData(filtered)
+        self.getTableView().reloadData()
     }
 }
+
 

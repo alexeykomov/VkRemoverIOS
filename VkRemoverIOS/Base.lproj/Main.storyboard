@@ -46,18 +46,24 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0pt-Qf-Q2g">
-                                                    <rect key="frame" x="15" y="5" width="42" height="33"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nT5-NR-oWx">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nT5-NR-oWx">
                                                     <rect key="frame" x="65" y="11" width="295" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="295" id="Xdl-Se-93f"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0pt-Qf-Q2g">
+                                                    <rect key="frame" x="15" y="5" width="42" height="33"/>
+                                                </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="nT5-NR-oWx" firstAttribute="trailing" secondItem="SHg-11-7oz" secondAttribute="trailingMargin" id="3SX-Mn-9vd"/>
+                                                <constraint firstItem="nT5-NR-oWx" firstAttribute="leading" secondItem="0pt-Qf-Q2g" secondAttribute="trailing" constant="8" id="5le-Vf-Li2"/>
+                                                <constraint firstItem="nT5-NR-oWx" firstAttribute="top" secondItem="SHg-11-7oz" secondAttribute="topMargin" id="bIH-J3-FzQ"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="avatarImg" destination="0pt-Qf-Q2g" id="heg-JI-2vj"/>
@@ -124,7 +130,7 @@
         <!--Banned-->
         <scene sceneID="chA-Xy-Grx">
             <objects>
-                <viewController id="V1v-pf-oAq" customClass="RequestsViewController" customModule="VkRemoverIOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="V1v-pf-oAq" customClass="BannedViewController" customModule="VkRemoverIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HsP-iP-4dY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -269,14 +275,12 @@
                                         <state key="normal" title="Refresh"/>
                                         <connections>
                                             <action selector="refresh:" destination="eBv-Re-WVa" eventType="primaryActionTriggered" id="dYX-8S-MbD"/>
-                                            <action selector="refresh:" destination="eBv-Re-WVa" eventType="touchUpInside" id="fMC-Ia-844"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Mi-dv-Esp">
                                         <rect key="frame" x="299" y="25.5" width="66" height="30"/>
                                         <state key="normal" title="Delete All"/>
                                         <connections>
-                                            <action selector="deleteAll:" destination="eBv-Re-WVa" eventType="touchUpInside" id="0Ui-nA-jS3"/>
                                             <action selector="deleteAllAction:" destination="eBv-Re-WVa" eventType="primaryActionTriggered" id="tfp-vp-RpR"/>
                                         </connections>
                                     </button>

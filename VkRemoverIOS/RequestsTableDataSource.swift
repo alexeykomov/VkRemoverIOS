@@ -47,7 +47,7 @@ class RequestsTableDataSource: NSObject, UITableViewDataSource {
     }
 }
 
-struct RequestEntry: Decodable {
+struct RequestEntry: Hashable, Decodable {
     let userId: Int
     let photo50: String
     let firstName: String
@@ -67,11 +67,27 @@ struct RequestEntry: Decodable {
     }
     
     static func fromFollowersList(_ items: [Dictionary<String, Any>]) -> [RequestEntry] {
-           return items.map({item in
-               return RequestEntry(userId: item["id"] as? Int ?? 0,
-                                   photo50: item["photo_50"] as? String ?? "",
-                                   firstName: item["first_name"] as? String ?? "",
-                                   lastName: item["last_name"] as? String ?? "")
-           })
-       }
+       return items.map({item in
+           return RequestEntry(userId: item["id"] as? Int ?? 0,
+                               photo50: item["photo_50"] as? String ?? "",
+                               firstName: item["first_name"] as? String ?? "",
+                               lastName: item["last_name"] as? String ?? "")
+       })
+    }
+    
+    func toDict() -> Dictionary<String, Any> {
+        return [
+            "user_id":userId,
+            "photo_50":photo50,
+            "first_name":firstName,
+            "last_name":lastName,
+        ]
+    }
+    
+    static func fromDict(_ serialized: Dictionary<String, Any>) -> RequestEntry {
+        return RequestEntry(userId: serialized["user_id"] as? Int ?? 0,
+                            photo50: serialized["photo_50"] as? String ?? "",
+                            firstName: serialized["first_name"] as? String ?? "",
+                            lastName: serialized["last_name"] as? String ?? "")
+    }
 }

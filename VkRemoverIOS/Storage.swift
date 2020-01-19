@@ -13,38 +13,38 @@ class Storage: NSObject {
     
     let defaults = UserDefaults()
     
-    func getBanned() -> [StoredId] {
-        return StoredId.fromDictList(defaults.array(forKey: "BANNED") as? [Dictionary<String, Any>] ?? [])
+    func getBanned() -> [StoredUser] {
+        return StoredUser.fromDictList(defaults.array(forKey: "BANNED") as? [Dictionary<String, Any>] ?? [])
     }
     
-    func addToBanned(id: Int) {
+    func addToBanned(user: RequestEntry) {
         let ts = Date()
         let prevBanned = getBanned()
-        defaults.setValue(StoredId.toDictList(prevBanned.filter({storedId in storedId.userId != id}) + [StoredId(userId: id, whenBanned: ts)]),
+        defaults.setValue(StoredUser.toDictList(prevBanned.filter({storedId in storedId.user.userId != user.userId}) + [StoredUser(user: user, whenBanned: ts)]),
                           forKey: "BANNED")
     }
     
     func removeFromBanned(id: Int) {
         let prevBanned = getBanned()
-        defaults.setValue(StoredId.toDictList(prevBanned.filter({storedId in storedId.userId != id})),
+        defaults.setValue(StoredUser.toDictList(prevBanned.filter({storedId in storedId.user.userId != id})),
                           forKey: "BANNED")
     }
 }
 
-struct StoredId {
-    let userId: Int
+struct StoredUser {
+    let user: RequestEntry
     let whenBanned: Date
     
-    static func toDictList(_ storeIds: [StoredId]) -> [Dictionary<String,Any>] {
-        return storeIds.map({storeId in [
-            "userId": storeId.userId,
-            "whenBanned": storeId.whenBanned
+    static func toDictList(_ storeIds: [StoredUser]) -> [Dictionary<String,Any>] {
+        return storeIds.map({bannedUser in [
+            "whenBanned": bannedUser.whenBanned,
+            "user": bannedUser.user.toDict()
         ]})
     }
     
-    static func fromDictList(_ serializedStoreIds: [Dictionary<String, Any>]) -> [StoredId] {
-        return serializedStoreIds.map({serializedStoreId in StoredId(
-            userId: serializedStoreId["userId"] as? Int ?? 0,
+    static func fromDictList(_ serializedStoreIds: [Dictionary<String, Any>]) -> [StoredUser] {
+        return serializedStoreIds.map({serializedStoreId in StoredUser(
+            user: RequestEntry.fromDict(serializedStoreId["user"] as? Dictionary<String, Any> ?? [:]),
             whenBanned: serializedStoreId["whenBanned"] as? Date ?? Date(timeIntervalSince1970: 0)
         )})
     }
