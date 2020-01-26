@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SDWebImage
 
 class RequestsTableDataSource: NSObject, UITableViewDataSource {
     private var data:[RequestEntry] = [
@@ -31,6 +32,12 @@ class RequestsTableDataSource: NSObject, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellReuseIdentifier") as! RequestTableCell
         let userData = data[indexPath.row]
         cell.userName.text = userData.getLabel()
+        cell.avatarImg.sd_setImage(with: URL(string: userData.photo50))
+        cell.avatarImg.layer.borderWidth = 0
+        cell.avatarImg.layer.masksToBounds = false
+        cell.avatarImg.layer.borderColor = UIColor.white.cgColor
+        cell.avatarImg.layer.cornerRadius = cell.avatarImg.frame.height / 2
+        cell.avatarImg.clipsToBounds = true
         return cell
     }
     
