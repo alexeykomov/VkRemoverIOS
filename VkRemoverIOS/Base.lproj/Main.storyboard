@@ -82,13 +82,6 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XGR-bx-CQJ">
-                                        <rect key="frame" x="10" y="25.5" width="53" height="30"/>
-                                        <state key="normal" title="Refresh"/>
-                                        <connections>
-                                            <action selector="refresh:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="YvQ-8G-BFm"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PGc-Xe-0a7">
                                         <rect key="frame" x="299" y="25.5" width="66" height="30"/>
                                         <state key="normal" title="Delete All"/>
@@ -101,9 +94,7 @@
                                     <constraint firstItem="6iP-cY-iNa" firstAttribute="centerX" secondItem="R9E-gb-MWW" secondAttribute="centerX" id="03G-p0-1GK"/>
                                     <constraint firstAttribute="trailing" secondItem="PGc-Xe-0a7" secondAttribute="trailing" constant="10" id="93U-lD-DGb"/>
                                     <constraint firstItem="PGc-Xe-0a7" firstAttribute="centerY" secondItem="6iP-cY-iNa" secondAttribute="centerY" id="9Xe-nS-y5z"/>
-                                    <constraint firstItem="XGR-bx-CQJ" firstAttribute="leading" secondItem="R9E-gb-MWW" secondAttribute="leading" constant="10" id="fMR-YL-D6v"/>
                                     <constraint firstAttribute="trailing" secondItem="PGc-Xe-0a7" secondAttribute="trailing" constant="10" id="fhK-mV-Egs"/>
-                                    <constraint firstItem="XGR-bx-CQJ" firstAttribute="centerY" secondItem="6iP-cY-iNa" secondAttribute="centerY" id="hUE-kD-DhE"/>
                                     <constraint firstItem="6iP-cY-iNa" firstAttribute="top" secondItem="R9E-gb-MWW" secondAttribute="top" constant="30" id="msl-mF-yO8"/>
                                 </constraints>
                             </view>
@@ -176,13 +167,6 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qot-qN-fS2">
-                                        <rect key="frame" x="10" y="25.5" width="53" height="30"/>
-                                        <state key="normal" title="Refresh"/>
-                                        <connections>
-                                            <action selector="refresh:" destination="V1v-pf-oAq" eventType="primaryActionTriggered" id="P2a-oD-5wC"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vT0-qa-D2I">
                                         <rect key="frame" x="299" y="25.5" width="66" height="30"/>
                                         <state key="normal" title="Delete All"/>
@@ -192,10 +176,8 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="Qot-qN-fS2" firstAttribute="centerY" secondItem="JFb-gA-9DF" secondAttribute="centerY" id="6tt-Z7-9rx"/>
                                     <constraint firstAttribute="trailing" secondItem="vT0-qa-D2I" secondAttribute="trailing" constant="10" id="9Qq-of-mhD"/>
                                     <constraint firstItem="vT0-qa-D2I" firstAttribute="centerY" secondItem="JFb-gA-9DF" secondAttribute="centerY" id="Af0-QV-lgM"/>
-                                    <constraint firstItem="Qot-qN-fS2" firstAttribute="leading" secondItem="nlg-G0-VXd" secondAttribute="leading" constant="10" id="M4F-lG-kGt"/>
                                     <constraint firstAttribute="trailing" secondItem="vT0-qa-D2I" secondAttribute="trailing" constant="10" id="iaa-ZJ-Z04"/>
                                     <constraint firstItem="JFb-gA-9DF" firstAttribute="top" secondItem="nlg-G0-VXd" secondAttribute="top" constant="30" id="rZA-FK-uEC"/>
                                     <constraint firstItem="JFb-gA-9DF" firstAttribute="centerX" secondItem="nlg-G0-VXd" secondAttribute="centerX" id="xWA-6V-0kf"/>
@@ -270,13 +252,6 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gmY-aG-0EG">
-                                        <rect key="frame" x="10" y="25.5" width="53" height="30"/>
-                                        <state key="normal" title="Refresh"/>
-                                        <connections>
-                                            <action selector="refresh:" destination="eBv-Re-WVa" eventType="primaryActionTriggered" id="dYX-8S-MbD"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Mi-dv-Esp">
                                         <rect key="frame" x="299" y="25.5" width="66" height="30"/>
                                         <state key="normal" title="Delete All"/>
@@ -291,8 +266,6 @@
                                     <constraint firstItem="nmx-8o-Shj" firstAttribute="centerX" secondItem="5Yn-Wi-jan" secondAttribute="centerX" id="RmY-6L-aEr"/>
                                     <constraint firstItem="8Mi-dv-Esp" firstAttribute="centerY" secondItem="nmx-8o-Shj" secondAttribute="centerY" id="SVU-AD-9jz"/>
                                     <constraint firstItem="nmx-8o-Shj" firstAttribute="top" secondItem="5Yn-Wi-jan" secondAttribute="top" constant="30" id="rzR-pM-cPR"/>
-                                    <constraint firstItem="gmY-aG-0EG" firstAttribute="leading" secondItem="5Yn-Wi-jan" secondAttribute="leading" constant="10" id="tvF-Xg-M5G"/>
-                                    <constraint firstItem="gmY-aG-0EG" firstAttribute="centerY" secondItem="nmx-8o-Shj" secondAttribute="centerY" id="w7C-GQ-mom"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -308,7 +281,6 @@
                     <tabBarItem key="tabBarItem" title="Followers" id="OfD-kg-qHJ" userLabel="Requests"/>
                     <connections>
                         <outlet property="deleteAllButton" destination="8Mi-dv-Esp" id="JCc-i8-WpE"/>
-                        <outlet property="refreshButton" destination="gmY-aG-0EG" id="cwy-Kg-L8k"/>
                         <outlet property="tableView" destination="KPH-k1-82I" id="1Cv-PU-tG6"/>
                     </connections>
                 </viewController>
