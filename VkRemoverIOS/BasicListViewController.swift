@@ -14,6 +14,7 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
     private var deleting = false
     func setDeleting(_ deleting: Bool) { self.deleting = deleting }
     func getDeleting() -> Bool { return deleting }
+    let refreshControl = UIRefreshControl()
     
     func getDataSource() ->RequestsTableDataSource {
         return dataSource
@@ -122,11 +123,25 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
         vc?.present(in: self.navigationController?.topViewController)
     }
     
+    @objc private func refreshData(_ sender: Any) {
+        startWorking()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        if #available(iOS 10.0, *) {
+            getTableView()?.refreshControl = refreshControl
+        } else {
+            getTableView().addSubview(refreshControl)
+        }
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
         updateDeletionProcess(deleting: false)
         
+        setupVkData()
+    }
+    
+    func setupVkData() {
         let SCOPE = [VK_PER_FRIENDS];
            
         let instance = VKSdk.initialize(withAppId: "7144627")
@@ -168,8 +183,10 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
                 print("parsed items: \(parsedItems)")
                 self.getDataSource().addData(filtered)
                 self.getTableView().reloadData()
+                self.refreshControl.endRefreshing()
         }, errorBlock:  { error in
             print("error: \(error)")
+            self.refreshControl.endRefreshing()
         })
     }
 }

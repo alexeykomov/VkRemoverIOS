@@ -53,10 +53,7 @@ class BannedViewController: BasicListViewController {
         return dataSource
     }
     
-    override func viewDidLoad() {
-        // Do any additional setup after loading the view.
-        updateDeletionProcess(deleting: false)
-        
+    override func setupVkData() {
         let SCOPE = [VK_PER_FRIENDS];
         let instance = VKSdk.initialize(withAppId: "7144627")
         instance?.uiDelegate = self
@@ -73,6 +70,9 @@ class BannedViewController: BasicListViewController {
         print("parsed items: \(filtered)")
         self.getDataSource().addData(filtered)
         self.getTableView().reloadData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.refreshControl.endRefreshing()
+        }
     }
     
     override func didDeleteUserSuccess(user: RequestEntry) {
