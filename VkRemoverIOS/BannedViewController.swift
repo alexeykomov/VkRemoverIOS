@@ -63,14 +63,17 @@ class BannedViewController: BasicListViewController {
     }
     
     override func startWorking() {
-        let items = Storage.shared.getBanned()
-        print("items: \(items)")
-        let filtered = items.map({item in item.user}).filter({e in !self.userIds.contains(e.userId)})
-        self.userIds = self.userIds.union(filtered.map({user in user.userId}))
-        print("parsed items: \(filtered)")
-        self.getDataSource().addData(filtered)
-        self.getTableView().reloadData()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            let items = Storage.shared.getBanned()
+            print("items: \(items)")
+            let filtered = items.map({item in item.user}).filter({e in !self.userIds.contains(e.userId)})
+            self.userIds = self.userIds.union(filtered.map({user in user.userId}))
+            print("parsed items: \(filtered)")
+            self.getDataSource().addData(filtered)
+            self.getTableView().reloadData()
+            if self.deleting {
+                self.updateDeletionProcess(deleting: true)
+            }
             self.refreshControl.endRefreshing()
         }
     }

@@ -11,7 +11,7 @@ import Foundation
 class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
     private let dataSource = RequestsTableDataSource()
     private var userIds = Set<Int>()
-    private var deleting = false
+    var deleting = false
     func setDeleting(_ deleting: Bool) { self.deleting = deleting }
     func getDeleting() -> Bool { return deleting }
     let refreshControl = UIRefreshControl()
@@ -183,6 +183,9 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
                 print("parsed items: \(parsedItems)")
                 self.getDataSource().addData(filtered)
                 self.getTableView().reloadData()
+                if self.deleting {
+                    self.updateDeletionProcess(deleting: true)
+                }
                 self.refreshControl.endRefreshing()
         }, errorBlock:  { error in
             print("error: \(error)")
