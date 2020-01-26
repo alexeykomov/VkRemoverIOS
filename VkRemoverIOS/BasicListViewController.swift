@@ -48,10 +48,10 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
     }
     
     func updateDeletionProcess(deleting: Bool) {
-        if getDeleting() && getDataSource().getData().isEmpty {
+        if deleting && getDataSource().getData().isEmpty {
             return
         }
-        if getDeleting() {
+        if deleting {
             requestScheduler.scheduleOps(operationType: getOperationType(),
                 ops: getDataSource().getData().map({d in
                     print("user: \(d.userId) \(d.firstName) \(d.lastName)")
@@ -61,13 +61,15 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
                     paramName: getParamName(),
                     user: d)}),
                 successCb: {user, r in
-                    self.removeFromDataAndTable(userId: user.userId)
-                    self.userDidDelete(user: user)
-                    if self.getDataSource().getData().isEmpty {
-                        self.setDeleting(false)
-                    }},
-                
-                errorCb: {userId, e in })
+                    self.removeFromDataAndTable(user: user)
+                    self.didDeleteUserSuccess(user: user)
+                    },
+                errorCb: {user, e, enabledDeletion in
+                    if enabledDeletion {
+                        self.removeFromDataAndTable(user: user)
+                        self.didDeleteUserFailure(user: user)
+                    }
+                })
         } else {
             requestScheduler.clearOps(operationType: getOperationType())
         }
@@ -75,18 +77,25 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
         getDeleteAllButton().setTitle(getDeleting() ? "Stop deleting" : "Delete All", for: .normal)
     }
 
-    func userDidDelete(user: RequestEntry) {
+    func didDeleteUserSuccess(user: RequestEntry) {
+    }
+ 
+    func didDeleteUserFailure(user: RequestEntry) {
     }
     
-    func removeFromDataAndTable(userId: Int) {
+    func removeFromDataAndTable(user: RequestEntry) {
+        let userId = user.userId
         guard let indexToDelete = self.getDataSource().getData().firstIndex(where: {r in r.userId == userId}) else {
             print("Cannont find index in data for userId: \(userId)")
             return
         }
         getDataSource().remove(at: indexToDelete)
-        userIds.remove(indexToDelete)
+        userIds.remove(userId)
         self.getTableView().deleteRows(at: [IndexPath(row: indexToDelete, section: 0)],
                              with: UITableView.RowAnimation.automatic)
+        if self.getDataSource().getData().isEmpty {
+            updateDeletionProcess(deleting: false)
+        }
     }
     
     func vkSdkAccessAuthorizationFinished(with result: VKAuthorizationResult!) {
@@ -153,6 +162,7 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
                 }
                 print("items: \(items)")
                 let parsedItems = self.vkEntitiesToInternalEntities(items)
+                print("userIds: \(self.userIds)")
                 let filtered = parsedItems.filter({e in !self.userIds.contains(e.userId)})
                 self.userIds = self.userIds.union(filtered.map({user in user.userId}))
                 print("parsed items: \(parsedItems)")

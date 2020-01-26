@@ -12,9 +12,6 @@ import UIKit
 
 class SubscribersViewController: BasicListViewController {
     private let dataSource = RequestsTableDataSource()
-    private var deleting = false
-    override func setDeleting(_ deleting: Bool) { self.deleting = deleting }
-    override func getDeleting() -> Bool { return deleting }
     
     @IBOutlet weak var refreshButton: UIButton!
     @IBAction func refresh(_ sender: Any) {
@@ -25,6 +22,7 @@ class SubscribersViewController: BasicListViewController {
     @IBOutlet weak var deleteAllButton: UIButton!
     @IBAction func deleteAllAction(_ sender: Any) {
         playFeedback()
+        print("deleting: \(getDeleting())")
         updateDeletionProcess(deleting: !getDeleting())
     }
     
@@ -58,7 +56,7 @@ class SubscribersViewController: BasicListViewController {
         return RequestEntry.fromFollowersList(items)
     }
     
-    override func userDidDelete(user: RequestEntry) {
+    override func didDeleteUserSuccess(user: RequestEntry) {
         Storage.shared.addToBanned(user: user)
     }
 }

@@ -10,9 +10,6 @@ import UIKit
 
 class RequestsViewController: BasicListViewController {
     private let dataSource = RequestsTableDataSource()
-    private var deleting = false
-    override func setDeleting(_ deleting: Bool) { self.deleting = deleting }
-    override func getDeleting() -> Bool { return deleting }
     
     @IBAction func refresh(_ sender: Any) {
         playFeedback()

@@ -28,7 +28,7 @@ class RequestScheduler: NSObject {
     func scheduleOps(operationType: OperationType,
                      ops: [Operation],
                      successCb: @escaping (RequestEntry, VKResponse<VKApiObject>?) -> Void,
-                     errorCb: @escaping (RequestEntry, Error?) -> Void) {
+                     errorCb: @escaping (RequestEntry, Error?, Bool) -> Void) {
         processQueue[operationType] = ops
         callbacks[operationType] = OperationCallbacks(successCb: successCb, errorCb: errorCb)
         if isProcessQueueEmpty() {
@@ -115,22 +115,27 @@ class RequestScheduler: NSObject {
                         return
                     }
                     let desc = error.localizedDescription
+                    var enabledDeletion = false
                     switch desc {
                     case "Flood control":
                         self.rescheduleTimer(up: true)
                         self.replayOperation(op: first)
                     case "One of the parameters specified was missing or invalid: owner_id is incorrect":
+                        enabledDeletion = true
                         break
                     case "Access denied: user not blacklisted":
+                        enabledDeletion = true
                         break
                     case "Access denied: No friend or friend request found.":
+                        enabledDeletion = true
                         break
                     default:
-                        self.replayOperation(op: first)
+                        enabledDeletion = true
+                        break
                     }
                     print("desc: \(desc)")
                     print("error: \(error)")
-                    self.callbacks[opType]??.errorCb(first.user, error)
+                    self.callbacks[opType]??.errorCb(first.user, error, enabledDeletion)
                 })
                 found = true
             }
@@ -177,5 +182,5 @@ struct Operation: Hashable {
 
 struct OperationCallbacks {
     let successCb: (RequestEntry, VKResponse<VKApiObject>?) -> Void
-    let errorCb: (RequestEntry, Error?) -> Void
+    let errorCb: (RequestEntry, Error?, Bool) -> Void
 }

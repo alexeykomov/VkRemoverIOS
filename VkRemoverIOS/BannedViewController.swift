@@ -13,9 +13,6 @@ import UIKit
 class BannedViewController: BasicListViewController {
     private var userIds = Set<Int>()
     private let dataSource = RequestsTableDataSource()
-    private var deleting = false
-    override func setDeleting(_ deleting: Bool) { self.deleting = deleting }
-    override func getDeleting() -> Bool { return deleting }
     
     @IBOutlet weak var refreshButton: UIButton!
     @IBAction func refresh(_ sender: Any) {
@@ -36,7 +33,7 @@ class BannedViewController: BasicListViewController {
     @IBOutlet weak var tableView: UITableView!
     
     override func getOperationType() -> OperationType {
-        return OperationType.accountBan
+        return OperationType.accountUnban
     }
     
     override func getParamName() -> ParamName {
@@ -44,7 +41,8 @@ class BannedViewController: BasicListViewController {
     }
     
     override func getVKMethodName() -> String {
-        return "users.getFollowers"
+        // View is not populated from VK.
+        return ""
     }
     
     override func getTableView() -> UITableView {
@@ -75,6 +73,14 @@ class BannedViewController: BasicListViewController {
         print("parsed items: \(filtered)")
         self.getDataSource().addData(filtered)
         self.getTableView().reloadData()
+    }
+    
+    override func didDeleteUserSuccess(user: RequestEntry) {
+        Storage.shared.removeFromBanned(id: user.userId)
+    }
+    
+    override func didDeleteUserFailure(user: RequestEntry) {
+        Storage.shared.removeFromBanned(id: user.userId)
     }
 }
 
