@@ -40,27 +40,6 @@ class RequestsTableDataSource: NSObject, UITableViewDataSource, SDWebImageManage
         cell.loadImage(url: userData.photoForList)
         return cell
     }
-
-    
-    func imageManager(_ imageManager: SDWebImageManager,
-                      transformDownloadedImage image: UIImage?,
-                      with imageURL: URL?) -> UIImage? {
-        print("imageManager")
-        guard let image = image, let cgImage = image.cgImage else {
-            return nil
-        }
-        if (image.size.width > 33 || image.size.width > 33) {
-            let targetSize = CGSize(width: 33, height: 33)
-            UIGraphicsBeginImageContextWithOptions(targetSize, !SDImageCoderHelper.cgImageContainsAlpha(cgImage), image.scale)
-            image.draw(in: CGRect(origin: .zero, size: targetSize))
-            
-            let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            return scaledImage
-        } else {
-            return image
-        }
-    }
     
     func addData(_ items: [RequestEntry]) {
         data.append(contentsOf: items)
