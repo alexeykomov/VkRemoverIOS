@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SDWebImage
 
 class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
     private let dataSource = RequestsTableDataSource()
@@ -161,13 +162,23 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
     }
     
     func vkEntitiesToInternalEntities(_ items: [Dictionary<String, Any>]) -> [RequestEntry] {
-        return RequestEntry.fromRequestsList(items)
+        return []
     }
     
     func startWorking() {
+        var photoParamName = "photo_50"
+        switch gScaleFactor.value {
+        case 1.0:photoParamName = "photo_50"
+        case 1.0...2.0:photoParamName = "photo_100"
+        case 2.0...3.0:photoParamName = "photo_200"
+        default: break
+        }
+        print("photoParamName: \(photoParamName)")
+        let requestParams: [String:Any] = ["count":1000, "offset": 0, "out": 1,
+        "extended": 1, "fields": photoParamName]
+        
         VKRequest.init(method: getVKMethodName(),
-                       parameters:["count":1000, "offset": 0, "out": 1,
-                                   "extended": 1, "fields": "photo_50"]).execute(
+                       parameters:requestParams).execute(
             resultBlock: { response in
                 guard let dict = response?.json as? Dictionary<String, Any> else {
                     return
