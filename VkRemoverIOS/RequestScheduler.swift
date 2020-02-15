@@ -98,7 +98,6 @@ class RequestScheduler: NSObject {
             guard !opsOfType.isEmpty else {
                 continue
             }
-            print("opsOfType: \(opsOfType.map({op in op.user}))")
             if !opsOfType.isEmpty {
                 let first = opsOfType[0]
                 processQueue[opType] = Array(opsOfType.dropFirst())
