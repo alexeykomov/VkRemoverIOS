@@ -39,9 +39,12 @@ class BackgroundScheduler: NSObject {
                 })
         if !unbanOperations.isEmpty {
             requestScheduler.scheduleOps(operationType: OperationType.accountUnban,
-                                         ops: unbanOperations,
-                                         successCb: {user,_ in Storage.shared.removeFromBanned(id: user.userId)},
-                                         errorCb: {user,_,_ in
+                                         ops: unbanOperations)
+            requestScheduler.assignCallbacks(
+                                        operationType: OperationType.accountUnban,
+                                        successCb: {user,_ in
+                                            Storage.shared.removeFromBanned(id: user.userId)},
+                                        errorCb: {user,_,_ in
                                             Storage.shared.removeFromBanned(id: user.userId)})
         }
     }

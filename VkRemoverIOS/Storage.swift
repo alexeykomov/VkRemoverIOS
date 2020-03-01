@@ -29,6 +29,15 @@ class Storage: NSObject {
         defaults.setValue(StoredUser.toDictList(prevBanned.filter({storedId in storedId.user.userId != id})),
                           forKey: "BANNED")
     }
+    
+    func saveSchedulerState(_ state: SchedulerState) {
+        defaults.setValue(state.toDict(), forKey: "SCHEDULER_STATE")
+    }
+    
+    func getSchedulerState() -> SchedulerState {
+        return SchedulerState.fromDict(defaults.dictionary(forKey:
+            "SCHEDULER_STATE") ?? [:])
+    }
 }
 
 struct StoredUser {

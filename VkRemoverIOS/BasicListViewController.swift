@@ -61,21 +61,16 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
                     return Operation(
                     name: getOperationType(),
                     paramName: getParamName(),
-                    user: d)}),
-                successCb: {user, r in
-                    self.removeFromDataAndTable(user: user)
-                    self.didDeleteUserSuccess(user: user)
-                    },
-                errorCb: {user, e, enabledDeletion in
-                    if enabledDeletion {
-                        self.removeFromDataAndTable(user: user)
-                        self.didDeleteUserFailure(user: user)
-                    }
-                })
+                    user: d)})
+                )
         } else {
             requestScheduler.clearOps(operationType: getOperationType())
         }
         self.setDeleting(deleting)
+        updateButton()
+    }
+    
+    func updateButton() {
         getDeleteAllButton().setTitle(getDeleting() ? "Stop deleting" : "Delete All", for: .normal)
     }
 
@@ -136,9 +131,21 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
         } else {
             getTableView().addSubview(refreshControl)
         }
-        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
-        updateDeletionProcess(deleting: false)
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)),
+                                 for: .valueChanged)
         
+        deleting = !requestScheduler.isEmpty(operationType: getOperationType())
+        updateButton()
+        requestScheduler.assignCallbacks(operationType: getOperationType(),
+                                         successCb: {user, r in
+                                             self.removeFromDataAndTable(user: user)
+                                             self.didDeleteUserSuccess(user: user)
+                                             },
+                                         errorCb: {user, e, enabledDeletion in
+                                             if enabledDeletion {
+                                                 self.removeFromDataAndTable(user: user)
+                                                 self.didDeleteUserFailure(user: user)
+                                            }})
         setupVkData()
     }
     
@@ -161,7 +168,8 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
         getTableView().dataSource = getDataSource()
     }
     
-    func vkEntitiesToInternalEntities(_ items: [Dictionary<String, Any>]) -> [RequestEntry] {
+    func vkEntitiesToInternalEntities(_ items: [Dictionary<String, Any>]) ->
+            [RequestEntry] {
         return []
     }
     

@@ -26,17 +26,33 @@ class RequestScheduler: NSObject {
     private let MAX_SUCCESSES = 5
     
     func scheduleOps(operationType: OperationType,
-                     ops: [Operation],
-                     successCb: @escaping (RequestEntry, VKResponse<VKApiObject>?) -> Void,
-                     errorCb: @escaping (RequestEntry, Error?, Bool) -> Void) {
+                     ops: [Operation]) {
         processQueue[operationType] = ops
-        callbacks[operationType] = OperationCallbacks(successCb: successCb, errorCb: errorCb)
         if isProcessQueueEmpty() {
             return
         }
         if requestsTimer == nil {
             scheduleTimer()
         }
+    }
+    
+    func save() {
+        requestsTimer?.invalidate()
+        Storage.shared.saveSchedulerState(SchedulerState(operations: processQueue))
+    }
+    
+    func restore() {
+        let schedulerState = Storage.shared.getSchedulerState()
+        processQueue = schedulerState.operations
+        
+        if !isProcessQueueEmpty() {
+             scheduleTimer()
+        }
+    }
+    
+    func assignCallbacks(operationType: OperationType, successCb: @escaping (RequestEntry, VKResponse<VKApiObject>?) -> Void,
+                         errorCb: @escaping (RequestEntry, Error?, Bool) -> Void) {
+        callbacks[operationType] = OperationCallbacks(successCb: successCb, errorCb: errorCb)
     }
         
     func rescheduleTimer(up: Bool) {
@@ -154,6 +170,42 @@ class RequestScheduler: NSObject {
 
 let requestScheduler = RequestScheduler()
 
+struct SchedulerState {
+    let operations: Dictionary<OperationType, [Operation]>
+    
+    func toDict() -> Dictionary<String, Any> {
+        var output: Dictionary<String, Any> = [:]
+        output["operations"] = operations.reduce(output, {r, kv in
+            return r.merging([kv.key.rawValue:kv.value.map({op in
+                op.toDict()})],
+                             uniquingKeysWith: {a, b in b})
+        })
+        return output
+    }
+    
+    static func fromDict(_ inp: Dictionary<String, Any>) -> SchedulerState {
+        let operations: Dictionary<String, Any> = inp["operations"] as?
+            Dictionary<String, Any> ?? [:]
+        let output: Dictionary<OperationType, [Operation]> = [:]
+        return SchedulerState(operations: operations.reduce(output, {r, kv in
+            guard let operationType = OperationType(rawValue: kv.key) else {
+                return r
+            }
+            guard let operationsDict = kv.value as? [Dictionary<String, Any>] else {
+                return r
+            }
+            let operations: [Operation] = operationsDict.reduce([], {r, op in
+                guard let op = Operation.fromDict(op) else {
+                    return r
+                }
+                return r + [op]
+            })
+            return r.merging([operationType:operations],
+                             uniquingKeysWith: {a, b in b})
+        }))
+    }
+}
+
 let operationIndexes = [
     OperationType.friendsDelete: 0,
     OperationType.accountBan: 1,
@@ -177,6 +229,36 @@ struct Operation: Hashable {
     let name: OperationType
     let paramName: ParamName
     let user: RequestEntry
+    
+    func toDict() -> Dictionary<String, Any> {
+        var output: Dictionary<String, Any> = [:]
+        output["name"] = name.rawValue
+        output["paramName"] = paramName.rawValue
+        output["user"] = user.toDict()
+        return output
+    }
+    
+    static func fromDict(_ inp: Dictionary<String, Any>) -> Operation? {
+        guard let name = inp["name"] as? String else {
+            return nil
+        }
+        guard let operationType = OperationType(rawValue: name) else {
+            return nil
+        }
+        guard let paramNameStr = inp["paramName"] as? String else {
+            return nil
+        }
+        guard let paramName = ParamName(rawValue: paramNameStr) else {
+            return nil
+        }
+        guard let userDict = inp["user"] as? Dictionary<String, Any> else {
+            return nil
+        }
+        let user = RequestEntry.fromDict(userDict)
+        return Operation(name: operationType,
+                  paramName: paramName,
+                  user: user)
+    }
 }
 
 struct OperationCallbacks {

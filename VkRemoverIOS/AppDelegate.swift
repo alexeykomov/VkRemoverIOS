@@ -28,6 +28,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        print("App did enter bg")
+        requestScheduler.save()
+    }
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        print("App will enter fg")
+        requestScheduler.restore()
+    }
+    
     
     // MARK: UISceneSession Lifecycle
 
