@@ -38,6 +38,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         requestScheduler.restore()
     }
     
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        print("App did become active")
+    }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        print("App will resign active")
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        print("App will terminate")
+    }
+    
     
     // MARK: UISceneSession Lifecycle
 
