@@ -11,6 +11,15 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    
+    @available(iOS 13.0, *)
+    func sceneWillResignActive(_ scene: UIScene) {
+        print("Scene will resign active")
+    }
+    
+    @available(iOS 13.0, *)
+    func sceneWillEnterForeground(_ scene: UIScene) {
+        print("Scene will enter foreground")
+    }
 }
 
