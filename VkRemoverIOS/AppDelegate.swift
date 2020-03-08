@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import BackgroundTasks
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    var bgTaskPerformer: BGTaskPerformer
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         gScaleFactor.value = Double(UIScreen.main.scale)
@@ -25,6 +27,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("window?.contentScaleFactor: \(UIScreen.main.scale)")
         gScaleFactor.value = Double(UIScreen.main.scale)
         bgScheduler.start()
+        bgTaskPerformer = BGTaskPerformer()
+        if #available(iOS 13.0, *) {
+            BGTaskScheduler.shared.register(forTaskWithIdentifier:
+                "me.alexeykomov.VkRemoverIOS.refresh",
+                                            using: nil)
+            {task in
+                self.bgTaskPerformer.handleAppRefresh(task as! BGAppRefreshTask)
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+        
         return true
     }
 
