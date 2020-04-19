@@ -13,7 +13,6 @@ import BackgroundTasks
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    var bgTaskPerformer: BGTaskPerformer
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         gScaleFactor.value = Double(UIScreen.main.scale)
@@ -22,26 +21,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+                     didFinishLaunchingWithOptions launchOptions:
+        [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         print("window?.contentScaleFactor: \(UIScreen.main.scale)")
         gScaleFactor.value = Double(UIScreen.main.scale)
         bgScheduler.start()
-        bgTaskPerformer = BGTaskPerformer()
         if #available(iOS 13.0, *) {
             BGTaskScheduler.shared.register(forTaskWithIdentifier:
                 "me.alexeykomov.VkRemoverIOS.refresh",
                                             using: nil)
             {task in
-                self.bgTaskPerformer.handleAppRefresh(task as! BGAppRefreshTask)
+                BGTaskPerformer.shared().handleAppRefresh(task as!
+                    BGAppRefreshTask)
             }
+            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + 10, execute: {
+                requestScheduler.save()
+                BGTaskPerformer.shared().scheduleAppRefresh()
+            })
         } else {
             // Fallback on earlier versions
+            UIApplication.shared.setMinimumBackgroundFetchInterval(0)
         }
         
         return true
     }
 
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        NSLog("")
+    }
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
         print("App did enter bg")
         requestScheduler.save()

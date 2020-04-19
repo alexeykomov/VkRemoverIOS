@@ -99,12 +99,23 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
         if (result.token != nil) {
             self.startWorking()
         } else if ((result.error) != nil) {
-            UIAlertView.init(title: "", message: "Access denied \(result.error)", delegate: self, cancelButtonTitle: "Ok").show()
-         }
+            self.showAlert(title: "", message: "Access denied \(result.error)")
+        }
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alert =  UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title:
+            NSLocalizedString("OK", comment: "Default action"),
+                                      style: .default,
+                                      handler: { _ in
+                                        NSLog("The \"OK\" alert occured.")
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     func vkSdkUserAuthorizationFailed() {
-        UIAlertView.init(title: "", message: "Access denied", delegate: self, cancelButtonTitle: "Ok").show()
+        self.showAlert(title: "", message: "Sdk user authorization failed")
         navigationController?.popToRootViewController(animated: true)
     }
     
@@ -159,9 +170,7 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
             if (state == VKAuthorizationState.authorized) {
                 self.startWorking()
             } else if (error != nil) {
-                UIAlertView(title: "", message: error.debugDescription,
-                            delegate: self as! UIAlertViewDelegate,
-                            cancelButtonTitle: "Ok").show()
+                self.showAlert(title: "", message: error.debugDescription)
             }
         })
         VKSdk.authorize(SCOPE)
