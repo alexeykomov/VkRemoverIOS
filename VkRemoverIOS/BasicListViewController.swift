@@ -173,7 +173,7 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
                 self.showAlert(title: "", message: error.debugDescription)
             }
         })
-        VKSdk.authorize(SCOPE)
+        //VKSdk.authorize(SCOPE)
         getTableView().dataSource = getDataSource()
     }
     

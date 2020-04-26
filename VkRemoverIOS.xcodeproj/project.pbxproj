@@ -7,7 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45802CDC5D71051D0316200D /* libPods-VkRemoverIOSUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8718D1D33C2203C264F0BAF /* libPods-VkRemoverIOSUITests.a */; };
 		5A0AE05D24152801001D1CB7 /* BGTaskPerformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0AE05C24152801001D1CB7 /* BGTaskPerformer.swift */; };
+		5A3D1AC624545DC70018AA0C /* SchedulerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3D1AC524545DC70018AA0C /* SchedulerState.swift */; };
+		5A3D1AC9245460FD0018AA0C /* RequestEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3D1AC8245460FD0018AA0C /* RequestEntry.swift */; };
+		5A3D1ACA245462CA0018AA0C /* SchedulerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3D1AC524545DC70018AA0C /* SchedulerState.swift */; };
+		5A3D1ACB245462CE0018AA0C /* RequestEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3D1AC8245460FD0018AA0C /* RequestEntry.swift */; };
+		5A3D1ACD245462F60018AA0C /* RequestsTableDataSourceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3D1ACC245462F60018AA0C /* RequestsTableDataSourceUtils.swift */; };
+		5A3D1ACE245462FF0018AA0C /* RequestsTableDataSourceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3D1ACC245462F60018AA0C /* RequestsTableDataSourceUtils.swift */; };
+		5A3D1AD124546AFC0018AA0C /* BGTaskPerformerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3D1AD024546AFC0018AA0C /* BGTaskPerformerUtils.swift */; };
+		5A3D1AD224546B610018AA0C /* BGTaskPerformerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3D1AD024546AFC0018AA0C /* BGTaskPerformerUtils.swift */; };
+		5A3D1AD424546BDE0018AA0C /* BGTaskPerformerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3D1AD324546BDE0018AA0C /* BGTaskPerformerConstants.swift */; };
+		5A3D1AD624546C150018AA0C /* RequestSchedulerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3D1AD524546C150018AA0C /* RequestSchedulerConstants.swift */; };
+		5A3D1AD724546C290018AA0C /* RequestSchedulerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3D1AD524546C150018AA0C /* RequestSchedulerConstants.swift */; };
+		5A3D1AD824546C420018AA0C /* BGTaskPerformerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3D1AD324546BDE0018AA0C /* BGTaskPerformerConstants.swift */; };
+		5A3D1ADA2454856E0018AA0C /* HelloScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3D1AD92454856E0018AA0C /* HelloScreenViewController.swift */; };
 		5A3FCF972365A72700203C0E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3FCF962365A72700203C0E /* AppDelegate.swift */; };
 		5A3FCF992365A72700203C0E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3FCF982365A72700203C0E /* SceneDelegate.swift */; };
 		5A3FCF9B2365A72700203C0E /* RequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3FCF9A2365A72700203C0E /* RequestsViewController.swift */; };
@@ -21,6 +35,7 @@
 		5A4248E8236D964A00223AB0 /* RequestsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4248E7236D964A00223AB0 /* RequestsTableDataSource.swift */; };
 		5A4248EA236DC7A200223AB0 /* RequestTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4248E9236DC7A000223AB0 /* RequestTableCell.swift */; };
 		5A4248EC236EDB3400223AB0 /* InitialTabsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4248EB236EDB3300223AB0 /* InitialTabsViewController.swift */; };
+		5A740D3A245244C60012C8AE /* BGTaskPerformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A740D39245244C60012C8AE /* BGTaskPerformerTests.swift */; };
 		5A8EE69523CA0705006EE05B /* BasicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EE69423CA0704006EE05B /* BasicListViewController.swift */; };
 		5A91895323E6EBB0005FB5CB /* ScaleFactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91895223E6EBAE005FB5CB /* ScaleFactor.swift */; };
 		5A91895523E71618005FB5CB /* ImageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91895423E71618005FB5CB /* ImageTransformer.swift */; };
@@ -32,6 +47,7 @@
 		5AF5314B23B754A9008D01E4 /* HelloViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5314A23B754A9008D01E4 /* HelloViewController.swift */; };
 		5AF5314D23B76302008D01E4 /* RequestScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5314C23B76301008D01E4 /* RequestScheduler.swift */; };
 		5B8BEBF00AC6087CA4C5DE9E /* libPods-VkRemoverIOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FD42DFB4CBD2E91AA55C271 /* libPods-VkRemoverIOS.a */; };
+		A4419D1530357E55B6038027 /* libPods-VkRemoverIOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ACEDA62B6A4CF67B4C4136C5 /* libPods-VkRemoverIOSTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,7 +69,16 @@
 
 /* Begin PBXFileReference section */
 		1031D97B093BCFD183E19D6D /* Pods-VkRemoverIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VkRemoverIOS.debug.xcconfig"; path = "Target Support Files/Pods-VkRemoverIOS/Pods-VkRemoverIOS.debug.xcconfig"; sourceTree = "<group>"; };
+		497F433992A0D829E1AE14B6 /* Pods-VkRemoverIOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VkRemoverIOSTests.debug.xcconfig"; path = "Target Support Files/Pods-VkRemoverIOSTests/Pods-VkRemoverIOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5A0AE05C24152801001D1CB7 /* BGTaskPerformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BGTaskPerformer.swift; sourceTree = "<group>"; };
+		5A3D1ABE245451B60018AA0C /* VkRemoverIOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VkRemoverIOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		5A3D1AC524545DC70018AA0C /* SchedulerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerState.swift; sourceTree = "<group>"; };
+		5A3D1AC8245460FD0018AA0C /* RequestEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestEntry.swift; sourceTree = "<group>"; };
+		5A3D1ACC245462F60018AA0C /* RequestsTableDataSourceUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsTableDataSourceUtils.swift; sourceTree = "<group>"; };
+		5A3D1AD024546AFC0018AA0C /* BGTaskPerformerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BGTaskPerformerUtils.swift; sourceTree = "<group>"; };
+		5A3D1AD324546BDE0018AA0C /* BGTaskPerformerConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BGTaskPerformerConstants.swift; sourceTree = "<group>"; };
+		5A3D1AD524546C150018AA0C /* RequestSchedulerConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestSchedulerConstants.swift; sourceTree = "<group>"; };
+		5A3D1AD92454856E0018AA0C /* HelloScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloScreenViewController.swift; sourceTree = "<group>"; };
 		5A3FCF932365A72700203C0E /* VkRemoverIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VkRemoverIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A3FCF962365A72700203C0E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5A3FCF982365A72700203C0E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +99,7 @@
 		5A4248E7236D964A00223AB0 /* RequestsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsTableDataSource.swift; sourceTree = "<group>"; };
 		5A4248E9236DC7A000223AB0 /* RequestTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTableCell.swift; sourceTree = "<group>"; };
 		5A4248EB236EDB3300223AB0 /* InitialTabsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialTabsViewController.swift; sourceTree = "<group>"; };
+		5A740D39245244C60012C8AE /* BGTaskPerformerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BGTaskPerformerTests.swift; sourceTree = "<group>"; };
 		5A8EE69423CA0704006EE05B /* BasicListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicListViewController.swift; sourceTree = "<group>"; };
 		5A91895223E6EBAE005FB5CB /* ScaleFactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleFactor.swift; sourceTree = "<group>"; };
 		5A91895423E71618005FB5CB /* ImageTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTransformer.swift; sourceTree = "<group>"; };
@@ -86,6 +112,11 @@
 		5AF5314C23B76301008D01E4 /* RequestScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestScheduler.swift; sourceTree = "<group>"; };
 		8C1D5BC28CEDFE66CF3537A2 /* Pods-VkRemoverIOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VkRemoverIOS.release.xcconfig"; path = "Target Support Files/Pods-VkRemoverIOS/Pods-VkRemoverIOS.release.xcconfig"; sourceTree = "<group>"; };
 		9FD42DFB4CBD2E91AA55C271 /* libPods-VkRemoverIOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VkRemoverIOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACEDA62B6A4CF67B4C4136C5 /* libPods-VkRemoverIOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VkRemoverIOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8718D1D33C2203C264F0BAF /* libPods-VkRemoverIOSUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VkRemoverIOSUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5E537C946ADB2FD859C7E56 /* Pods-VkRemoverIOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VkRemoverIOSTests.release.xcconfig"; path = "Target Support Files/Pods-VkRemoverIOSTests/Pods-VkRemoverIOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		FAB595AAAC3695B08EE327C5 /* Pods-VkRemoverIOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VkRemoverIOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-VkRemoverIOSUITests/Pods-VkRemoverIOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		FD2C3E1102D589200093EF2E /* Pods-VkRemoverIOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VkRemoverIOSUITests.release.xcconfig"; path = "Target Support Files/Pods-VkRemoverIOSUITests/Pods-VkRemoverIOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4419D1530357E55B6038027 /* libPods-VkRemoverIOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,12 +140,43 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45802CDC5D71051D0316200D /* libPods-VkRemoverIOSUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A3D1AC424545D9C0018AA0C /* RequestScheduler */ = {
+			isa = PBXGroup;
+			children = (
+				5AF5314C23B76301008D01E4 /* RequestScheduler.swift */,
+				5A3D1AC524545DC70018AA0C /* SchedulerState.swift */,
+				5A3D1AD524546C150018AA0C /* RequestSchedulerConstants.swift */,
+			);
+			path = RequestScheduler;
+			sourceTree = "<group>";
+		};
+		5A3D1AC7245460C30018AA0C /* RequestsTableDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				5A4248E7236D964A00223AB0 /* RequestsTableDataSource.swift */,
+				5A3D1AC8245460FD0018AA0C /* RequestEntry.swift */,
+				5A3D1ACC245462F60018AA0C /* RequestsTableDataSourceUtils.swift */,
+			);
+			path = RequestsTableDataSource;
+			sourceTree = "<group>";
+		};
+		5A3D1ACF24546AE90018AA0C /* BGTaskPerformer */ = {
+			isa = PBXGroup;
+			children = (
+				5A0AE05C24152801001D1CB7 /* BGTaskPerformer.swift */,
+				5A3D1AD024546AFC0018AA0C /* BGTaskPerformerUtils.swift */,
+				5A3D1AD324546BDE0018AA0C /* BGTaskPerformerConstants.swift */,
+			);
+			path = BGTaskPerformer;
+			sourceTree = "<group>";
+		};
 		5A3FCF8A2365A72700203C0E = {
 			isa = PBXGroup;
 			children = (
@@ -142,14 +205,15 @@
 			children = (
 				5A3FCF962365A72700203C0E /* AppDelegate.swift */,
 				5A3FCF982365A72700203C0E /* SceneDelegate.swift */,
-				5A0AE05C24152801001D1CB7 /* BGTaskPerformer.swift */,
-				5AF5314C23B76301008D01E4 /* RequestScheduler.swift */,
+				5A3D1AC424545D9C0018AA0C /* RequestScheduler */,
+				5A3D1ACF24546AE90018AA0C /* BGTaskPerformer */,
+				5A3D1AC7245460C30018AA0C /* RequestsTableDataSource */,
+				5A3D1AD92454856E0018AA0C /* HelloScreenViewController.swift */,
 				5A8EE69423CA0704006EE05B /* BasicListViewController.swift */,
-				5A4248E7236D964A00223AB0 /* RequestsTableDataSource.swift */,
-				5A91895423E71618005FB5CB /* ImageTransformer.swift */,
 				5A3FCF9A2365A72700203C0E /* RequestsViewController.swift */,
 				5AF5314623B4C73A008D01E4 /* SubscribersViewController.swift */,
 				5AD9378323D33AD5007879B0 /* BannedViewController.swift */,
+				5A91895423E71618005FB5CB /* ImageTransformer.swift */,
 				5A4248E9236DC7A000223AB0 /* RequestTableCell.swift */,
 				5A3FCF9C2365A72700203C0E /* Main.storyboard */,
 				5A3FCF9F2365A72A00203C0E /* Assets.xcassets */,
@@ -171,7 +235,9 @@
 			isa = PBXGroup;
 			children = (
 				5A3FCFAD2365A72A00203C0E /* VkRemoverIOSTests.swift */,
+				5A740D39245244C60012C8AE /* BGTaskPerformerTests.swift */,
 				5A3FCFAF2365A72A00203C0E /* Info.plist */,
+				5A3D1ABE245451B60018AA0C /* VkRemoverIOS-Bridging-Header.h */,
 			);
 			path = VkRemoverIOSTests;
 			sourceTree = "<group>";
@@ -189,6 +255,8 @@
 			isa = PBXGroup;
 			children = (
 				9FD42DFB4CBD2E91AA55C271 /* libPods-VkRemoverIOS.a */,
+				ACEDA62B6A4CF67B4C4136C5 /* libPods-VkRemoverIOSTests.a */,
+				C8718D1D33C2203C264F0BAF /* libPods-VkRemoverIOSUITests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -198,6 +266,10 @@
 			children = (
 				1031D97B093BCFD183E19D6D /* Pods-VkRemoverIOS.debug.xcconfig */,
 				8C1D5BC28CEDFE66CF3537A2 /* Pods-VkRemoverIOS.release.xcconfig */,
+				497F433992A0D829E1AE14B6 /* Pods-VkRemoverIOSTests.debug.xcconfig */,
+				F5E537C946ADB2FD859C7E56 /* Pods-VkRemoverIOSTests.release.xcconfig */,
+				FAB595AAAC3695B08EE327C5 /* Pods-VkRemoverIOSUITests.debug.xcconfig */,
+				FD2C3E1102D589200093EF2E /* Pods-VkRemoverIOSUITests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -228,9 +300,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5A3FCFC02365A72A00203C0E /* Build configuration list for PBXNativeTarget "VkRemoverIOSTests" */;
 			buildPhases = (
+				D892FC35F3B8E29BA1027C98 /* [CP] Check Pods Manifest.lock */,
 				5A3FCFA52365A72A00203C0E /* Sources */,
 				5A3FCFA62365A72A00203C0E /* Frameworks */,
 				5A3FCFA72365A72A00203C0E /* Resources */,
+				7B26E52B9DA240B5671CB4C2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -246,9 +320,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5A3FCFC32365A72A00203C0E /* Build configuration list for PBXNativeTarget "VkRemoverIOSUITests" */;
 			buildPhases = (
+				44422F0B3BFB3D65E0D1D46F /* [CP] Check Pods Manifest.lock */,
 				5A3FCFB02365A72A00203C0E /* Sources */,
 				5A3FCFB12365A72A00203C0E /* Frameworks */,
 				5A3FCFB22365A72A00203C0E /* Resources */,
+				76E5E5819B5300F19CC8E449 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -332,6 +408,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		44422F0B3BFB3D65E0D1D46F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VkRemoverIOSUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		53045348495BA5FB820DC36E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -347,6 +445,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VkRemoverIOS/Pods-VkRemoverIOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		76E5E5819B5300F19CC8E449 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VkRemoverIOSUITests/Pods-VkRemoverIOSUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VkRemoverIOSUITests/Pods-VkRemoverIOSUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VkRemoverIOSUITests/Pods-VkRemoverIOSUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7B26E52B9DA240B5671CB4C2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VkRemoverIOSTests/Pods-VkRemoverIOSTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VkRemoverIOSTests/Pods-VkRemoverIOSTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VkRemoverIOSTests/Pods-VkRemoverIOSTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		92FB736C34AE8FBEC415688F /* [CP] Check Pods Manifest.lock */ = {
@@ -371,6 +503,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D892FC35F3B8E29BA1027C98 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VkRemoverIOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -378,10 +532,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A3D1AC9245460FD0018AA0C /* RequestEntry.swift in Sources */,
+				5A3D1ACD245462F60018AA0C /* RequestsTableDataSourceUtils.swift in Sources */,
 				5A3FCF9B2365A72700203C0E /* RequestsViewController.swift in Sources */,
+				5A3D1AD624546C150018AA0C /* RequestSchedulerConstants.swift in Sources */,
 				5AB198B523C0997A00542E62 /* BackgroundScheduler.swift in Sources */,
 				5A4248E8236D964A00223AB0 /* RequestsTableDataSource.swift in Sources */,
 				5A4248E62365C2CA00223AB0 /* Empty.m in Sources */,
+				5A3D1ADA2454856E0018AA0C /* HelloScreenViewController.swift in Sources */,
 				5A91895523E71618005FB5CB /* ImageTransformer.swift in Sources */,
 				5A4248E32365B9CE00223AB0 /* Empty.swift in Sources */,
 				5A91895323E6EBB0005FB5CB /* ScaleFactor.swift in Sources */,
@@ -393,7 +551,10 @@
 				5A4248EC236EDB3400223AB0 /* InitialTabsViewController.swift in Sources */,
 				5A3FCF992365A72700203C0E /* SceneDelegate.swift in Sources */,
 				5AF5314D23B76302008D01E4 /* RequestScheduler.swift in Sources */,
+				5A3D1AC624545DC70018AA0C /* SchedulerState.swift in Sources */,
 				5AD9378423D33AD5007879B0 /* BannedViewController.swift in Sources */,
+				5A3D1AD124546AFC0018AA0C /* BGTaskPerformerUtils.swift in Sources */,
+				5A3D1AD424546BDE0018AA0C /* BGTaskPerformerConstants.swift in Sources */,
 				5A4248EA236DC7A200223AB0 /* RequestTableCell.swift in Sources */,
 				5AF5314B23B754A9008D01E4 /* HelloViewController.swift in Sources */,
 				5AB198B323BF835000542E62 /* Storage.swift in Sources */,
@@ -404,7 +565,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A3D1ACE245462FF0018AA0C /* RequestsTableDataSourceUtils.swift in Sources */,
+				5A3D1ACB245462CE0018AA0C /* RequestEntry.swift in Sources */,
+				5A3D1ACA245462CA0018AA0C /* SchedulerState.swift in Sources */,
+				5A3D1AD724546C290018AA0C /* RequestSchedulerConstants.swift in Sources */,
+				5A3D1AD824546C420018AA0C /* BGTaskPerformerConstants.swift in Sources */,
+				5A740D3A245244C60012C8AE /* BGTaskPerformerTests.swift in Sources */,
 				5A3FCFAE2365A72A00203C0E /* VkRemoverIOSTests.swift in Sources */,
+				5A3D1AD224546B610018AA0C /* BGTaskPerformerUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,9 +786,9 @@
 		};
 		5A3FCFC12365A72A00203C0E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 497F433992A0D829E1AE14B6 /* Pods-VkRemoverIOSTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NWSTPFC433;
 				INFOPLIST_FILE = VkRemoverIOSTests/Info.plist;
@@ -640,9 +808,9 @@
 		};
 		5A3FCFC22365A72A00203C0E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F5E537C946ADB2FD859C7E56 /* Pods-VkRemoverIOSTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NWSTPFC433;
 				INFOPLIST_FILE = VkRemoverIOSTests/Info.plist;
@@ -662,6 +830,7 @@
 		};
 		5A3FCFC42365A72A00203C0E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FAB595AAAC3695B08EE327C5 /* Pods-VkRemoverIOSUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -682,6 +851,7 @@
 		};
 		5A3FCFC52365A72A00203C0E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FD2C3E1102D589200093EF2E /* Pods-VkRemoverIOSUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

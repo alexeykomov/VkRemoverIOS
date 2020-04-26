@@ -35,10 +35,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 BGTaskPerformer.shared().handleAppRefresh(task as!
                     BGAppRefreshTask)
             }
-            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + 10, execute: {
-                requestScheduler.save()
-                BGTaskPerformer.shared().scheduleAppRefresh()
+            #if DEBUG
+            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + 4, execute: {
+                // TODO(alexk): This is just to have store to restore for debug.
+                //requestScheduler.save()
+                //BGTaskPerformer.shared().scheduleAppRefresh()
             })
+            #endif
         } else {
             // Fallback on earlier versions
             UIApplication.shared.setMinimumBackgroundFetchInterval(0)
