@@ -23,6 +23,7 @@ class BGTaskPerformer: NSObject {
     
     @available(iOS 13.0, *)
     func scheduleAppRefresh() {
+        requestScheduler.save()
         let request = BGAppRefreshTaskRequest(identifier: "me.alexeykomov.VkRemoverIOS.refresh")
         do {
             try BGTaskScheduler.shared.submit(request)

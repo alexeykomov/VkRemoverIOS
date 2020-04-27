@@ -20,7 +20,7 @@ class RequestScheduler: NSObject {
         OperationType.accountUnban: []
     ]
     private var requestsTimer: Timer?
-    private var period: Double = 1
+    private var period: Double = 5
     private let MULT_FACTOR = 2
     private var successCounter = 0
     private let MAX_SUCCESSES = 5
@@ -52,7 +52,7 @@ class RequestScheduler: NSObject {
     
     func addCallbacks(operationType: OperationType, successCb: @escaping (RequestEntry, VKResponse<VKApiObject>?) -> Void,
                          errorCb: @escaping (RequestEntry, Error?, Bool) -> Void) {
-        callbacks[operationType] = callbacks[operationType] ?? [] + [
+        callbacks[operationType] = (callbacks[operationType] ?? []) + [
             OperationCallbacks(successCb: successCb, errorCb: errorCb)]
     }
         

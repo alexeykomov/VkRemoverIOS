@@ -34,7 +34,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     @available(iOS 13.0, *)
     func sceneWillResignActive(_ scene: UIScene) {
         print("Scene will resign active")
-        requestScheduler.save()
         BGTaskPerformer.shared().scheduleAppRefresh()
     }
     
