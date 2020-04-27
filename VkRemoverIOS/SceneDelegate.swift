@@ -27,8 +27,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         let url = context.url
         let app = context.options.sourceApplication
-        print("Url: \(url)")
-        print("App: \(app)")
         VKSdk.processOpen(url, fromApplication: app)
         NSLog("scene openURLContexts: %@", URLContexts)
     }
@@ -37,15 +35,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillResignActive(_ scene: UIScene) {
         print("Scene will resign active")
         requestScheduler.save()
-        //BGTaskPerformer.shared().scheduleAppRefresh()
+        BGTaskPerformer.shared().scheduleAppRefresh()
     }
     
     @available(iOS 13.0, *)
     func sceneWillEnterForeground(_ scene: UIScene) {
+        print("Scene will enter foreground")
         if (VKSdk.initialized()) {
             requestScheduler.restore()
         }
-        print("Scene will enter foreground")
     }
 }
 

@@ -147,7 +147,7 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
         
         deleting = !requestScheduler.isEmpty(operationType: getOperationType())
         updateButton()
-        requestScheduler.assignCallbacks(operationType: getOperationType(),
+        requestScheduler.addCallbacks(operationType: getOperationType(),
                                          successCb: {user, r in
                                              self.removeFromDataAndTable(user: user)
                                              self.didDeleteUserSuccess(user: user)
@@ -173,7 +173,7 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
                 self.showAlert(title: "", message: error.debugDescription)
             }
         })
-        //VKSdk.authorize(SCOPE)
+        VKSdk.authorize(SCOPE)
         getTableView().dataSource = getDataSource()
     }
     

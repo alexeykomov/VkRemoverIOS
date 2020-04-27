@@ -40,7 +40,7 @@
 		5A91895323E6EBB0005FB5CB /* ScaleFactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91895223E6EBAE005FB5CB /* ScaleFactor.swift */; };
 		5A91895523E71618005FB5CB /* ImageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91895423E71618005FB5CB /* ImageTransformer.swift */; };
 		5AB198B323BF835000542E62 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB198B223BF835000542E62 /* Storage.swift */; };
-		5AB198B523C0997A00542E62 /* BackgroundScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB198B423C0997A00542E62 /* BackgroundScheduler.swift */; };
+		5AB198B523C0997A00542E62 /* UnBanScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB198B423C0997A00542E62 /* UnBanScheduler.swift */; };
 		5AD9378423D33AD5007879B0 /* BannedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9378323D33AD5007879B0 /* BannedViewController.swift */; };
 		5AF5314723B4C73A008D01E4 /* SubscribersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5314623B4C73A008D01E4 /* SubscribersViewController.swift */; };
 		5AF5314923B4F9C8008D01E4 /* RemovablesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF5314823B4F9C8008D01E4 /* RemovablesViewController.swift */; };
@@ -104,7 +104,7 @@
 		5A91895223E6EBAE005FB5CB /* ScaleFactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleFactor.swift; sourceTree = "<group>"; };
 		5A91895423E71618005FB5CB /* ImageTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTransformer.swift; sourceTree = "<group>"; };
 		5AB198B223BF835000542E62 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
-		5AB198B423C0997A00542E62 /* BackgroundScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundScheduler.swift; sourceTree = "<group>"; };
+		5AB198B423C0997A00542E62 /* UnBanScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnBanScheduler.swift; sourceTree = "<group>"; };
 		5AD9378323D33AD5007879B0 /* BannedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannedViewController.swift; sourceTree = "<group>"; };
 		5AF5314623B4C73A008D01E4 /* SubscribersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribersViewController.swift; sourceTree = "<group>"; };
 		5AF5314823B4F9C8008D01E4 /* RemovablesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemovablesViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +153,7 @@
 				5AF5314C23B76301008D01E4 /* RequestScheduler.swift */,
 				5A3D1AC524545DC70018AA0C /* SchedulerState.swift */,
 				5A3D1AD524546C150018AA0C /* RequestSchedulerConstants.swift */,
+				5AB198B423C0997A00542E62 /* UnBanScheduler.swift */,
 			);
 			path = RequestScheduler;
 			sourceTree = "<group>";
@@ -225,7 +226,6 @@
 				5AF5314823B4F9C8008D01E4 /* RemovablesViewController.swift */,
 				5AF5314A23B754A9008D01E4 /* HelloViewController.swift */,
 				5AB198B223BF835000542E62 /* Storage.swift */,
-				5AB198B423C0997A00542E62 /* BackgroundScheduler.swift */,
 				5A91895223E6EBAE005FB5CB /* ScaleFactor.swift */,
 			);
 			path = VkRemoverIOS;
@@ -536,7 +536,7 @@
 				5A3D1ACD245462F60018AA0C /* RequestsTableDataSourceUtils.swift in Sources */,
 				5A3FCF9B2365A72700203C0E /* RequestsViewController.swift in Sources */,
 				5A3D1AD624546C150018AA0C /* RequestSchedulerConstants.swift in Sources */,
-				5AB198B523C0997A00542E62 /* BackgroundScheduler.swift in Sources */,
+				5AB198B523C0997A00542E62 /* UnBanScheduler.swift in Sources */,
 				5A4248E8236D964A00223AB0 /* RequestsTableDataSource.swift in Sources */,
 				5A4248E62365C2CA00223AB0 /* Empty.m in Sources */,
 				5A3D1ADA2454856E0018AA0C /* HelloScreenViewController.swift in Sources */,

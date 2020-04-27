@@ -14,10 +14,10 @@ class RequestScheduler: NSObject {
         OperationType.accountBan:[],
         OperationType.accountUnban:[]
     ]
-    private var callbacks:Dictionary<OperationType, OperationCallbacks?> = [
-        OperationType.friendsDelete: nil,
-        OperationType.accountBan: nil,
-        OperationType.accountUnban: nil
+    private var callbacks:Dictionary<OperationType, [OperationCallbacks]> = [
+        OperationType.friendsDelete: [],
+        OperationType.accountBan: [],
+        OperationType.accountUnban: []
     ]
     private var requestsTimer: Timer?
     private var period: Double = 1
@@ -50,9 +50,10 @@ class RequestScheduler: NSObject {
         }
     }
     
-    func assignCallbacks(operationType: OperationType, successCb: @escaping (RequestEntry, VKResponse<VKApiObject>?) -> Void,
+    func addCallbacks(operationType: OperationType, successCb: @escaping (RequestEntry, VKResponse<VKApiObject>?) -> Void,
                          errorCb: @escaping (RequestEntry, Error?, Bool) -> Void) {
-        callbacks[operationType] = OperationCallbacks(successCb: successCb, errorCb: errorCb)
+        callbacks[operationType] = callbacks[operationType] ?? [] + [
+            OperationCallbacks(successCb: successCb, errorCb: errorCb)]
     }
         
     func rescheduleTimer(up: Bool) {
@@ -77,7 +78,6 @@ class RequestScheduler: NSObject {
     
     func clearOps(operationType: OperationType) {
         processQueue[operationType] = []
-        callbacks[operationType] = nil
         if isProcessQueueEmpty() {
             requestsTimer?.invalidate()
             requestsTimer = nil
@@ -123,8 +123,14 @@ class RequestScheduler: NSObject {
                     resultBlock: { response in
                         print("response: \(response)")
                         self.successCounter += 1
-                        self.rescheduleTimer(up: false)
-                        self.callbacks[opType]??.successCb(first.user, response)
+                        //self.rescheduleTimer(up: false)
+                        guard let callbacks = self.callbacks[opType] else {
+                            return
+                        }
+                        callbacks.forEach { callback in 
+                            callback.successCb(first.user, response)
+                        }
+                        
                 }, errorBlock:  { error in
                     guard let error = error else {
                         return
@@ -133,7 +139,7 @@ class RequestScheduler: NSObject {
                     var enabledDeletion = false
                     switch desc {
                     case "Flood control":
-                        self.rescheduleTimer(up: true)
+                        //self.rescheduleTimer(up: true)
                         self.replayOperation(op: first)
                     case "One of the parameters specified was missing or invalid: owner_id is incorrect":
                         enabledDeletion = true
@@ -150,7 +156,12 @@ class RequestScheduler: NSObject {
                     }
                     print("desc: \(desc)")
                     print("error: \(error)")
-                    self.callbacks[opType]??.errorCb(first.user, error, enabledDeletion)
+                    guard let callbacks = self.callbacks[opType] else {
+                        return
+                    }
+                    callbacks.forEach { callback in
+                        callback.errorCb(first.user, error, enabledDeletion)
+                    }
                 })
                 found = true
             }

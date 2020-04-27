@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         print("window?.contentScaleFactor: \(UIScreen.main.scale)")
         gScaleFactor.value = Double(UIScreen.main.scale)
-        bgScheduler.start()
+        unBanScheduler.start()  
         if #available(iOS 13.0, *) {
             BGTaskScheduler.shared.register(forTaskWithIdentifier:
                 "me.alexeykomov.VkRemoverIOS.refresh",
@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     BGAppRefreshTask)
             }
             #if DEBUG
-            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + 4, execute: {
+            DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + 2, execute: {
                 // TODO(alexk): This is just to have store to restore for debug.
                 //requestScheduler.save()
                 //BGTaskPerformer.shared().scheduleAppRefresh()

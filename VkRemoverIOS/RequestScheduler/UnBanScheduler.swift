@@ -8,7 +8,7 @@
 
 import Foundation
 
-class BackgroundScheduler: NSObject {
+class UnBanScheduler: NSObject {
     private var bgTimer: Timer?
     
     static let BAN_PERIOD: Double = 4 * 3600
@@ -31,7 +31,7 @@ class BackgroundScheduler: NSObject {
             print("now: \(now)")
             let distance = now - storedId.whenBanned.timeIntervalSince1970
             print("distance: \(distance)")
-            return now - storedId.whenBanned.timeIntervalSince1970 >= BackgroundScheduler.BAN_PERIOD })
+            return now - storedId.whenBanned.timeIntervalSince1970 >= UnBanScheduler.BAN_PERIOD })
                 .map({ storedId in
                     Operation(name: OperationType.accountUnban,
                               paramName: ParamName.ownerId,
@@ -40,7 +40,7 @@ class BackgroundScheduler: NSObject {
         if !unbanOperations.isEmpty {
             requestScheduler.scheduleOps(operationType: OperationType.accountUnban,
                                          ops: unbanOperations)
-            requestScheduler.assignCallbacks(
+            requestScheduler.addCallbacks(
                                         operationType: OperationType.accountUnban,
                                         successCb: {user,_ in
                                             Storage.shared.removeFromBanned(id: user.userId)},
@@ -50,4 +50,4 @@ class BackgroundScheduler: NSObject {
     }
 }
 
-let bgScheduler = BackgroundScheduler()
+let unBanScheduler = UnBanScheduler()
