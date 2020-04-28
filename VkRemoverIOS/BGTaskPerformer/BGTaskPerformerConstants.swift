@@ -16,9 +16,15 @@ struct CodeWithName {
 
 struct CodeWithNames {
     let code: String
+    let operations: Dictionary<OperationType, [Operation]>
     let stateWithoutOperationsThatAreInCode: SchedulerState
 }
 
 let alphabet = "abcdefghijklmnopqrstuvwxyz"
 
-let MAXIMUM_NUMBER_OF_API_CALLS = min(25, alphabet.count)
+let MAXIMUM_NUMBER_OF_API_CALLS = min(5, alphabet.count)
+
+struct BgOperationCallbacks {
+    let successCb: ([RequestEntry], VKResponse<VKApiObject>?) -> Void
+    let errorCb: ([RequestEntry], Error?) -> Void
+}

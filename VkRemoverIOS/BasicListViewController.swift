@@ -80,6 +80,12 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
     func didDeleteUserFailure(user: RequestEntry) {
     }
     
+    func didDeleteUserSuccess(users: [RequestEntry]) {
+    }
+    
+    func didDeleteUserFailure(users: [RequestEntry]) {
+    }
+    
     func removeFromDataAndTable(user: RequestEntry) {
         let userId = user.userId
         guard let indexToDelete = self.getDataSource().getData().firstIndex(where: {r in r.userId == userId}) else {
@@ -90,6 +96,35 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
         userIds.remove(userId)
         self.getTableView().deleteRows(at: [IndexPath(row: indexToDelete, section: 0)],
                              with: UITableView.RowAnimation.automatic)
+        if self.getDataSource().getData().isEmpty {
+            updateDeletionProcess(deleting: false)
+        }
+    }
+    
+    func removeFromDataAndTable(users: [RequestEntry]) {
+        let indicesToDelete:[(Int, Int)] = users.reduce([], { res, user in
+            let userId = user.userId
+            guard let indexToDelete = self.getDataSource().getData()
+                .firstIndex(where: {r in r.userId == userId}) else {
+               print("Cannont find index in data for userId: \(userId)")
+               return res
+            }
+            return res + [(indexToDelete, userId)]
+        })
+        print("Indexes to delete: \(indicesToDelete)")
+        let sortedIndicesToDelete = indicesToDelete.sorted(by: { indexUserIdPairA, indexUserIdPairB in
+                indexUserIdPairA.0 > indexUserIdPairB.0
+            })
+        print("Sorted indexes to delete: \(sortedIndicesToDelete)")
+        sortedIndicesToDelete.forEach { indexUserIdPair in
+            getDataSource().remove(at: indexUserIdPair.0)
+            userIds.remove(indexUserIdPair.1)
+        }
+        self.getTableView().deleteRows(at:
+        indicesToDelete.map { indexUserIdPair in
+            IndexPath(row: indexUserIdPair.0, section: 0)},
+                                   with: UITableView.RowAnimation.none)
+        
         if self.getDataSource().getData().isEmpty {
             updateDeletionProcess(deleting: false)
         }
@@ -157,6 +192,15 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
                                                  self.removeFromDataAndTable(user: user)
                                                  self.didDeleteUserFailure(user: user)
                                             }})
+        BGTaskPerformer.shared().addCallbacks(operationType: getOperationType(),
+                                              successCb: {users, r in
+                                                self.removeFromDataAndTable(users: users)
+                                                self.didDeleteUserSuccess(users: users)
+        },
+                                              errorCb:{users, r in
+                                                self.removeFromDataAndTable(users: users)
+                                                self.didDeleteUserSuccess(users: users)
+        })
         setupVkData()
     }
     

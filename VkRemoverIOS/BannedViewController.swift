@@ -85,6 +85,19 @@ class BannedViewController: BasicListViewController {
     override func didDeleteUserFailure(user: RequestEntry) {
         Storage.shared.removeFromBanned(id: user.userId)
     }
+    
+    override func didDeleteUserSuccess(users: [RequestEntry]) {
+        users.forEach { user in
+            Storage.shared.removeFromBanned(id: user.userId)
+        }
+    }
+    
+    override func didDeleteUserFailure(users: [RequestEntry]) {
+        users.forEach { user in
+            Storage.shared.removeFromBanned(id: user.userId)
+        }
+    }
+    
 }
 
 

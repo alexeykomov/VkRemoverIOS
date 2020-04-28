@@ -14,6 +14,11 @@ func formCodeFromOperations(state:SchedulerState) -> CodeWithNames {
     let opsTypeCount = operationIndexes.count
     
     var codeStatements:Array<String> = []
+    var operations:Dictionary<OperationType, [Operation]>  =  [
+        OperationType.friendsDelete:[],
+        OperationType.accountBan:[],
+        OperationType.accountUnban:[]
+    ]
     var letterCounter = 0
     while (letterCounter < MAXIMUM_NUMBER_OF_API_CALLS && !modifiedState.isEmpty()) {
         while (true) {
@@ -35,10 +40,12 @@ func formCodeFromOperations(state:SchedulerState) -> CodeWithNames {
                 let code = "var \(varName) = API.\(opType.rawValue)({'\(first.paramName.rawValue)': \(first.user.userId)});"
                 modifiedState = SchedulerState(operations: modifiedOperations)
                 codeStatements.append(code)
+                operations[opType] = (operations[opType] ?? []) + [first]
                 break
             }
         }
     }
     return CodeWithNames(code: codeStatements.joined(separator: "\n"),
-                             stateWithoutOperationsThatAreInCode: modifiedState)
+                         operations: operations, 
+                         stateWithoutOperationsThatAreInCode: modifiedState)
 }
