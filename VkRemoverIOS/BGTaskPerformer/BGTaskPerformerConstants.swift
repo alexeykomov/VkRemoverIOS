@@ -14,7 +14,7 @@ struct CodeWithName {
     let operationType: OperationType
 }
 
-struct CodeWithNames {
+struct CodeWitрState {
     let code: String
     let operations: Dictionary<OperationType, [Operation]>
     let stateWithoutOperationsThatAreInCode: SchedulerState

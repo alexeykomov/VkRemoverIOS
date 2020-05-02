@@ -26,7 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         print("window?.contentScaleFactor: \(UIScreen.main.scale)")
         gScaleFactor.value = Double(UIScreen.main.scale)
-        unBanScheduler.start()  
+        unBanScheduler.start()
+        
+        UIApplication.shared.setMinimumBackgroundFetchInterval(
+            UIApplication.backgroundFetchIntervalMinimum)
         if #available(iOS 13.0, *) {
             BGTaskScheduler.shared.register(forTaskWithIdentifier:
                 "me.alexeykomov.VkRemoverIOS.refresh",
@@ -38,20 +41,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             #if DEBUG
             DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + 2, execute: {
                 // TODO(alexk): This is just to have store to restore for debug.
-                //requestScheduler.save()
-                //BGTaskPerformer.shared().scheduleAppRefresh()
+                requestScheduler.save()
+                BGTaskPerformer.shared().scheduleAppRefresh()
             })
             #endif
         } else {
             // Fallback on earlier versions
-            UIApplication.shared.setMinimumBackgroundFetchInterval(0)
+            
         }
         
         return true
     }
 
-    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        NSLog("")
+    func application(_ application: UIApplication,
+                     performFetchWithCompletionHandler completionHandler:
+                        @escaping (UIBackgroundFetchResult) -> Void) {
+        NSLog("iOS <= 12 code branch. Application perfromFetchWithCompletionHandler called.")
+        requestScheduler.save()
+        BGTaskPerformer.shared().handleAppRefresh(completion: { success in
+            success ? completionHandler(.newData) : completionHandler(.failed)
+        })
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -61,7 +70,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         print("App will enter fg")
-        requestScheduler.restore()
+        if (VKSdk.initialized()) {
+            requestScheduler.restore()
+        }
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {

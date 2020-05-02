@@ -43,19 +43,39 @@ class BGTaskPerformer: NSObject {
     func handleAppRefresh(_ task: BGAppRefreshTask) {
         scheduleAppRefresh()
 
-        let codeWithState: CodeWithNames = formCodeFromOperations(
+        task.expirationHandler = {};
+        
+        guard let request = handleAppRefreshInternal(completion: { success in
+            success ?
+                task.setTaskCompleted(success: true) :
+                task.setTaskCompleted(success: false)
+        }) else {
+            return
+        }
+      
+        task.expirationHandler = {
+            request.cancel()
+        }
+    }
+    
+    @available(iOS 9.0, *)
+    func handleAppRefresh(completion: @escaping (_ success: Bool) -> Void) -> Void {
+        handleAppRefreshInternal(completion: completion)
+    }
+
+    func handleAppRefreshInternal(completion: @escaping (_ success: Bool) -> Void) -> VKRequest? {
+        let codeWithState: CodeWitрState = formCodeFromOperations(
             state: Storage.shared.getSchedulerState())
         #if DEBUG
         let now = Date()
-        let fmt = ISO8601DateFormatter()
-        let dateText = fmt.string(from: now)
-        print("Code that will be sent at \(dateText)): \(codeWithState.code)")
+        let dateText = getTimeStamp(date: now)
+        print("Code that will be sent at \(dateText): \(codeWithState.code)")
         #endif
         let code = codeWithState.code
         let operations = codeWithState.operations
         if code.isEmpty {
-            task.setTaskCompleted(success: true)
-            return
+            completion(true)
+            return nil
         }
         
         let request: VKRequest = VKRequest.init(method: "execute", parameters:
@@ -82,14 +102,12 @@ class BGTaskPerformer: NSObject {
                     }
                 }
                 
-                task.setTaskCompleted(success: true)
+                completion(true)
         }, errorBlock:  { error in
             print("error: \(error)")
+            completion(false)
         })
-      
-        task.expirationHandler = {
-            request.cancel()
-        }
+        return request
     }
     
     func addCallbacks(operationType: OperationType, successCb: @escaping ([RequestEntry], VKResponse<VKApiObject>?) -> Void,
@@ -98,4 +116,7 @@ class BGTaskPerformer: NSObject {
             BgOperationCallbacks(successCb: successCb, errorCb: errorCb)]
     }
     
+    func getTimestamp(date: Date) {
+        
+    }
 }

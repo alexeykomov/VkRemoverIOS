@@ -8,7 +8,7 @@
 
 import Foundation
 
-func formCodeFromOperations(state:SchedulerState) -> CodeWithNames {
+func formCodeFromOperations(state:SchedulerState) -> CodeWitрState {
     var modifiedState = state
     var modifiedOperations = modifiedState.operations
     let opsTypeCount = operationIndexes.count
@@ -45,7 +45,24 @@ func formCodeFromOperations(state:SchedulerState) -> CodeWithNames {
             }
         }
     }
-    return CodeWithNames(code: codeStatements.joined(separator: "\n"),
+    return CodeWitрState(code: codeStatements.joined(separator: "\n"),
                          operations: operations, 
                          stateWithoutOperationsThatAreInCode: modifiedState)
+}
+
+func getTimeStamp(date: Date) -> String {
+    if #available(iOS 10.0, *) {
+        let fmt = ISO8601DateFormatter()
+        let dateText = fmt.string(from: date)
+        return dateText
+    } else {
+        // Fallback on earlier versions
+        let fmt = DateFormatter()
+        fmt.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        fmt.calendar = Calendar(identifier: .iso8601)
+        fmt.locale = Locale(identifier: "en_US_POSIX")
+        fmt.timeZone = TimeZone(secondsFromGMT: 0)
+        let dateText = fmt.string(from: date)
+        return dateText
+    }
 }
