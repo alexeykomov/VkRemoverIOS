@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wYF-N9-Wkp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="clV-wT-t5G">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -40,10 +40,10 @@
             </objects>
             <point key="canvasLocation" x="-2092" y="-191.1544227886057"/>
         </scene>
-        <!--Hello-->
+        <!--Tab Bar Controller-->
         <scene sceneID="h0G-cW-4zV">
             <objects>
-                <tabBarController id="wYF-N9-Wkp" customClass="Hello" sceneMemberID="viewController">
+                <tabBarController id="wYF-N9-Wkp" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="LkG-Vq-zkj"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XWL-om-PIA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -60,6 +60,19 @@
             </objects>
             <point key="canvasLocation" x="-1282" y="-179"/>
         </scene>
+        <!--Split View Controller-->
+        <scene sceneID="LEM-be-XYi">
+            <objects>
+                <splitViewController id="clV-wT-t5G" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="wYF-N9-Wkp" kind="relationship" relationship="masterViewController" id="L55-JO-xxX"/>
+                        <segue destination="y5U-k2-Jpn" kind="relationship" relationship="detailViewController" id="uL5-fe-EsY"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NMS-tR-tmp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1118" y="-1209"/>
+        </scene>
         <!--Requests-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -73,14 +86,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellReuseIdentifier" id="me5-YF-jjW" customClass="RequestTableCell" customModule="VkRemoverIOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="43"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="me5-YF-jjW" id="SHg-11-7oz" customClass="Reqe">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nT5-NR-oWx">
-                                                    <rect key="frame" x="60" y="11" width="295" height="21"/>
+                                                    <rect key="frame" x="60" y="11" width="295" height="21.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="295" id="Xdl-Se-93f"/>
                                                     </constraints>
@@ -149,7 +162,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Requests" id="ivp-gr-dEu" userLabel="Requests"/>
+                    <tabBarItem key="tabBarItem" title="Requests" image="arrow.up.circle.fill" catalog="system" selectedImage="arrow.up.circle.fill" id="ivp-gr-dEu" userLabel="Requests"/>
                     <navigationItem key="navigationItem" id="qlI-cm-TEk"/>
                     <connections>
                         <outlet property="deleteAllButton" destination="PGc-Xe-0a7" id="YLI-7Z-oRo"/>
@@ -249,7 +262,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WCt-Hu-2VF"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Followers" id="QZT-Tf-aUX" userLabel="Requests"/>
+                    <tabBarItem key="tabBarItem" title="Followers" image="arrow.down.circle.fill" catalog="system" selectedImage="arrow.down.circle.fill" id="QZT-Tf-aUX" userLabel="Requests"/>
                     <navigationItem key="navigationItem" id="GoV-xJ-KnI"/>
                     <connections>
                         <outlet property="deleteAllButton" destination="XUZ-nq-O0k" id="h0A-Dt-SgK"/>
@@ -273,14 +286,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellReuseIdentifier" id="eOf-k3-vTb" customClass="RequestTableCell" customModule="VkRemoverIOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eOf-k3-vTb" id="Lxp-bu-FjX" customClass="Reqe">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xtk-yn-iuN">
-                                                    <rect key="frame" x="60" y="11" width="295" height="21.5"/>
+                                                    <rect key="frame" x="60" y="11" width="295" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="295" id="QNX-kd-WZI"/>
                                                     </constraints>
@@ -349,7 +362,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="KoB-ee-AhJ"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Banned" id="pXJ-Ec-pd4" userLabel="Requests"/>
+                    <tabBarItem key="tabBarItem" title="Banned" image="person.crop.circle.badge.xmark" catalog="system" selectedImage="person.crop.circle.badge.xmark" id="pXJ-Ec-pd4" userLabel="Requests"/>
                     <navigationItem key="navigationItem" id="YbI-HD-Vbd"/>
                     <connections>
                         <outlet property="deleteAllButton" destination="Mu6-0C-2KV" id="zpR-IG-vfN"/>
@@ -360,5 +373,54 @@
             </objects>
             <point key="canvasLocation" x="137" y="-78"/>
         </scene>
+        <!--Detail Page View Controller-->
+        <scene sceneID="Yt6-B2-Smx">
+            <objects>
+                <viewController storyboardIdentifier="detailPage" id="y5U-k2-Jpn" customClass="DetailPageViewController" customModule="VkRemoverIOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AwT-Rf-YO1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="smh-bS-rv1">
+                                <rect key="frame" x="38" y="53" width="93" height="89"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qak-DC-Xmt">
+                                <rect key="frame" x="16" y="185" width="343" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Ban"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zub-az-OXt">
+                                <rect key="frame" x="16" y="245" width="343" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Unfriend"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="User Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ERd-zZ-b5X">
+                                <rect key="frame" x="186" y="87" width="86" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="jby-9o-DFQ"/>
+                    </view>
+                    <connections>
+                        <outlet property="avatarImage" destination="smh-bS-rv1" id="V5P-GM-DDF"/>
+                        <outlet property="banButton" destination="Qak-DC-Xmt" id="RqO-I3-EnC"/>
+                        <outlet property="cancelRequestButton" destination="Zub-az-OXt" id="64V-j2-tVz"/>
+                        <outlet property="userName" destination="ERd-zZ-b5X" id="Mf7-xl-qz3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0uQ-XA-ffw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="412" y="-842"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="arrow.down.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="arrow.up.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="person.crop.circle.badge.xmark" catalog="system" width="128" height="101"/>
+    </resources>
 </document>

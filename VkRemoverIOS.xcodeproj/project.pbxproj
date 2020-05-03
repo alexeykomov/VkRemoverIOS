@@ -39,6 +39,7 @@
 		5A8EE69523CA0705006EE05B /* BasicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EE69423CA0704006EE05B /* BasicListViewController.swift */; };
 		5A91895323E6EBB0005FB5CB /* ScaleFactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91895223E6EBAE005FB5CB /* ScaleFactor.swift */; };
 		5A91895523E71618005FB5CB /* ImageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91895423E71618005FB5CB /* ImageTransformer.swift */; };
+		5A9F0EE9245E07010042DDB8 /* DetailPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9F0EE8245E07010042DDB8 /* DetailPageViewController.swift */; };
 		5AB198B323BF835000542E62 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB198B223BF835000542E62 /* Storage.swift */; };
 		5AB198B523C0997A00542E62 /* UnBanScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB198B423C0997A00542E62 /* UnBanScheduler.swift */; };
 		5AD9378423D33AD5007879B0 /* BannedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9378323D33AD5007879B0 /* BannedViewController.swift */; };
@@ -103,6 +104,7 @@
 		5A8EE69423CA0704006EE05B /* BasicListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicListViewController.swift; sourceTree = "<group>"; };
 		5A91895223E6EBAE005FB5CB /* ScaleFactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleFactor.swift; sourceTree = "<group>"; };
 		5A91895423E71618005FB5CB /* ImageTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTransformer.swift; sourceTree = "<group>"; };
+		5A9F0EE8245E07010042DDB8 /* DetailPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPageViewController.swift; sourceTree = "<group>"; };
 		5AB198B223BF835000542E62 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		5AB198B423C0997A00542E62 /* UnBanScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnBanScheduler.swift; sourceTree = "<group>"; };
 		5AD9378323D33AD5007879B0 /* BannedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannedViewController.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				5A3D1ACF24546AE90018AA0C /* BGTaskPerformer */,
 				5A3D1AC7245460C30018AA0C /* RequestsTableDataSource */,
 				5A3D1AD92454856E0018AA0C /* HelloScreenViewController.swift */,
+				5A9F0EE8245E07010042DDB8 /* DetailPageViewController.swift */,
 				5A8EE69423CA0704006EE05B /* BasicListViewController.swift */,
 				5A3FCF9A2365A72700203C0E /* RequestsViewController.swift */,
 				5AF5314623B4C73A008D01E4 /* SubscribersViewController.swift */,
@@ -538,6 +541,7 @@
 				5A3D1AD624546C150018AA0C /* RequestSchedulerConstants.swift in Sources */,
 				5AB198B523C0997A00542E62 /* UnBanScheduler.swift in Sources */,
 				5A4248E8236D964A00223AB0 /* RequestsTableDataSource.swift in Sources */,
+				5A9F0EE9245E07010042DDB8 /* DetailPageViewController.swift in Sources */,
 				5A4248E62365C2CA00223AB0 /* Empty.m in Sources */,
 				5A3D1ADA2454856E0018AA0C /* HelloScreenViewController.swift in Sources */,
 				5A91895523E71618005FB5CB /* ImageTransformer.swift in Sources */,

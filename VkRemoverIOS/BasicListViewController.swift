@@ -9,7 +9,7 @@
 import Foundation
 import SDWebImage
 
-class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
+class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate, UITableViewDelegate {
     private let dataSource = RequestsTableDataSource()
     private var userIds = Set<Int>()
     var deleting = false
@@ -100,6 +100,13 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
             updateDeletionProcess(deleting: false)
         }
     }
+        
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let splitViewControllerParent = self.parent?.parent as? UISplitViewController
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "detailPage")
+        splitViewControllerParent?.showDetailViewController(vc, sender: nil)
+    }
     
     func removeFromDataAndTable(users: [RequestEntry]) {
         let indicesToDelete:[(Int, Int)] = users.reduce([], { res, user in
@@ -177,6 +184,7 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate 
         } else {
             getTableView().addSubview(refreshControl)
         }
+        getTableView().delegate = self;
         refreshControl.addTarget(self, action: #selector(refreshData(_:)),
                                  for: .valueChanged)
         
