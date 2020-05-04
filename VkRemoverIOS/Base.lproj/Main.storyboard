@@ -60,13 +60,13 @@
             </objects>
             <point key="canvasLocation" x="-1282" y="-179"/>
         </scene>
-        <!--Split View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="LEM-be-XYi">
             <objects>
-                <splitViewController id="clV-wT-t5G" sceneMemberID="viewController">
+                <splitViewController id="clV-wT-t5G" customClass="MainViewController" customModule="VkRemoverIOS" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
                         <segue destination="wYF-N9-Wkp" kind="relationship" relationship="masterViewController" id="L55-JO-xxX"/>
-                        <segue destination="y5U-k2-Jpn" kind="relationship" relationship="detailViewController" id="uL5-fe-EsY"/>
+                        <segue destination="mUv-1Z-vgF" kind="relationship" relationship="detailViewController" id="w4L-fH-sCa"/>
                     </connections>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NMS-tR-tmp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -86,14 +86,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellReuseIdentifier" id="me5-YF-jjW" customClass="RequestTableCell" customModule="VkRemoverIOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="me5-YF-jjW" id="SHg-11-7oz" customClass="Reqe">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nT5-NR-oWx">
-                                                    <rect key="frame" x="60" y="11" width="295" height="21.5"/>
+                                                    <rect key="frame" x="60" y="11" width="295" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="295" id="Xdl-Se-93f"/>
                                                     </constraints>
@@ -381,12 +381,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="smh-bS-rv1">
-                                <rect key="frame" x="38" y="53" width="93" height="89"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qak-DC-Xmt">
-                                <rect key="frame" x="16" y="185" width="343" height="32"/>
+                                <rect key="frame" x="174" y="186" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Ban"/>
                             </button>
@@ -396,16 +392,21 @@
                                 <state key="normal" title="Unfriend"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="User Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ERd-zZ-b5X">
-                                <rect key="frame" x="186" y="87" width="86" height="21"/>
+                                <rect key="frame" x="125" y="87" width="101" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="smh-bS-rv1">
+                                <rect key="frame" x="16" y="68" width="93" height="89"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="jby-9o-DFQ"/>
                     </view>
+                    <navigationItem key="navigationItem" id="9HB-wF-GIs"/>
                     <connections>
                         <outlet property="avatarImage" destination="smh-bS-rv1" id="V5P-GM-DDF"/>
                         <outlet property="banButton" destination="Qak-DC-Xmt" id="RqO-I3-EnC"/>
@@ -415,7 +416,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0uQ-XA-ffw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="412" y="-842"/>
+            <point key="canvasLocation" x="812" y="-1152.7736131934034"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Za9-fO-dNG">
+            <objects>
+                <navigationController storyboardIdentifier="detailPageNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="mUv-1Z-vgF" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vnk-2Z-70H">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="y5U-k2-Jpn" kind="relationship" relationship="rootViewController" id="dad-n5-aND"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dck-mH-A5p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-127.2" y="-1152.7736131934034"/>
         </scene>
     </scenes>
     <resources>

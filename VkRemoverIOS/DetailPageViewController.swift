@@ -15,9 +15,15 @@ class DetailPageViewController:UIViewController {
     @IBOutlet weak var banButton: UIButton!
     @IBOutlet weak var cancelRequestButton: UIButton!
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "User"
         
+        avatarImage.backgroundColor = UIColor.systemGray
+        avatarImage.layer.cornerRadius = 20
+        avatarImage.layer.masksToBounds = true
     }
     
 }

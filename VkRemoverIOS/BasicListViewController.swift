@@ -104,7 +104,7 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate,
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let splitViewControllerParent = self.parent?.parent as? UISplitViewController
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "detailPage")
+        let vc = storyboard.instantiateViewController(withIdentifier: "detailPageNavigationController")
         splitViewControllerParent?.showDetailViewController(vc, sender: nil)
     }
     
