@@ -381,36 +381,44 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qak-DC-Xmt">
-                                <rect key="frame" x="174" y="186" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Ban"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zub-az-OXt">
-                                <rect key="frame" x="16" y="245" width="343" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Unfriend"/>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="User Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ERd-zZ-b5X">
-                                <rect key="frame" x="125" y="87" width="101" height="23"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ERd-zZ-b5X">
+                                <rect key="frame" x="148" y="68" width="101" height="23"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="smh-bS-rv1">
-                                <rect key="frame" x="16" y="68" width="93" height="89"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="smh-bS-rv1">
+                                <rect key="frame" x="24" y="68" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="E8x-aE-IiZ"/>
+                                    <constraint firstAttribute="height" constant="100" id="x9W-39-NS7"/>
+                                </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="35i-zu-z8w">
+                                <rect key="frame" x="0.0" y="227" width="375" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zmf-BH-Ni2">
+                                <rect key="frame" x="164" y="272" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="smh-bS-rv1" firstAttribute="top" secondItem="jby-9o-DFQ" secondAttribute="top" constant="24" id="I7D-1F-0XW"/>
+                            <constraint firstItem="ERd-zZ-b5X" firstAttribute="leading" secondItem="smh-bS-rv1" secondAttribute="trailing" constant="24" id="dvH-xb-hvL"/>
+                            <constraint firstItem="ERd-zZ-b5X" firstAttribute="top" secondItem="jby-9o-DFQ" secondAttribute="top" constant="24" id="sIM-MV-kHQ"/>
+                            <constraint firstItem="smh-bS-rv1" firstAttribute="leading" secondItem="jby-9o-DFQ" secondAttribute="leading" constant="24" id="wbT-jX-2gV"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="jby-9o-DFQ"/>
                     </view>
                     <navigationItem key="navigationItem" id="9HB-wF-GIs"/>
                     <connections>
                         <outlet property="avatarImage" destination="smh-bS-rv1" id="V5P-GM-DDF"/>
-                        <outlet property="banButton" destination="Qak-DC-Xmt" id="RqO-I3-EnC"/>
-                        <outlet property="cancelRequestButton" destination="Zub-az-OXt" id="64V-j2-tVz"/>
+                        <outlet property="banButton" destination="35i-zu-z8w" id="PHG-hm-wrZ"/>
+                        <outlet property="cancelRequestButton" destination="Zmf-BH-Ni2" id="pjD-xA-N0R"/>
                         <outlet property="userName" destination="ERd-zZ-b5X" id="Mf7-xl-qz3"/>
                     </connections>
                 </viewController>
