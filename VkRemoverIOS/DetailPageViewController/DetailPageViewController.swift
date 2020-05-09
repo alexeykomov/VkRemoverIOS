@@ -8,65 +8,90 @@
 
 import Foundation
 
-class DetailPageViewController:UIViewController, UITableViewDataSource {
-    var data:[ButtonEntry] = [
-        ButtonEntry(title: "Ban"), ButtonEntry(title: "Cancel request")
-    ]
+class DetailPageViewController:UITableViewController {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
-    }
+    var requestEntry: RequestEntry = RequestEntry(userId: 0, photoForList: "", firstName: "", lastName: "")
+    var avatarImage:UIImage? = nil
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "buttonCellIdentifier") as! ButtonCell
-        
-        cell.button.setTitle("Ban", for: .normal)
-        
-        return cell
-    }
-    
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
-    
-    @IBOutlet weak var avatarImage: UIImageView!
-    @IBOutlet weak var userName: UILabel!
-    @IBOutlet weak var banButton: UIButton!
-    @IBOutlet weak var cancelRequestButton: UIButton!
-    @IBOutlet weak var table: UITableView!
-    
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        title = "User"
-        
-        if #available(iOS 13.0, *) {
-            avatarImage.backgroundColor = UIColor.systemGray3
-        } else {
-            avatarImage.backgroundColor = UIColor.init(red: 192/255.0,
-                                                       green: 199/255.0,
-                                                       blue: 203/255.0,
-                                                       alpha: 0)
-        }
-        avatarImage.layer.cornerRadius = avatarImage.layer.frame.width / 2.0
-        avatarImage.layer.masksToBounds = true
 
-        banButton.layer.borderWidth = 1
-        if #available(iOS 13.0, *) {
-            banButton.layer.borderColor = UIColor.systemGray3.cgColor
-        } else {
-            banButton.layer.borderColor = UIColor.init(red: 192/255.0,
-                                                       green: 199/255.0,
-                                                       blue: 203/255.0,
-                                                       alpha: 0).cgColor
-        }
-        
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
         
     }
+    override func viewDidLoad() {
+        tableView.tableFooterView = UIView(frame: .zero)
+        tableView.sectionHeaderHeight = 20
+        
+        tableView.backgroundColor = UIColor(red: 241/255.0, green: 242/255.0, blue: 246/255.0, alpha: 1)
+        
+        title = "id" + String(requestEntry.userId)
+        
+        parent?.navigationItem.rightBarButtonItem?.title = "Done"
+        
+        //tableView.register(AvatarTableCell.self, forCellReuseIdentifier: "avatarCellIdentifier")
+        //tableView.register(ButtonCell.self, forCellReuseIdentifier: "buttonCellIdentifier")
+        
+    }
+
     
+    override func viewWillAppear(_ animated: Bool) {
+        print(requestEntry)
+        loadImage(aURL: requestEntry.photoForList, size: .detailed, onSuccess: { image in
+            self.avatarImage = image
+            let cell = self.tableView.cellForRow(at: IndexPath.init(row: 1, section: 0))
+            let avatarCell = cell as? AvatarTableCell
+            avatarCell?.avatarImage.image = image
+            avatarCell?.reloadInputViews()
+        })
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (indexPath.row == 1) {
+            return 300
+        }
+        if (indexPath.row == 0 || indexPath.row == 2) {
+            return 35
+        }
+        return 44
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0 || indexPath.row == 2) {
+            let view = tableView.dequeueReusableCell(withIdentifier: "spacerCellIdentifier") as! SpacerTableCell
+            view.backgroundColor = UIColor(red: 241/255.0, green: 242/255.0, blue: 246/255.0, alpha: 1)
+            view.selectionStyle = .none
+            return view
+        }
+        
+        
+        if (indexPath.row == 1) {
+            let view = tableView.dequeueReusableCell(withIdentifier: "avatarCellIdentifier") as! AvatarTableCell
+            
+            view.avatarImage.layer.cornerRadius = view.avatarImage.frame.width / 2.0
+            view.avatarImage.backgroundColor = .gray
+            view.selectionStyle = .none
+            
+            guard let avatarImage = self.avatarImage else {
+                return view
+            }
+            print("avatarImage: \(avatarImage)")
+            view.avatarImage.image = avatarImage
+            return view
+        }
+        
+        let view = tableView.dequeueReusableCell(withIdentifier: "buttonCellIdentifier") as! ButtonTableCell
+        view.selectionStyle = .default
+        if (indexPath.row == 3) {
+            view.actionLabel.text = "Ban"
+        }
+        if (indexPath.row == 4) {
+            view.actionLabel.text = "Cancel Request"
+        }
+        return view
+    }
 }
 
 struct ButtonEntry {
