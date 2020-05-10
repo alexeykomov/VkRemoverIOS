@@ -242,16 +242,17 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate,
     }
     
     func startWorking() {
-        var photoParamName = "photo_50"
+        var photoParamName:[String] = []
         switch gScaleFactor.value {
-        case 1.0:photoParamName = "photo_50"
-        case 1.0...2.0:photoParamName = "photo_100"
-        case 2.0...3.0:photoParamName = "photo_200"
+        case 1.0:photoParamName.append("photo_50")
+                photoParamName.append("photo_100")
+        case 1.0...3.0:photoParamName.append("photo_100")
+            photoParamName.append("photo_200_orig")
         default: break
         }
         print("photoParamName: \(photoParamName)")
         let requestParams: [String:Any] = ["count":1000, "offset": 0, "out": 1,
-        "extended": 1, "fields": photoParamName]
+                                           "extended": 1, "fields": photoParamName.joined(separator: ",")]
         
         VKRequest.init(method: getVKMethodName(),
                        parameters:requestParams).execute(

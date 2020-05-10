@@ -44,7 +44,11 @@ func resizeImage(_ aImage: UIImage?, toSize: CGSize) -> UIImage? {
         return nil
     }
     if (image.size.width > toSize.width || image.size.height > toSize.height) {
-        let targetSize = toSize
+        let aspectRatio = image.size.height / image.size.width
+        let targetHeight = toSize.width * aspectRatio
+        
+        let targetSize = CGSize(width: toSize.width, height: targetHeight)
+            
         UIGraphicsBeginImageContextWithOptions(targetSize, !SDImageCoderHelper.cgImageContainsAlpha(cgImage), 0.0)
         image.draw(in: CGRect(origin: .zero, size: targetSize))
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
