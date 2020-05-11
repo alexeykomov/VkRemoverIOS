@@ -36,10 +36,10 @@ class DetailPageViewController:UITableViewController {
         tabBarController?.presentingViewController is UITabBarController
         print("insideModal: \(insideModal)")
         if (insideModal) {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done",
-            style: .done,
-            target: self,
-            action: #selector(addTapped))
+            navigationItem.rightBarButtonItem = UIBarButtonItem.init(
+                barButtonSystemItem: .done,
+                target: self,
+                action: #selector(addTapped))
         }
         
         //tableView.register(AvatarTableCell.self, forCellReuseIdentifier: "avatarCellIdentifier")
@@ -66,17 +66,15 @@ class DetailPageViewController:UITableViewController {
             guard let avatarCell = cell as? AvatarTableCell else {
                 return
             }
-           
+                       
             self.imageHeight = image.size.height
             var frame = avatarCell.avatarImage.frame
             frame.size.height = self.imageHeight
             avatarCell.avatarImage.frame = frame
-            
-            self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
             avatarCell.userName.text = self.requestEntry.firstName + " " + self.requestEntry.lastName
             avatarCell.avatarImage.image = image
-            avatarCell.reloadInputViews()
             
+            self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
         })
         let cell = self.tableView.cellForRow(at: IndexPath.init(row: 1, section: 0))
         let avatarCell = cell as? AvatarTableCell
@@ -115,7 +113,10 @@ class DetailPageViewController:UITableViewController {
                 return view
             }
             print("avatarImage: \(avatarImage)")
-            //view.avatarImage.image = avatarImage
+            view.avatarImage.image = avatarImage
+            
+            view.userName.text = self.requestEntry.firstName + " " + self.requestEntry.lastName
+            
             return view
         }
         
