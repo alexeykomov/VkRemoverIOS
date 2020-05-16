@@ -42,6 +42,8 @@ class DetailPageViewController:UITableViewController {
                 action: #selector(addTapped))
         }
         
+        
+        
         //tableView.register(AvatarTableCell.self, forCellReuseIdentifier: "avatarCellIdentifier")
         //tableView.register(ButtonCell.self, forCellReuseIdentifier: "buttonCellIdentifier")
         
@@ -61,33 +63,41 @@ class DetailPageViewController:UITableViewController {
         
         
         loadImage(aURL: requestEntry.photoForDetailedView, size: .detailed, onSuccess: { image in
-            self.avatarImage = image
             let cell = self.tableView.cellForRow(at: IndexPath.init(row: 1, section: 0))
             guard let avatarCell = cell as? AvatarTableCell else {
                 return
             }
-                       
-            self.imageHeight = image.size.height
-            var frame = avatarCell.avatarImage.frame
-            frame.size.height = self.imageHeight
-            avatarCell.avatarImage.frame = frame
-            avatarCell.userName.text = self.requestEntry.firstName + " " + self.requestEntry.lastName
+            
+            avatarCell.avatarImage.backgroundColor = .clear
             avatarCell.avatarImage.image = image
             
-            self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
+            //avatarCell.avatarImage.contentMode = .topLeft
+            //avatarCell.avatarImage.clipsToBounds = true
         })
+        
         let cell = self.tableView.cellForRow(at: IndexPath.init(row: 1, section: 0))
-        let avatarCell = cell as? AvatarTableCell
-        avatarCell?.userName.text = requestEntry.firstName + " " + requestEntry.lastName
-        avatarCell?.reloadInputViews()
+        guard let avatarCell = cell as? AvatarTableCell else {
+            return
+        }
+        
+        avatarCell.avatarImage.backgroundColor = .clear
+
+        var frame = avatarCell.avatarImage.frame
+        avatarCell.avatarImage.frame = CGRect(x: frame.minX, y: frame.minY, width: 100, height: 100)
+        //avatarCell.userName.text = self.requestEntry.firstName + " " + self.requestEntry.lastName
+        
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (indexPath.row == 1) {
-            return imageHeight + 2 * 12
+            return UITableView.automaticDimension
         }
-        if (indexPath.row == 0 || indexPath.row == 2) {
-            return 35
+        return 44
+    }
+    
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (indexPath.row == 1) {
+            return 100
         }
         return 44
     }
@@ -115,7 +125,7 @@ class DetailPageViewController:UITableViewController {
             print("avatarImage: \(avatarImage)")
             view.avatarImage.image = avatarImage
             
-            view.userName.text = self.requestEntry.firstName + " " + self.requestEntry.lastName
+            //view.userName.text = self.requestEntry.firstName + " " + self.requestEntry.lastName
             
             return view
         }

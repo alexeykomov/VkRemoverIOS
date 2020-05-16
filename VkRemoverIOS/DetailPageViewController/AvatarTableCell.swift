@@ -10,6 +10,5 @@ import Foundation
 
 class AvatarTableCell: UITableViewCell {
     @IBOutlet weak var avatarImage: UIImageView!
-    @IBOutlet weak var userName: UILabel!
     
 }
