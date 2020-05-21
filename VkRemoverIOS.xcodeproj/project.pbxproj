@@ -36,13 +36,14 @@
 		5A4248E8236D964A00223AB0 /* RequestsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4248E7236D964A00223AB0 /* RequestsTableDataSource.swift */; };
 		5A4248EA236DC7A200223AB0 /* RequestTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4248E9236DC7A000223AB0 /* RequestTableCell.swift */; };
 		5A4248EC236EDB3400223AB0 /* InitialTabsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4248EB236EDB3300223AB0 /* InitialTabsViewController.swift */; };
+		5A63BFC22471624600BF5B1A /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A63BFC12471624600BF5B1A /* ButtonTableViewCell.swift */; };
+		5A63BFC52474646300BF5B1A /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A63BFC42474646300BF5B1A /* MainModel.swift */; };
 		5A740D3A245244C60012C8AE /* BGTaskPerformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A740D39245244C60012C8AE /* BGTaskPerformerTests.swift */; };
 		5A7B54232466EFC400B3A420 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7B54222466EFC400B3A420 /* Downloader.swift */; };
 		5A8EE69523CA0705006EE05B /* BasicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EE69423CA0704006EE05B /* BasicListViewController.swift */; };
 		5A91895323E6EBB0005FB5CB /* ScaleFactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91895223E6EBAE005FB5CB /* ScaleFactor.swift */; };
 		5A91895523E71618005FB5CB /* ImageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91895423E71618005FB5CB /* ImageTransformer.swift */; };
 		5A91FC262465FF2B00FB09C9 /* AvatarTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91FC252465FF2B00FB09C9 /* AvatarTableCell.swift */; };
-		5A91FC282465FF7A00FB09C9 /* ButtonTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91FC272465FF7A00FB09C9 /* ButtonTableCell.swift */; };
 		5A91FC2C2466DDEF00FB09C9 /* SpacerTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91FC2B2466DDEF00FB09C9 /* SpacerTableCell.swift */; };
 		5A91FC2E2466DEBD00FB09C9 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91FC2D2466DEBD00FB09C9 /* Colors.swift */; };
 		5A9F0EE9245E07010042DDB8 /* DetailPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9F0EE8245E07010042DDB8 /* DetailPageViewController.swift */; };
@@ -107,13 +108,14 @@
 		5A4248E7236D964A00223AB0 /* RequestsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsTableDataSource.swift; sourceTree = "<group>"; };
 		5A4248E9236DC7A000223AB0 /* RequestTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTableCell.swift; sourceTree = "<group>"; };
 		5A4248EB236EDB3300223AB0 /* InitialTabsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialTabsViewController.swift; sourceTree = "<group>"; };
+		5A63BFC12471624600BF5B1A /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
+		5A63BFC42474646300BF5B1A /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		5A740D39245244C60012C8AE /* BGTaskPerformerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BGTaskPerformerTests.swift; sourceTree = "<group>"; };
 		5A7B54222466EFC400B3A420 /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		5A8EE69423CA0704006EE05B /* BasicListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicListViewController.swift; sourceTree = "<group>"; };
 		5A91895223E6EBAE005FB5CB /* ScaleFactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleFactor.swift; sourceTree = "<group>"; };
 		5A91895423E71618005FB5CB /* ImageTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTransformer.swift; sourceTree = "<group>"; };
 		5A91FC252465FF2B00FB09C9 /* AvatarTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarTableCell.swift; sourceTree = "<group>"; };
-		5A91FC272465FF7A00FB09C9 /* ButtonTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableCell.swift; sourceTree = "<group>"; };
 		5A91FC2B2466DDEF00FB09C9 /* SpacerTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacerTableCell.swift; sourceTree = "<group>"; };
 		5A91FC2D2466DEBD00FB09C9 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		5A9F0EE8245E07010042DDB8 /* DetailPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPageViewController.swift; sourceTree = "<group>"; };
@@ -167,8 +169,8 @@
 				5A9F0EE8245E07010042DDB8 /* DetailPageViewController.swift */,
 				5A91FC2D2466DEBD00FB09C9 /* Colors.swift */,
 				5A91FC252465FF2B00FB09C9 /* AvatarTableCell.swift */,
-				5A91FC272465FF7A00FB09C9 /* ButtonTableCell.swift */,
 				5A91FC2B2466DDEF00FB09C9 /* SpacerTableCell.swift */,
+				5A63BFC12471624600BF5B1A /* ButtonTableViewCell.swift */,
 			);
 			path = DetailPageViewController;
 			sourceTree = "<group>";
@@ -237,7 +239,7 @@
 				5A3D1ACF24546AE90018AA0C /* BGTaskPerformer */,
 				5A3D1AC7245460C30018AA0C /* RequestsTableDataSource */,
 				5A3D1AD92454856E0018AA0C /* HelloScreenViewController.swift */,
-				5A20A3B82460A5760012807A /* MainViewController.swift */,
+				5A63BFC32474644800BF5B1A /* MainViewController */,
 				5A24710124635D6B00B10827 /* DetailPageViewController */,
 				5A8EE69423CA0704006EE05B /* BasicListViewController.swift */,
 				5A3FCF9A2365A72700203C0E /* RequestsViewController.swift */,
@@ -278,6 +280,15 @@
 				5A3FCFBA2365A72A00203C0E /* Info.plist */,
 			);
 			path = VkRemoverIOSUITests;
+			sourceTree = "<group>";
+		};
+		5A63BFC32474644800BF5B1A /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5A20A3B82460A5760012807A /* MainViewController.swift */,
+				5A63BFC42474646300BF5B1A /* MainModel.swift */,
+			);
+			path = MainViewController;
 			sourceTree = "<group>";
 		};
 		5A7B54212466EF9100B3A420 /* Image */ = {
@@ -581,6 +592,7 @@
 				5A3D1ADA2454856E0018AA0C /* HelloScreenViewController.swift in Sources */,
 				5A91895523E71618005FB5CB /* ImageTransformer.swift in Sources */,
 				5A7B54232466EFC400B3A420 /* Downloader.swift in Sources */,
+				5A63BFC22471624600BF5B1A /* ButtonTableViewCell.swift in Sources */,
 				5A4248E32365B9CE00223AB0 /* Empty.swift in Sources */,
 				5A91895323E6EBB0005FB5CB /* ScaleFactor.swift in Sources */,
 				5A8EE69523CA0705006EE05B /* BasicListViewController.swift in Sources */,
@@ -596,12 +608,12 @@
 				5A3D1AD124546AFC0018AA0C /* BGTaskPerformerUtils.swift in Sources */,
 				5A3D1AD424546BDE0018AA0C /* BGTaskPerformerConstants.swift in Sources */,
 				5A91FC2E2466DEBD00FB09C9 /* Colors.swift in Sources */,
+				5A63BFC52474646300BF5B1A /* MainModel.swift in Sources */,
 				5A4248EA236DC7A200223AB0 /* RequestTableCell.swift in Sources */,
 				5A91FC2C2466DDEF00FB09C9 /* SpacerTableCell.swift in Sources */,
 				5A91FC262465FF2B00FB09C9 /* AvatarTableCell.swift in Sources */,
 				5AF5314B23B754A9008D01E4 /* HelloViewController.swift in Sources */,
 				5AB198B323BF835000542E62 /* Storage.swift in Sources */,
-				5A91FC282465FF7A00FB09C9 /* ButtonTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

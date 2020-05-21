@@ -86,14 +86,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellReuseIdentifier" id="me5-YF-jjW" customClass="RequestTableCell" customModule="VkRemoverIOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="43"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="me5-YF-jjW" id="SHg-11-7oz" customClass="Reqe">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nT5-NR-oWx">
-                                                    <rect key="frame" x="60" y="11" width="295" height="21"/>
+                                                    <rect key="frame" x="60" y="11" width="295" height="21.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="295" id="Xdl-Se-93f"/>
                                                     </constraints>
@@ -186,14 +186,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellReuseIdentifier" id="k5a-1h-dRu" customClass="RequestTableCell" customModule="VkRemoverIOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="k5a-1h-dRu" id="oyC-u3-bd1" customClass="Reqe">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CdL-nI-FCO">
-                                                    <rect key="frame" x="60" y="11" width="295" height="21.5"/>
+                                                    <rect key="frame" x="60" y="11" width="295" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="295" id="Jeb-ix-abR"/>
                                                     </constraints>
@@ -286,14 +286,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellReuseIdentifier" id="eOf-k3-vTb" customClass="RequestTableCell" customModule="VkRemoverIOS" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="43"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eOf-k3-vTb" id="Lxp-bu-FjX" customClass="Reqe">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xtk-yn-iuN">
-                                                    <rect key="frame" x="60" y="11" width="295" height="21"/>
+                                                    <rect key="frame" x="60" y="11" width="295" height="21.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="295" id="QNX-kd-WZI"/>
                                                     </constraints>
@@ -395,12 +395,13 @@
         <scene sceneID="Sad-Z7-ufI">
             <objects>
                 <tableViewController id="DaE-E2-k6L" customClass="DetailPageViewController" customModule="VkRemoverIOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="2" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="s08-Tz-ARh">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" sectionIndexMinimumDisplayRowCount="2" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="s08-Tz-ARh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="avatarCellIdentifier" rowHeight="261" id="cGt-al-Lrl" customClass="AvatarTableCell" customModule="VkRemoverIOS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="261"/>
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="261"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cGt-al-Lrl" id="FIb-bQ-hGr">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="261"/>
@@ -409,49 +410,54 @@
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fl1-4Z-Cwr">
                                             <rect key="frame" x="12" y="12" width="100" height="237"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="100" id="FvD-Tf-YKQ"/>
+                                                <constraint firstAttribute="height" constant="100" id="CGT-Pa-RfA"/>
+                                                <constraint firstAttribute="width" constant="100" id="YRt-13-OB6"/>
                                             </constraints>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEC-0p-cya">
+                                            <rect key="frame" x="136" y="12" width="191" height="21"/>
+                                            <string key="text">User Name User NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser NameUser Name</string>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="Fl1-4Z-Cwr" secondAttribute="bottom" constant="12" id="7wm-sC-xzj"/>
+                                        <constraint firstAttribute="trailing" secondItem="eEC-0p-cya" secondAttribute="trailing" constant="12" id="9IT-dd-us3"/>
+                                        <constraint firstItem="eEC-0p-cya" firstAttribute="leading" secondItem="Fl1-4Z-Cwr" secondAttribute="trailing" constant="12" id="Wxv-76-LWK"/>
+                                        <constraint firstItem="eEC-0p-cya" firstAttribute="height" relation="lessThanOrEqual" secondItem="Fl1-4Z-Cwr" secondAttribute="height" id="bLj-IS-SQl"/>
                                         <constraint firstItem="Fl1-4Z-Cwr" firstAttribute="top" secondItem="FIb-bQ-hGr" secondAttribute="top" constant="12" id="dDd-v1-qkP"/>
                                         <constraint firstItem="Fl1-4Z-Cwr" firstAttribute="leading" secondItem="FIb-bQ-hGr" secondAttribute="leading" constant="12" id="eKq-KR-YGL"/>
+                                        <constraint firstItem="eEC-0p-cya" firstAttribute="top" secondItem="Fl1-4Z-Cwr" secondAttribute="top" id="eLK-ln-oxm"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="avatarImage" destination="Fl1-4Z-Cwr" id="2lR-VP-J35"/>
+                                    <outlet property="userName" destination="eEC-0p-cya" id="aa3-FO-Szo"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="spacerCellIdentifier" rowHeight="78" id="0EI-kb-rWA" customClass="SpacerTableCell" customModule="VkRemoverIOS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="289" width="375" height="78"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="buttonCellIdentifier" rowHeight="261" id="P4b-Gx-mUP" customClass="ButtonTableViewCell" customModule="VkRemoverIOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="316.5" width="375" height="261"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0EI-kb-rWA" id="0bf-F4-pdK">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="78"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="buttonCellIdentifier" rowHeight="148" id="3g8-Qp-tfM" customClass="ButtonTableCell" customModule="VkRemoverIOS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="367" width="375" height="148"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3g8-Qp-tfM" id="hVT-UK-AUs">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="148"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="P4b-Gx-mUP" id="tvi-hR-dGd">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="261"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="seE-lj-Jse">
-                                            <rect key="frame" x="166.5" y="63.5" width="42" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Ban" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9D4-36-Ft2">
+                                            <rect key="frame" x="166" y="120" width="30" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="seE-lj-Jse" firstAttribute="centerY" secondItem="hVT-UK-AUs" secondAttribute="centerY" id="bTW-xj-zyY"/>
-                                        <constraint firstItem="seE-lj-Jse" firstAttribute="centerX" secondItem="hVT-UK-AUs" secondAttribute="centerX" id="j7t-n1-9tL"/>
+                                        <constraint firstItem="9D4-36-Ft2" firstAttribute="centerX" secondItem="tvi-hR-dGd" secondAttribute="centerX" id="Alz-mL-hnR"/>
+                                        <constraint firstItem="9D4-36-Ft2" firstAttribute="centerY" secondItem="tvi-hR-dGd" secondAttribute="centerY" id="yEL-YA-73i"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="actionLabel" destination="seE-lj-Jse" id="v54-d0-n1b"/>
+                                    <outlet property="buttonLabel" destination="9D4-36-Ft2" id="XVQ-ld-KWr"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
