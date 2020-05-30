@@ -27,6 +27,7 @@ class DetailPageViewController:UITableViewController {
         return 2
         
     }
+    
     override func viewDidLoad() {
         print("viewDidLoad")
         
@@ -53,6 +54,49 @@ class DetailPageViewController:UITableViewController {
             MainModel.shared().addListener(opType: .friendsDelete, listener: onFriendsDelete)
         ])
         
+        self.refreshControl = UIRefreshControl()
+        guard let refreshControl = self.refreshControl else {
+            return
+        }
+        
+        if #available(iOS 10.0, *) {
+           tableView.refreshControl = refreshControl
+        } else {
+           tableView.addSubview(refreshControl)
+        }
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)),
+                                for: .valueChanged)
+        
+    }
+    
+    @objc func refreshData(_ sender: Any) {
+        VKRequest.init(method: "users.get",
+                       parameters:[
+                        "user_ids": requestEntry.userId,
+                        "fields": ["friend_status", "blacklisted_by_me",
+                                   "photo_200_orig"]
+                            .joined(separator: ",")
+                        ]).execute(
+        resultBlock: { response in
+            guard let dicts = response?.json as? [Dictionary<String, Any>] else {
+                return
+            }
+            var items = mapUserGetResponses(dicts)
+            guard let user = items.popLast() else {
+                return
+            }
+            guard let prevItem = self.dataSource.popLast() else {
+                return
+            }
+            self.dataSource.append(
+                DetailPageItem(title: "\(user.firstName) \(user.lastName)",
+                                image: prevItem.image))
+            self.loadAvatar(url: user.photo200Orig, onComplete: {
+                self.refreshControl?.endRefreshing()
+            })
+        }, errorBlock: { error in
+            self.refreshControl?.endRefreshing()
+        })
     }
     
     override func didReceiveMemoryWarning() {
@@ -63,30 +107,46 @@ class DetailPageViewController:UITableViewController {
         guard user.userId == requestEntry.userId else {
             return
         }
-        updateBanLabel() 
-    }
-    
-    func updateBanLabel() {
-        let cell = self.tableView.cellForRow(at: IndexPath.init(row: 0, section: 1))
+        let cell = self.tableView.cellForRow(at: IndexPath.init(row: 0, section: 0))
         guard let buttonCell = cell as? ButtonTableViewCell else {
             return
         }
-        let isBanned = MainModel.shared().isBanned(user: requestEntry)
-        buttonCell.buttonLabel.text = isBanned ? "Unban" : "Ban"
+        updateBanLabel(buttonCell)
     }
     
     func onFriendsDelete(_ user: RequestEntry) {
+        guard user.userId == requestEntry.userId else {
+            return
+        }
+        let cell = self.tableView.cellForRow(at: IndexPath.init(row: 1, section: 0))
+        guard let buttonCell = cell as? ButtonTableViewCell else {
+            return
+        }
+        updateCancelLabel(buttonCell)
+    }
+    
+    func updateBanLabel(_ buttonCell: ButtonTableViewCell) {
+        let banned = MainModel.shared().isBanned(user: requestEntry)
+        let unbanned = MainModel.shared().isBanned(user: requestEntry)
+        buttonCell.buttonLabel.text = banned ? "Unban" : "Ban"
         
+        let interactable = banned || unbanned
+        buttonCell.isUserInteractionEnabled = interactable
+        buttonCell.buttonLabel.isEnabled = interactable
+    }
+    
+    func updateCancelLabel(_ buttonCell: ButtonTableViewCell) {
+        let requested = MainModel.shared().isRequested(user: requestEntry)
+        buttonCell.isUserInteractionEnabled = requested
+        buttonCell.buttonLabel.isEnabled = requested
     }
 
     @objc func addTapped() {
         dismiss(animated: true, completion: {})
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        print("requestEntry: \(requestEntry)")
-        
-        loadImage(aURL: requestEntry.photoForDetailedView, size: .detailed, onSuccess: { image in
+    private func loadAvatar(url: String, onComplete: @escaping () -> Void) {
+        loadImage(aURL: url, size: .detailed, onSuccess: { image in
             let cell = self.tableView.cellForRow(at: IndexPath.init(row: 0, section: 0))
             guard let avatarCell = cell as? AvatarTableCell else {
                 return
@@ -99,12 +159,19 @@ class DetailPageViewController:UITableViewController {
             }
             
             avatarCell.avatarImage.image = image
-            
-
             print("image.size: \(image.size)")
-            
-            self.dataSource[0] = DetailPageItem(title: "", image: image)
+            guard let prevItem = self.dataSource.popLast() else {
+                return
+            }
+            self.dataSource.append(DetailPageItem(title: prevItem.title, image: image))
+            onComplete()
         })
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("requestEntry: \(requestEntry)")
+        
+        loadAvatar(url: requestEntry.photoForDetailedView, onComplete: {})
         
         let cell = self.tableView.cellForRow(at: IndexPath.init(row: 0, section: 0))
         guard let avatarCell = cell as? AvatarTableCell else {
@@ -115,12 +182,15 @@ class DetailPageViewController:UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = self.tableView.cellForRow(at: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
         
         if (indexPath.section == 1 && indexPath.row == 0) {
             let isBanned = MainModel.shared().isBanned(user: requestEntry)
-            MainModel.shared().ban(user: requestEntry, ban: !isBanned)
+            if (isBanned) {
+                MainModel.shared().ban(user: requestEntry)
+            } else {
+                MainModel.shared().unban(user: requestEntry)
+            }
         }
         if (indexPath.section == 1 && indexPath.row == 1) {
             let isRequested = MainModel.shared().isRequested(user: requestEntry)
@@ -132,42 +202,34 @@ class DetailPageViewController:UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0 && indexPath.section == 0) {
-            let view = tableView.dequeueReusableCell(withIdentifier: "avatarCellIdentifier") as! AvatarTableCell
-            
-            view.avatarImage.layer.cornerRadius = view.avatarImage.frame.width / 2.0
-            view.avatarImage.layer.masksToBounds = true
+            let avatarCell = tableView.dequeueReusableCell(withIdentifier: "avatarCellIdentifier") as! AvatarTableCell
+            avatarCell.avatarImage.layer.cornerRadius = avatarCell.avatarImage.frame.width / 2.0
+            avatarCell.avatarImage.layer.masksToBounds = true
             if #available(iOS 13.0, *) {
-                view.avatarImage.backgroundColor = .systemGray3
+                avatarCell.avatarImage.backgroundColor = .systemGray3
             } else {
-                view.avatarImage.backgroundColor = UIColor.init(red: 198/255.0, green: 199/255.0, blue:203/255.0, alpha:1)
+                avatarCell.avatarImage.backgroundColor = UIColor.init(red: 198/255.0, green: 199/255.0, blue:203/255.0, alpha:1)
             }
             
-            view.avatarImage.contentMode = .topLeft
+            avatarCell.avatarImage.contentMode = .topLeft
             
-            
-            view.selectionStyle = .none
-            
+            avatarCell.selectionStyle = .none
             guard let image = dataSource[indexPath.row].image else {
-                return view
+                return avatarCell
             }
-            
-            view.avatarImage.image = image
-            
-            view.userName.text = self.requestEntry.firstName + " " + self.requestEntry.lastName
-            
-            return view
+            avatarCell.avatarImage.image = image
+            avatarCell.userName.text = self.requestEntry.firstName + " " + self.requestEntry.lastName
+            return avatarCell
         }
         
         if (indexPath.section == 1) {
             let view = tableView.dequeueReusableCell(withIdentifier: "buttonCellIdentifier") as! ButtonTableViewCell
             if (indexPath.row == 0) {
-                let isBanned = MainModel.shared().isBanned(user: requestEntry)
-                view.buttonLabel.text = isBanned ? "Unban" : "Ban"
+                updateBanLabel(view)
             }
             if (indexPath.row == 1) {
-                let isRequested = MainModel.shared().isRequested(user: requestEntry)
                 view.buttonLabel.text = "Cancel Request"
-                view.isHidden = !isRequested
+                updateCancelLabel(view)
             }
             return view
         }

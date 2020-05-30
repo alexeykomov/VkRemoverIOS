@@ -38,6 +38,7 @@
 		5A4248EC236EDB3400223AB0 /* InitialTabsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4248EB236EDB3300223AB0 /* InitialTabsViewController.swift */; };
 		5A63BFC22471624600BF5B1A /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A63BFC12471624600BF5B1A /* ButtonTableViewCell.swift */; };
 		5A63BFC52474646300BF5B1A /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A63BFC42474646300BF5B1A /* MainModel.swift */; };
+		5A63BFC72479AC8900BF5B1A /* DetailPageViewControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A63BFC62479AC8900BF5B1A /* DetailPageViewControllerUtils.swift */; };
 		5A740D3A245244C60012C8AE /* BGTaskPerformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A740D39245244C60012C8AE /* BGTaskPerformerTests.swift */; };
 		5A7B54232466EFC400B3A420 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7B54222466EFC400B3A420 /* Downloader.swift */; };
 		5A8EE69523CA0705006EE05B /* BasicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EE69423CA0704006EE05B /* BasicListViewController.swift */; };
@@ -110,6 +111,7 @@
 		5A4248EB236EDB3300223AB0 /* InitialTabsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialTabsViewController.swift; sourceTree = "<group>"; };
 		5A63BFC12471624600BF5B1A /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 		5A63BFC42474646300BF5B1A /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
+		5A63BFC62479AC8900BF5B1A /* DetailPageViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPageViewControllerUtils.swift; sourceTree = "<group>"; };
 		5A740D39245244C60012C8AE /* BGTaskPerformerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BGTaskPerformerTests.swift; sourceTree = "<group>"; };
 		5A7B54222466EFC400B3A420 /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		5A8EE69423CA0704006EE05B /* BasicListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicListViewController.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				5A91FC252465FF2B00FB09C9 /* AvatarTableCell.swift */,
 				5A91FC2B2466DDEF00FB09C9 /* SpacerTableCell.swift */,
 				5A63BFC12471624600BF5B1A /* ButtonTableViewCell.swift */,
+				5A63BFC62479AC8900BF5B1A /* DetailPageViewControllerUtils.swift */,
 			);
 			path = DetailPageViewController;
 			sourceTree = "<group>";
@@ -605,6 +608,7 @@
 				5AF5314D23B76302008D01E4 /* RequestScheduler.swift in Sources */,
 				5A3D1AC624545DC70018AA0C /* SchedulerState.swift in Sources */,
 				5AD9378423D33AD5007879B0 /* BannedViewController.swift in Sources */,
+				5A63BFC72479AC8900BF5B1A /* DetailPageViewControllerUtils.swift in Sources */,
 				5A3D1AD124546AFC0018AA0C /* BGTaskPerformerUtils.swift in Sources */,
 				5A3D1AD424546BDE0018AA0C /* BGTaskPerformerConstants.swift in Sources */,
 				5A91FC2E2466DEBD00FB09C9 /* Colors.swift in Sources */,

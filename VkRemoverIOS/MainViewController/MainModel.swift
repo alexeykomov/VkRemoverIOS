@@ -25,14 +25,28 @@ class MainModel {
     var entries:Dictionary<OperationType, [Operation]> = [:]
     var listeners:Dictionary<OperationType, [String:(RequestEntry) -> Void]> = [:]
     
-    func ban(user: RequestEntry, ban: Bool) {
-        if (ban) {
-            entries[.accountBan] = entries[.accountBan]?.filter {o in o.user.userId != user.userId}
-            listeners[.accountBan]?.forEach({kv in kv.value(user)})
-            return
+    func ban(user: RequestEntry) {
+        entries[.accountBan] = entries[.accountBan]?.filter {o in o.user.userId != user.userId}
+        listeners[.accountBan]?.forEach({kv in kv.value(user)})
+        
+        var unbanned = entries[.accountUnban] ?? []
+        let unbanOperation = Operation(name: .accountUnban, paramName: .ownerId, user: user)
+        if !unbanned.contains(unbanOperation) {
+            unbanned.append(unbanOperation)
+            entries[.accountUnban] = unbanned
         }
+    }
+    
+    func unban(user: RequestEntry) {
         entries[.accountUnban] = entries[.accountUnban]?.filter {o in o.user.userId != user.userId}
         listeners[.accountUnban]?.forEach({kv in kv.value(user)})
+        
+        var banned = entries[.accountBan] ?? []
+        let banOperation = Operation(name: .accountBan, paramName: .ownerId, user: user)
+        if !banned.contains(banOperation) {
+            banned.append(banOperation)
+            entries[.accountBan] = banned
+        }
     }
     
     func cancelRequest(user: RequestEntry) {
@@ -40,7 +54,7 @@ class MainModel {
         listeners[.friendsDelete]?.forEach({kv in kv.value(user)})
     }
     
-    func addListener(opType: OperationType, listener: @escaping (RequestEntry) -> Void) -> () -> Void { 
+    func addListener(opType: OperationType, listener: @escaping (RequestEntry) -> Void) -> () -> Void {
         let uuid = UUID().uuidString
         listeners[opType]?[uuid] = listener
         return { self.removeListener(uuid: uuid) }
