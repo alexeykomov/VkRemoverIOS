@@ -8,17 +8,17 @@
 
 import Foundation
 
-func extractPhotoURL(_ item: Dictionary<String, Any>) -> [String] {
-    var photoUrls:[String] = []
-    if let field = item["photo_200_orig"] {
-        photoUrls.append(field as? String ?? "")
+func extractPhotoURL(_ item: Dictionary<String, Any>) -> String {
+    var photoForList = ""
+    if let field = item["photo_200"] {
+        photoForList = field as? String ?? ""
     }
     if let field = item["photo_100"] {
-        photoUrls.append(field as? String ?? "")
+        photoForList = field as? String ?? ""
     }
     if let field = item["photo_50"] {
-        photoUrls.append(field as? String ?? "")
+        photoForList = field as? String ?? ""
     }
-    return photoUrls
+    return photoForList
 }
 

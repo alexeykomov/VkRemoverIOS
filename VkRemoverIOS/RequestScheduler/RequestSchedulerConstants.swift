@@ -29,7 +29,7 @@ enum ParamName: String {
     case ownerId = "owner_id"
 }
 
-struct Operation: Hashable, Equatable { 
+struct Operation: Hashable {
     let name: OperationType
     let paramName: ParamName
     let user: RequestEntry
