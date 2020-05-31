@@ -9,7 +9,7 @@
 import Foundation
 import SDWebImage
 
-class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate, UITableViewDelegate {
+class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate {
     private let dataSource = RequestsTableDataSource()
     private var userIds = Set<Int>()
     var deleting = false
@@ -100,20 +100,6 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate,
             updateDeletionProcess(deleting: false)
         }
     }
-        
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let splitViewControllerParent = self.parent?.parent as? UISplitViewController
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "detailPageNavigationController") as! UINavigationController
-        guard let first = vc.children.first else {
-            return
-        }
-        guard let detailPageViewController = first as? DetailPageViewController else {
-            return
-        }
-        detailPageViewController.requestEntry = self.getDataSource().getData()[indexPath.row]
-        splitViewControllerParent?.showDetailViewController(vc, sender: nil)
-    }
     
     func removeFromDataAndTable(users: [RequestEntry]) {
         let indicesToDelete:[(Int, Int)] = users.reduce([], { res, user in
@@ -191,7 +177,6 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate,
         } else {
             getTableView().addSubview(refreshControl)
         }
-        getTableView().delegate = self;
         refreshControl.addTarget(self, action: #selector(refreshData(_:)),
                                  for: .valueChanged)
         
@@ -242,17 +227,16 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate,
     }
     
     func startWorking() {
-        var photoParamName:[String] = []
+        var photoParamName = "photo_50"
         switch gScaleFactor.value {
-        case 1.0:photoParamName.append("photo_50")
-                photoParamName.append("photo_100")
-        case 1.0...3.0:photoParamName.append("photo_100")
-            photoParamName.append("photo_200_orig")
+        case 1.0:photoParamName = "photo_50"
+        case 1.0...2.0:photoParamName = "photo_100"
+        case 2.0...3.0:photoParamName = "photo_200"
         default: break
         }
         print("photoParamName: \(photoParamName)")
         let requestParams: [String:Any] = ["count":1000, "offset": 0, "out": 1,
-                                           "extended": 1, "fields": photoParamName.joined(separator: ",")]
+        "extended": 1, "fields": photoParamName]
         
         VKRequest.init(method: getVKMethodName(),
                        parameters:requestParams).execute(
