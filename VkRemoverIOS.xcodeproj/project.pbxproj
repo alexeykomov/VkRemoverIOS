@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		45802CDC5D71051D0316200D /* libPods-VkRemoverIOSUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8718D1D33C2203C264F0BAF /* libPods-VkRemoverIOSUITests.a */; };
 		5A0AE05D24152801001D1CB7 /* BGTaskPerformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0AE05C24152801001D1CB7 /* BGTaskPerformer.swift */; };
+		5A20A3B92460A5760012807A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A20A3B82460A5760012807A /* MainViewController.swift */; };
 		5A3D1AC624545DC70018AA0C /* SchedulerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3D1AC524545DC70018AA0C /* SchedulerState.swift */; };
 		5A3D1AC9245460FD0018AA0C /* RequestEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3D1AC8245460FD0018AA0C /* RequestEntry.swift */; };
 		5A3D1ACA245462CA0018AA0C /* SchedulerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3D1AC524545DC70018AA0C /* SchedulerState.swift */; };
@@ -35,10 +36,18 @@
 		5A4248E8236D964A00223AB0 /* RequestsTableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4248E7236D964A00223AB0 /* RequestsTableDataSource.swift */; };
 		5A4248EA236DC7A200223AB0 /* RequestTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4248E9236DC7A000223AB0 /* RequestTableCell.swift */; };
 		5A4248EC236EDB3400223AB0 /* InitialTabsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4248EB236EDB3300223AB0 /* InitialTabsViewController.swift */; };
+		5A63BFC22471624600BF5B1A /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A63BFC12471624600BF5B1A /* ButtonTableViewCell.swift */; };
+		5A63BFC52474646300BF5B1A /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A63BFC42474646300BF5B1A /* MainModel.swift */; };
+		5A63BFC72479AC8900BF5B1A /* DetailPageViewControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A63BFC62479AC8900BF5B1A /* DetailPageViewControllerUtils.swift */; };
 		5A740D3A245244C60012C8AE /* BGTaskPerformerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A740D39245244C60012C8AE /* BGTaskPerformerTests.swift */; };
+		5A7B54232466EFC400B3A420 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7B54222466EFC400B3A420 /* Downloader.swift */; };
 		5A8EE69523CA0705006EE05B /* BasicListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EE69423CA0704006EE05B /* BasicListViewController.swift */; };
 		5A91895323E6EBB0005FB5CB /* ScaleFactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91895223E6EBAE005FB5CB /* ScaleFactor.swift */; };
 		5A91895523E71618005FB5CB /* ImageTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91895423E71618005FB5CB /* ImageTransformer.swift */; };
+		5A91FC262465FF2B00FB09C9 /* AvatarTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91FC252465FF2B00FB09C9 /* AvatarTableCell.swift */; };
+		5A91FC2C2466DDEF00FB09C9 /* SpacerTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91FC2B2466DDEF00FB09C9 /* SpacerTableCell.swift */; };
+		5A91FC2E2466DEBD00FB09C9 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A91FC2D2466DEBD00FB09C9 /* Colors.swift */; };
+		5A9F0EE9245E07010042DDB8 /* DetailPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9F0EE8245E07010042DDB8 /* DetailPageViewController.swift */; };
 		5AB198B323BF835000542E62 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB198B223BF835000542E62 /* Storage.swift */; };
 		5AB198B523C0997A00542E62 /* UnBanScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB198B423C0997A00542E62 /* UnBanScheduler.swift */; };
 		5AD9378423D33AD5007879B0 /* BannedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD9378323D33AD5007879B0 /* BannedViewController.swift */; };
@@ -71,6 +80,7 @@
 		1031D97B093BCFD183E19D6D /* Pods-VkRemoverIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VkRemoverIOS.debug.xcconfig"; path = "Target Support Files/Pods-VkRemoverIOS/Pods-VkRemoverIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		497F433992A0D829E1AE14B6 /* Pods-VkRemoverIOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VkRemoverIOSTests.debug.xcconfig"; path = "Target Support Files/Pods-VkRemoverIOSTests/Pods-VkRemoverIOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5A0AE05C24152801001D1CB7 /* BGTaskPerformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BGTaskPerformer.swift; sourceTree = "<group>"; };
+		5A20A3B82460A5760012807A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5A3D1ABE245451B60018AA0C /* VkRemoverIOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VkRemoverIOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		5A3D1AC524545DC70018AA0C /* SchedulerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerState.swift; sourceTree = "<group>"; };
 		5A3D1AC8245460FD0018AA0C /* RequestEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestEntry.swift; sourceTree = "<group>"; };
@@ -99,10 +109,18 @@
 		5A4248E7236D964A00223AB0 /* RequestsTableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsTableDataSource.swift; sourceTree = "<group>"; };
 		5A4248E9236DC7A000223AB0 /* RequestTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTableCell.swift; sourceTree = "<group>"; };
 		5A4248EB236EDB3300223AB0 /* InitialTabsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialTabsViewController.swift; sourceTree = "<group>"; };
+		5A63BFC12471624600BF5B1A /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
+		5A63BFC42474646300BF5B1A /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
+		5A63BFC62479AC8900BF5B1A /* DetailPageViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPageViewControllerUtils.swift; sourceTree = "<group>"; };
 		5A740D39245244C60012C8AE /* BGTaskPerformerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BGTaskPerformerTests.swift; sourceTree = "<group>"; };
+		5A7B54222466EFC400B3A420 /* Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 		5A8EE69423CA0704006EE05B /* BasicListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicListViewController.swift; sourceTree = "<group>"; };
 		5A91895223E6EBAE005FB5CB /* ScaleFactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleFactor.swift; sourceTree = "<group>"; };
 		5A91895423E71618005FB5CB /* ImageTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTransformer.swift; sourceTree = "<group>"; };
+		5A91FC252465FF2B00FB09C9 /* AvatarTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarTableCell.swift; sourceTree = "<group>"; };
+		5A91FC2B2466DDEF00FB09C9 /* SpacerTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacerTableCell.swift; sourceTree = "<group>"; };
+		5A91FC2D2466DEBD00FB09C9 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		5A9F0EE8245E07010042DDB8 /* DetailPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPageViewController.swift; sourceTree = "<group>"; };
 		5AB198B223BF835000542E62 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		5AB198B423C0997A00542E62 /* UnBanScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnBanScheduler.swift; sourceTree = "<group>"; };
 		5AD9378323D33AD5007879B0 /* BannedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannedViewController.swift; sourceTree = "<group>"; };
@@ -147,6 +165,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A24710124635D6B00B10827 /* DetailPageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5A9F0EE8245E07010042DDB8 /* DetailPageViewController.swift */,
+				5A91FC2D2466DEBD00FB09C9 /* Colors.swift */,
+				5A91FC252465FF2B00FB09C9 /* AvatarTableCell.swift */,
+				5A91FC2B2466DDEF00FB09C9 /* SpacerTableCell.swift */,
+				5A63BFC12471624600BF5B1A /* ButtonTableViewCell.swift */,
+				5A63BFC62479AC8900BF5B1A /* DetailPageViewControllerUtils.swift */,
+			);
+			path = DetailPageViewController;
+			sourceTree = "<group>";
+		};
 		5A3D1AC424545D9C0018AA0C /* RequestScheduler */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,12 +235,15 @@
 		5A3FCF952365A72700203C0E /* VkRemoverIOS */ = {
 			isa = PBXGroup;
 			children = (
+				5A7B54212466EF9100B3A420 /* Image */,
 				5A3FCF962365A72700203C0E /* AppDelegate.swift */,
 				5A3FCF982365A72700203C0E /* SceneDelegate.swift */,
 				5A3D1AC424545D9C0018AA0C /* RequestScheduler */,
 				5A3D1ACF24546AE90018AA0C /* BGTaskPerformer */,
 				5A3D1AC7245460C30018AA0C /* RequestsTableDataSource */,
 				5A3D1AD92454856E0018AA0C /* HelloScreenViewController.swift */,
+				5A63BFC32474644800BF5B1A /* MainViewController */,
+				5A24710124635D6B00B10827 /* DetailPageViewController */,
 				5A8EE69423CA0704006EE05B /* BasicListViewController.swift */,
 				5A3FCF9A2365A72700203C0E /* RequestsViewController.swift */,
 				5AF5314623B4C73A008D01E4 /* SubscribersViewController.swift */,
@@ -249,6 +283,23 @@
 				5A3FCFBA2365A72A00203C0E /* Info.plist */,
 			);
 			path = VkRemoverIOSUITests;
+			sourceTree = "<group>";
+		};
+		5A63BFC32474644800BF5B1A /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5A20A3B82460A5760012807A /* MainViewController.swift */,
+				5A63BFC42474646300BF5B1A /* MainModel.swift */,
+			);
+			path = MainViewController;
+			sourceTree = "<group>";
+		};
+		5A7B54212466EF9100B3A420 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				5A7B54222466EFC400B3A420 /* Downloader.swift */,
+			);
+			path = Image;
 			sourceTree = "<group>";
 		};
 		B051FDAF1D1C0974B3C2261B /* Frameworks */ = {
@@ -538,9 +589,13 @@
 				5A3D1AD624546C150018AA0C /* RequestSchedulerConstants.swift in Sources */,
 				5AB198B523C0997A00542E62 /* UnBanScheduler.swift in Sources */,
 				5A4248E8236D964A00223AB0 /* RequestsTableDataSource.swift in Sources */,
+				5A9F0EE9245E07010042DDB8 /* DetailPageViewController.swift in Sources */,
+				5A20A3B92460A5760012807A /* MainViewController.swift in Sources */,
 				5A4248E62365C2CA00223AB0 /* Empty.m in Sources */,
 				5A3D1ADA2454856E0018AA0C /* HelloScreenViewController.swift in Sources */,
 				5A91895523E71618005FB5CB /* ImageTransformer.swift in Sources */,
+				5A7B54232466EFC400B3A420 /* Downloader.swift in Sources */,
+				5A63BFC22471624600BF5B1A /* ButtonTableViewCell.swift in Sources */,
 				5A4248E32365B9CE00223AB0 /* Empty.swift in Sources */,
 				5A91895323E6EBB0005FB5CB /* ScaleFactor.swift in Sources */,
 				5A8EE69523CA0705006EE05B /* BasicListViewController.swift in Sources */,
@@ -553,9 +608,14 @@
 				5AF5314D23B76302008D01E4 /* RequestScheduler.swift in Sources */,
 				5A3D1AC624545DC70018AA0C /* SchedulerState.swift in Sources */,
 				5AD9378423D33AD5007879B0 /* BannedViewController.swift in Sources */,
+				5A63BFC72479AC8900BF5B1A /* DetailPageViewControllerUtils.swift in Sources */,
 				5A3D1AD124546AFC0018AA0C /* BGTaskPerformerUtils.swift in Sources */,
 				5A3D1AD424546BDE0018AA0C /* BGTaskPerformerConstants.swift in Sources */,
+				5A91FC2E2466DEBD00FB09C9 /* Colors.swift in Sources */,
+				5A63BFC52474646300BF5B1A /* MainModel.swift in Sources */,
 				5A4248EA236DC7A200223AB0 /* RequestTableCell.swift in Sources */,
+				5A91FC2C2466DDEF00FB09C9 /* SpacerTableCell.swift in Sources */,
+				5A91FC262465FF2B00FB09C9 /* AvatarTableCell.swift in Sources */,
 				5AF5314B23B754A9008D01E4 /* HelloViewController.swift in Sources */,
 				5AB198B323BF835000542E62 /* Storage.swift in Sources */,
 			);
