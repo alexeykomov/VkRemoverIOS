@@ -46,13 +46,7 @@ class DetailPageViewController:UITableViewController {
                 action: #selector(addTapped))
         }
         
-        listeners.append(contentsOf: [
-            MainModel.shared().addListener(opType: .accountBan, listener:
-                { user in self.onBan(user: user, ban: true) } ),
-            MainModel.shared().addListener(opType: .accountUnban, listener:
-                { user in self.onBan(user: user, ban: false) } ),
-            MainModel.shared().addListener(opType: .friendsDelete, listener: onFriendsDelete)
-        ])
+        
         
         self.refreshControl = UIRefreshControl()
         guard let refreshControl = self.refreshControl else {
@@ -67,6 +61,24 @@ class DetailPageViewController:UITableViewController {
         refreshControl.addTarget(self, action: #selector(refreshData(_:)),
                                 for: .valueChanged)
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        listeners.append(contentsOf: [
+            MainModel.shared().addListener(opType: .accountBan, listener:
+                { user in self.onBan(user: user, ban: true) } ),
+            MainModel.shared().addListener(opType: .accountUnban, listener:
+                { user in self.onBan(user: user, ban: false) } ),
+            MainModel.shared().addListener(opType: .friendsDelete, listener: onFriendsDelete)
+        ])
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        listeners.forEach {listener in listener()}
     }
     
     @objc func refreshData(_ sender: Any) {

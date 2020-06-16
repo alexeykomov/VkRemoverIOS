@@ -22,8 +22,27 @@ class MainModel {
     
     static var instance: MainModel? = nil
     
-    var entries:Dictionary<OperationType, [Operation]> = [:]
-    var listeners:Dictionary<OperationType, [String:(RequestEntry) -> Void]> = [:]
+    var entries:Dictionary<OperationType, [RequestEntry]> = [
+        .friendsDelete:[],
+        .accountBan:[],
+        .accountUnban:[]
+    ]
+    var listeners:Dictionary<MainModelEventType, [String:(Any) -> Void]> = [:]
+    
+    func bulkLoad(users: [RequestEntry], opType: OperationType) {
+        guard var usersOfType = entries[opType] else {
+            return
+        }
+        usersOfType.append(users)
+        entries[opType] = usersOfType
+        var listeners: [String:(RequestEntry) -> Void] = [:]
+        switch opType {
+        case .accountBan: listeners = self.listeners[.bulkLoadBanned] ?? [:]
+        case .accountUnban: listeners = self.listeners[.bulkLoadUnBanned] ?? [:]
+        case .friendsDelete: listeners = self.listeners[.bulkLoadRequests] ?? [:]
+        }
+        listeners.forEach {kv in kv.value(users)}
+    }
     
     func ban(user: RequestEntry) {
         entries[.accountBan] = entries[.accountBan]?.filter {o in o.user.userId != user.userId}
@@ -81,4 +100,13 @@ class MainModel {
     func clearListeners() {
         listeners = [:]
     }
+}
+
+
+enum MainModelEventType {
+    case bulkLoadRequests
+    case bulkLoadBanned
+    case bulkLoadUnBanned
+    case ban
+    case unBan
 }

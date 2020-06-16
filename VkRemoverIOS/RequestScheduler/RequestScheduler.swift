@@ -12,12 +12,16 @@ class RequestScheduler: NSObject {
     private var processQueue:Dictionary<OperationType, [Operation]> = [
         OperationType.friendsDelete:[],
         OperationType.accountBan:[],
-        OperationType.accountUnban:[]
+        OperationType.accountUnban:[],
+        OperationType.friendsGetRequests:[],
+        OperationType.userGetFollowers:[],
     ]
     private var callbacks:Dictionary<OperationType, [OperationCallbacks]> = [
         OperationType.friendsDelete: [],
         OperationType.accountBan: [],
-        OperationType.accountUnban: []
+        OperationType.accountUnban: [],
+        OperationType.friendsGetRequests: [],
+        OperationType.userGetFollowers: [],
     ]
     private var requestsTimer: Timer?
     private var period: Double = 5
@@ -107,8 +111,7 @@ class RequestScheduler: NSObject {
             let opsTypeCount = operationIndexes.count
             let randomOpTypeIndex = Int.random(in: 0..<opsTypeCount)
             let opType = operationsByIndex[randomOpTypeIndex]
-            print("randomOpTypeIndex: \(randomOpTypeIndex)")
-            guard var opsOfType = processQueue[opType] else {
+            guard let opsOfType = processQueue[opType] else {
                 continue
             }
             guard !opsOfType.isEmpty else {
@@ -119,7 +122,7 @@ class RequestScheduler: NSObject {
                 processQueue[opType] = Array(opsOfType.dropFirst())
                 print("first.userId: \(first.user.userId)")
                 VKRequest.init(method: first.name.rawValue,
-                               parameters:[first.paramName.rawValue:first.user.userId]).execute(
+                               parameters:first.getParams()).execute(
                     resultBlock: { response in
                         print("response: \(response)")
                         self.successCounter += 1
