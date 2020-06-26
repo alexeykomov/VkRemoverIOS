@@ -12,7 +12,6 @@ class MainViewController:UISplitViewController, VKSdkUIDelegate, VKSdkDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.preferredDisplayMode = .allVisible
-        
         requestScheduler.addCallbacks(operationType: .friendsGetRequests,
                                       successCb: {user, response in
                                         guard let dict = response?.json as? Dictionary<String, Any> else {
@@ -23,7 +22,7 @@ class MainViewController:UISplitViewController, VKSdkUIDelegate, VKSdkDelegate {
                                         }
                                         print("items: \(items)")
                                         let parsedItems = RequestEntry.fromRequestsList(items)
-                                        MainModel.shared().bulkLoad(users: parsedItems, opType: .friendsDelete)
+                                        MainModel.shared().bulkLoad(users: parsedItems, entry: .friendRequest)
         },
                                       errorCb: {user, e, enabledDeletion in}
         )
@@ -37,10 +36,12 @@ class MainViewController:UISplitViewController, VKSdkUIDelegate, VKSdkDelegate {
                                         }
                                         print("items: \(items)")
                                         let parsedItems = RequestEntry.fromRequestsList(items)
+                                        MainModel.shared().bulkLoad(users: parsedItems, entry: .follower)
         },
                                       errorCb: {user, e, enabledDeletion in}
         )
-        
+        MainModel.shared().bulkLoad(users:
+            Storage.shared.getBanned().map {u in u.user}, entry: .bannedUser)
         BGTaskPerformer.shared().addCallbacks(operationType: getOperationType(),
                                               successCb: {users, r in },
                                               errorCb:{users, r in })
@@ -49,12 +50,15 @@ class MainViewController:UISplitViewController, VKSdkUIDelegate, VKSdkDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        requestScheduler.scheduleOps(operationType: .friendsGetRequests, ops: [Operation(name: .friendsGetRequests, paramName: <#T##ParamName#>, user: <#T##RequestEntry#>)])
+        requestScheduler.scheduleOps(operationType: .friendsGetRequests,
+                                     ops: [Operation(name: .friendsGetRequests, params: createOperationFriendsGetRequests())])
+        requestScheduler.scheduleOps(operationType: .userGetFollowers,
+                                     ops: [Operation(name: .friendsGetRequests, params: createOperationUserGetFollowers())])
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        
     }
     
     func setupVkData() {

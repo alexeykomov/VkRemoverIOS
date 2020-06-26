@@ -40,9 +40,34 @@ struct Param: Hashable, Equatable {
     let paramName: String
     let paramValue: String
     let paramType: ParamType
+    
+    func toDict() -> Dictionary<String, String> {
+        return [
+            "paramName":paramName,
+            "paramValue": paramValue,
+            "paramType": paramType.rawValue
+        ]
+    }
+    
+    static func fromDict(_ input: Dictionary<String, String>) -> Param? {
+        guard let paramName = input["paramName"] else {
+            return nil
+        }
+        guard let paramValue = input["paramValue"] else {
+            return nil
+        }
+        guard let paramType = input["paramType"] else {
+            return nil
+        }
+        guard let paramTypeReckognized = ParamType(rawValue: paramType) else {
+            return nil
+        }
+        return Param(paramName: paramName, paramValue: paramValue,
+                     paramType: paramTypeReckognized)
+    }
 }
 
-struct Operation2: Hashable, Equatable {
+struct Operation: Hashable, Equatable {
     let name: OperationType
     let params: [Param]
     
@@ -71,44 +96,11 @@ struct Operation2: Hashable, Equatable {
             return res
         })
     }
-}
-
-struct Operation: Hashable, Equatable { 
-    let name: OperationType
-    let paramName: ParamName
-    let user: RequestEntry
-    
-    func getPhotoParam() -> String {
-        var photoParamName:[String] = []
-        switch gScaleFactor.value {
-        case 1.0:photoParamName.append("photo_50")
-                photoParamName.append("photo_100")
-        case 1.0...3.0:photoParamName.append("photo_100")
-            photoParamName.append("photo_200_orig")
-        default: break
-        }
-        return photoParamName.joined(separator: ",")
-    }
-    
-    func getParams() -> Dictionary<String, Any> {
-        switch name {
-        case .friendsGetRequests:
-            return ["count":1000, "offset": 0, "out": 1,
-            "extended": 1, "fields": getPhotoParam()]
-        case .userGetFollowers:
-            return ["count":1000, "offset": 0, "fields": getPhotoParam()]
-        case .friendsDelete:
-            return [ParamName.userId.rawValue:user.userId]
-        case.accountBan, .accountUnban:
-            return [ParamName.ownerId.rawValue:user.userId]
-        }
-    }
     
     func toDict() -> Dictionary<String, Any> {
         var output: Dictionary<String, Any> = [:]
         output["name"] = name.rawValue
-        output["paramName"] = paramName.rawValue
-        output["user"] = user.toDict()
+        output["params"] = params.map({ p in p.toDict()})
         return output
     }
     
@@ -116,26 +108,26 @@ struct Operation: Hashable, Equatable {
         guard let name = inp["name"] as? String else {
             return nil
         }
-        guard let operationType = OperationType(rawValue: name) else {
+        guard let nameReckognized = OperationType(rawValue: name) else {
             return nil
         }
-        guard let paramNameStr = inp["paramName"] as? String else {
+        guard let params = inp["params"] as? [Dictionary<String, String>] else {
             return nil
         }
-        guard let paramName = ParamName(rawValue: paramNameStr) else {
-            return nil
-        }
-        guard let userDict = inp["user"] as? Dictionary<String, Any> else {
-            return nil
-        }
-        let user = RequestEntry.fromDict(userDict)
-        return Operation(name: operationType,
-                  paramName: paramName,
-                  user: user)
+        let acc:[Param] = []
+        let paramsDeserialized = params.reduce(acc, { res, param in
+            guard let paramDeserialized = Param.fromDict(param) else {
+                return res
+            }
+            return res + [paramDeserialized]
+        })
+        return Operation(name: nameReckognized,
+                  params: paramsDeserialized)
     }
 }
 
 struct OperationCallbacks {
     let successCb: (RequestEntry, VKResponse<VKApiObject>?) -> Void
     let errorCb: (RequestEntry, Error?, Bool) -> Void
+    let uuid: String
 }

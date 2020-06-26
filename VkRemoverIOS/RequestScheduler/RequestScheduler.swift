@@ -55,9 +55,13 @@ class RequestScheduler: NSObject {
     }
     
     func addCallbacks(operationType: OperationType, successCb: @escaping (RequestEntry, VKResponse<VKApiObject>?) -> Void,
-                         errorCb: @escaping (RequestEntry, Error?, Bool) -> Void) {
+                         errorCb: @escaping (RequestEntry, Error?, Bool) -> Void) -> () -> Void {
+        let uuid = UUID().uuidString
         callbacks[operationType] = (callbacks[operationType] ?? []) + [
-            OperationCallbacks(successCb: successCb, errorCb: errorCb)]
+            OperationCallbacks(successCb: successCb, errorCb: errorCb,
+                               uuid: uuid)]
+        return { self.callbacks[operationType] =
+            self.callbacks[operationType]?.filter {c in c.uuid != uuid }}
     }
         
     func rescheduleTimer(up: Bool) {

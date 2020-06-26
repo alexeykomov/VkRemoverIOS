@@ -22,34 +22,34 @@ class MainModel {
     
     static var instance: MainModel? = nil
     
-    var entries:Dictionary<OperationType, [RequestEntry]> = [
-        .friendsDelete:[],
-        .accountBan:[],
-        .accountUnban:[]
+    var entries:Dictionary<UserCategory, [RequestEntry]> = [
+        .friendRequest:[],
+        .follower:[],
+        .bannedUser:[]
     ]
     var listeners:Dictionary<MainModelEventType, [String:(Any) -> Void]> = [:]
     
-    func bulkLoad(users: [RequestEntry], opType: OperationType) {
-        guard var usersOfType = entries[opType] else {
+    func bulkLoad(users: [RequestEntry], entry: UserCategory) {
+        guard var usersOfType = entries[entry] else {
             return
         }
-        usersOfType.append(users)
-        entries[opType] = usersOfType
-        var listeners: [String:(RequestEntry) -> Void] = [:]
-        switch opType {
-        case .accountBan: listeners = self.listeners[.bulkLoadBanned] ?? [:]
-        case .accountUnban: listeners = self.listeners[.bulkLoadUnBanned] ?? [:]
-        case .friendsDelete: listeners = self.listeners[.bulkLoadRequests] ?? [:]
+        usersOfType.append(contentsOf: users)
+        entries[entry] = usersOfType
+        var listeners: [String:([RequestEntry]) -> Void] = [:]
+        switch entry {
+        case .friendRequest: listeners = self.listeners[.bulkLoadBanned] ?? [:]
+        case .follower: listeners = self.listeners[.bulkLoadFollower] ?? [:]
+        case .bannedUser: listeners = self.listeners[.bulkLoadRequests] ?? [:]
         }
         listeners.forEach {kv in kv.value(users)}
     }
     
     func ban(user: RequestEntry) {
-        entries[.accountBan] = entries[.accountBan]?.filter {o in o.user.userId != user.userId}
-        listeners[.accountBan]?.forEach({kv in kv.value(user)})
+        entries[.follower] = entries[.follower]?.filter {user in user.userId != user.userId}
+        listeners[.ban]?.forEach({kv in kv.value(user)})
         
-        var unbanned = entries[.accountUnban] ?? []
-        let unbanOperation = Operation(name: .accountUnban, paramName: .ownerId, user: user)
+        var unbanned = entries[.follower] ?? []
+        let unbanOperation = createOperationAccountUnban(user: unbanned)
         if !unbanned.contains(unbanOperation) {
             unbanned.append(unbanOperation)
             entries[.accountUnban] = unbanned
@@ -102,11 +102,16 @@ class MainModel {
     }
 }
 
-
 enum MainModelEventType {
     case bulkLoadRequests
     case bulkLoadBanned
-    case bulkLoadUnBanned
+    case bulkLoadFollower
     case ban
     case unBan
+}
+
+enum UserCategory {
+    case friendRequest
+    case follower
+    case bannedUser
 }
