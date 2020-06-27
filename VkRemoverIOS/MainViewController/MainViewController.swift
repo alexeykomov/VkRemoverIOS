@@ -9,51 +9,72 @@
 import Foundation
 
 class MainViewController:UISplitViewController, VKSdkUIDelegate, VKSdkDelegate {
+    var callbacks:[()->Void] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.preferredDisplayMode = .allVisible
-        requestScheduler.addCallbacks(operationType: .friendsGetRequests,
-                                      successCb: {user, response in
-                                        guard let dict = response?.json as? Dictionary<String, Any> else {
-                                            return
-                                        }
-                                        guard let items = dict["items"] as? [Dictionary<String, Any>] else {
-                                            return
-                                        }
-                                        print("items: \(items)")
-                                        let parsedItems = RequestEntry.fromRequestsList(items)
-                                        MainModel.shared().bulkLoad(users: parsedItems, entry: .friendRequest)
-        },
-                                      errorCb: {user, e, enabledDeletion in}
-        )
-        requestScheduler.addCallbacks(operationType: .userGetFollowers,
-                                      successCb: {user, response in
-                                        guard let dict = response?.json as? Dictionary<String, Any> else {
-                                            return
-                                        }
-                                        guard let items = dict["items"] as? [Dictionary<String, Any>] else {
-                                            return
-                                        }
-                                        print("items: \(items)")
-                                        let parsedItems = RequestEntry.fromRequestsList(items)
-                                        MainModel.shared().bulkLoad(users: parsedItems, entry: .follower)
-        },
-                                      errorCb: {user, e, enabledDeletion in}
-        )
+        subscribeToEvents()
+        setupVkData()
+    }
+    
+    func subscribeToEvents() {
+        callbacks.append(
+            requestScheduler.addCallbacks(operationType: .friendsGetRequests,
+                                          successCb: {user, response in
+                                            guard let dict = response?.json as? Dictionary<String, Any> else {
+                                                return
+                                            }
+                                            guard let items = dict["items"] as? [Dictionary<String, Any>] else {
+                                                return
+                                            }
+                                            print("items: \(items)")
+                                            let parsedItems = RequestEntry.fromRequestsList(items)
+                                            MainModel.shared().bulkLoad(users: parsedItems, entry: .friendRequest)
+            },
+                                          errorCb: {user, e, enabledDeletion in}
+        ))
+        callbacks.append(
+            requestScheduler.addCallbacks(operationType: .userGetFollowers,
+                                          successCb: {user, response in
+                                            guard let dict = response?.json as? Dictionary<String, Any> else {
+                                                return
+                                            }
+                                            guard let items = dict["items"] as? [Dictionary<String, Any>] else {
+                                                return
+                                            }
+                                            print("items: \(items)")
+                                            let parsedItems = RequestEntry.fromRequestsList(items)
+                                            MainModel.shared().bulkLoad(users: parsedItems, entry: .follower)
+            },
+                                          errorCb: {user, e, enabledDeletion in}
+        ))
+        
         MainModel.shared().bulkLoad(users:
             Storage.shared.getBanned().map {u in u.user}, entry: .bannedUser)
-        BGTaskPerformer.shared().addCallbacks(operationType: getOperationType(),
+        
+        BGTaskPerformer.shared().addCallbacks(operationType: .friendsGetRequests,
                                               successCb: {users, r in },
                                               errorCb:{users, r in })
-        setupVkData()
+        BGTaskPerformer.shared().addCallbacks(operationType: .userGetFollowers,
+                                              successCb: {users, r in },
+                                              errorCb:{users, r in })
+    }
+    
+    override func didReceiveMemoryWarning() {
+        while (!callbacks.isEmpty) {
+            guard let unsubscriber = callbacks.popLast() else {
+                continue
+            }
+            unsubscriber()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        requestScheduler.scheduleOps(operationType: .friendsGetRequests,
-                                     ops: [Operation(name: .friendsGetRequests, params: createOperationFriendsGetRequests())])
-        requestScheduler.scheduleOps(operationType: .userGetFollowers,
-                                     ops: [Operation(name: .friendsGetRequests, params: createOperationUserGetFollowers())])
+        if (callbacks.isEmpty) {
+            subscribeToEvents()
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -113,46 +134,9 @@ class MainViewController:UISplitViewController, VKSdkUIDelegate, VKSdkDelegate {
     }
     
     func startWorking() {
-        var photoParamName:[String] = []
-        switch gScaleFactor.value {
-        case 1.0:photoParamName.append("photo_50")
-                photoParamName.append("photo_100")
-        case 1.0...3.0:photoParamName.append("photo_100")
-            photoParamName.append("photo_200_orig")
-        default: break
-        }
-        print("photoParamName: \(photoParamName)")
-        let requestParams: [String:Any] = ["count":1000, "offset": 0, "out": 1,
-                                           "extended": 1, "fields": photoParamName.joined(separator: ",")]
-        
-        let methods:[MethodName] = [.friendsGetRequests, .usersGetFollowers]
-        methods.forEach { method in
-            VKRequest.init(method: method.rawValue,
-                           parameters:requestParams).execute(
-                resultBlock: { response in
-                    guard let dict = response?.json as? Dictionary<String, Any> else {
-                        return
-                    }
-                    guard let items = dict["items"] as? [Dictionary<String, Any>] else {
-                        return
-                    }
-                    print("items: \(items)")
-                    let parsedItems = self.vkEntitiesToInternalEntities(items)
-                    print("userIds: \(self.userIds)")
-                    let filtered = parsedItems.filter({e in !self.userIds.contains(e.userId)})
-                    self.userIds = self.userIds.union(filtered.map({user in user.userId}))
-                    print("parsed items: \(parsedItems)")
-                    self.getDataSource().addData(filtered)
-                    self.getTableView().reloadData()
-                    if self.deleting {
-                        self.updateDeletionProcess(deleting: true)
-                    }
-                    self.refreshControl.endRefreshing()
-            }, errorBlock:  { error in
-                print("error: \(error)")
-                self.refreshControl.endRefreshing()
-            })
-        }
-        
+        requestScheduler.scheduleOps(operationType: .friendsGetRequests,
+                                     ops: [createOperationFriendsGetRequests()])
+        requestScheduler.scheduleOps(operationType: .userGetFollowers,
+                                     ops: [createOperationUserGetFollowers()])
     }
 }

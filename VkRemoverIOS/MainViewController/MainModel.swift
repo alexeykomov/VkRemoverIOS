@@ -45,37 +45,36 @@ class MainModel {
     }
     
     func ban(user: RequestEntry) {
-        entries[.follower] = entries[.follower]?.filter {user in user.userId != user.userId}
+        entries[.bannedUser] = entries[.bannedUser]?.filter {user in user.userId != user.userId}
         listeners[.ban]?.forEach({kv in kv.value(user)})
         
-        var unbanned = entries[.follower] ?? []
-        let unbanOperation = createOperationAccountUnban(user: unbanned)
-        if !unbanned.contains(unbanOperation) {
-            unbanned.append(unbanOperation)
-            entries[.accountUnban] = unbanned
+        var followers = entries[.follower] ?? []
+        if !followers.contains(user) {
+            followers.append(user)
+            entries[.follower] = followers
         }
     }
     
     func unban(user: RequestEntry) {
-        entries[.accountUnban] = entries[.accountUnban]?.filter {o in o.user.userId != user.userId}
-        listeners[.accountUnban]?.forEach({kv in kv.value(user)})
+        entries[.follower] = entries[.follower]?.filter {user in user.userId != user.userId}
+        listeners[.unBan]?.forEach({kv in kv.value(user)})
         
-        var banned = entries[.accountBan] ?? []
-        let banOperation = Operation(name: .accountBan, paramName: .ownerId, user: user)
-        if !banned.contains(banOperation) {
-            banned.append(banOperation)
-            entries[.accountBan] = banned
+        var banned = entries[.bannedUser] ?? []
+        if !banned.contains(user) {
+            banned.append(user)
+            entries[.bannedUser] = banned
         }
     }
     
     func cancelRequest(user: RequestEntry) {
-        entries[.friendsDelete] = entries[.friendsDelete]?.filter {o in o.user.userId != user.userId}
-        listeners[.friendsDelete]?.forEach({kv in kv.value(user)})
+        entries[.friendRequest] = entries[.friendRequest]?.filter {user in user.userId != user.userId}
+        listeners[.cancelRequest]?.forEach({kv in kv.value(user)})
     }
     
-    func addListener(opType: OperationType, listener: @escaping (RequestEntry) -> Void) -> () -> Void {
+    func addListener(type: MainModelEventType,
+                     listener: @escaping (Any) -> Void) -> () -> Void {
         let uuid = UUID().uuidString
-        listeners[opType]?[uuid] = listener
+        listeners[type]?[uuid] = listener
         return { self.removeListener(uuid: uuid) }
     }
     
@@ -90,11 +89,11 @@ class MainModel {
     }
     
     func isBanned(user: RequestEntry) -> Bool {
-        return !(entries[.accountBan]?.map({o in o.user.userId == user.userId}).isEmpty ?? true)
+        return !(entries[.bannedUser]?.map({user in user.userId == user.userId}).isEmpty ?? true)
     }
     
     func isRequested(user: RequestEntry) -> Bool {
-        return !(entries[.friendsDelete]?.map({o in o.user.userId == user.userId}).isEmpty ?? true)
+        return !(entries[.friendRequest]?.map({user in user.userId == user.userId}).isEmpty ?? true)
     }
     
     func clearListeners() {
@@ -108,6 +107,7 @@ enum MainModelEventType {
     case bulkLoadFollower
     case ban
     case unBan
+    case cancelRequest
 }
 
 enum UserCategory {

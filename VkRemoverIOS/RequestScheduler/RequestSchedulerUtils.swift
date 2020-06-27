@@ -21,29 +21,29 @@ func getPhotoParam() -> String {
     return photoParamName.joined(separator: ",")
 }
 
-func createOperationFriendsDelete(user: RequestEntry) -> Operation2 {
-    return Operation2(name: .friendsDelete,
+func createOperationFriendsDelete(user: RequestEntry) -> Operation {
+    return Operation(name: .friendsDelete,
                       params: [Param(paramName: ParamName.userId.rawValue,
                                      paramValue: String(user.userId),
                                      paramType: .number)])
 }
 
-func createOperationAccountBan(user: RequestEntry) -> Operation2 {
-    return Operation2(name: .accountBan,
+func createOperationAccountBan(user: RequestEntry) -> Operation {
+    return Operation(name: .accountBan,
                       params: [Param(paramName: ParamName.ownerId.rawValue,
                                      paramValue: String(user.userId),
                                      paramType: .number)])
 }
 
-func createOperationAccountUnban(user: RequestEntry) -> Operation2 {
-    return Operation2(name: .accountUnban,
+func createOperationAccountUnban(user: RequestEntry) -> Operation {
+    return Operation(name: .accountUnban,
                       params: [Param(paramName: ParamName.ownerId.rawValue,
                                      paramValue: String(user.userId),
                                      paramType: .number)])
 }
 
-func createOperationFriendsGetRequests() -> Operation2 {
-    return Operation2(name: .friendsGetRequests,
+func createOperationFriendsGetRequests() -> Operation {
+    return Operation(name: .friendsGetRequests,
                       params: [Param(paramName: "count",
                                      paramValue: String(1000),
                                      paramType: .number),
@@ -62,8 +62,8 @@ func createOperationFriendsGetRequests() -> Operation2 {
     ])
 }
 
-func createOperationUserGetFollowers() -> Operation2 {
-    return Operation2(name: .userGetFollowers,
+func createOperationUserGetFollowers() -> Operation {
+    return Operation(name: .userGetFollowers,
                       params: [Param(paramName: "count",
                                      paramValue: String(1000),
                                      paramType: .number),
