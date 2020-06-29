@@ -9,13 +9,72 @@
 import Foundation
 import SDWebImage
 
-class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate, UITableViewDelegate {
-    private let dataSource = RequestsTableDataSource()
-    private var userIds = Set<Int>()
+class BasicListViewController: UITableViewController, SDWebImageManagerDelegate {
+    
     var deleting = false
+    var category:UserCategory
     func setDeleting(_ deleting: Bool) { self.deleting = deleting }
     func getDeleting() -> Bool { return deleting }
-    let refreshControl = UIRefreshControl()
+    var listeners:[() -> Void] = []
+    
+    var data:[RequestEntry] {
+        get {
+             return MainModel.shared().entries[category] ?? []
+        }
+    }
+    
+    override init(style: UITableView.Style) {
+        super.init(style: style)
+        let refreshControl = UIRefreshControl()
+        imageManager.delegate = self
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        let refreshControl = UIRefreshControl()
+        imageManager.delegate = self
+    }
+    
+    init(category: UserCategory) {
+        self.category = category
+    }
+    
+    private var imageManager = SDWebImageManager()
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data.count
+    }
+        
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellReuseIdentifier") as! RequestTableCell
+        let userData = data[indexPath.row]
+        cell.userName.text = userData.getLabel()
+        
+        cell.avatarImg.layer.borderWidth = 0
+        cell.avatarImg.layer.masksToBounds = false
+        cell.avatarImg.layer.borderColor = UIColor.white.cgColor
+        cell.avatarImg.layer.cornerRadius = cell.avatarImg.frame.height / 2
+        cell.avatarImg.clipsToBounds = true
+        
+        cell.loadImage(url: userData.photoForList)
+        return cell
+    }
+    
+    func addData(_ items: [RequestEntry]) {
+        data.append(contentsOf: items)
+    }
+    
+    func getData() -> [RequestEntry] {
+        return data
+    }
+    
+    func remove(at: Int) -> Void {
+         data.remove(at: at)
+    }
     
     func getDataSource() ->RequestsTableDataSource {
         return dataSource
@@ -54,15 +113,11 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate,
             return
         }
         if deleting {
-            requestScheduler.scheduleOps(operationType: getOperationType(),
-                ops: getDataSource().getData().map({d in
+            requestScheduler.scheduleOps(operationType: .friendsDelete,
+                ops: data.map({d in
                     print("user: \(d.userId) \(d.firstName) \(d.lastName)")
-                    
-                    return Operation(
-                    name: getOperationType(),
-                    paramName: getParamName(),
-                    user: d)})
-                )
+                    return createOperationFriendsDelete(user: d)
+                }))
         } else {
             requestScheduler.clearOps(operationType: getOperationType())
         }
@@ -93,7 +148,6 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate,
             return
         }
         getDataSource().remove(at: indexToDelete)
-        userIds.remove(userId)
         self.getTableView().deleteRows(at: [IndexPath(row: indexToDelete, section: 0)],
                              with: UITableView.RowAnimation.automatic)
         if self.getDataSource().getData().isEmpty {
@@ -101,7 +155,7 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate,
         }
     }
         
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let splitViewControllerParent = self.parent?.parent as? UISplitViewController
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "detailPageNavigationController") as! UINavigationController
@@ -118,7 +172,7 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate,
     func removeFromDataAndTable(users: [RequestEntry]) {
         let indicesToDelete:[(Int, Int)] = users.reduce([], { res, user in
             let userId = user.userId
-            guard let indexToDelete = self.getDataSource().getData()
+            guard let indexToDelete = self.data
                 .firstIndex(where: {r in r.userId == userId}) else {
                print("Cannont find index in data for userId: \(userId)")
                return res
@@ -144,141 +198,49 @@ class BasicListViewController: UIViewController, VKSdkUIDelegate, VKSdkDelegate,
         }
     }
     
-    func vkSdkAccessAuthorizationFinished(with result: VKAuthorizationResult!) {
-        if (result.token != nil) {
-            self.startWorking()
-        } else if ((result.error) != nil) {
-            self.showAlert(title: "", message: "Access denied \(result.error)")
-        }
-    }
-    
-    func showAlert(title: String, message: String) {
-        let alert =  UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title:
-            NSLocalizedString("OK", comment: "Default action"),
-                                      style: .default,
-                                      handler: { _ in
-                                        NSLog("The \"OK\" alert occured.")
-        }))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func vkSdkUserAuthorizationFailed() {
-        self.showAlert(title: "", message: "Sdk user authorization failed")
-        navigationController?.popToRootViewController(animated: true)
-    }
-    
-    func vkSdkShouldPresent(_ controller: UIViewController!) {
-        self.navigationController?.topViewController?.present(controller,
-                                                              animated: true,
-                                                              completion: {})
-    }
-    
-    func vkSdkNeedCaptchaEnter(_ captchaError: VKError!) {
-        let vc = VKCaptchaViewController.captchaControllerWithError(captchaError)
-        vc?.present(in: self.navigationController?.topViewController)
-    }
     
     @objc private func refreshData(_ sender: Any) {
-        startWorking()
+        requestScheduler.scheduleOps(operationType: .friendsGetRequests, ops: [createOperationFriendsGetRequests()])
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         if #available(iOS 10.0, *) {
-            getTableView()?.refreshControl = refreshControl
+            tableView.refreshControl = refreshControl
         } else {
-            getTableView().addSubview(refreshControl)
+            tableView.addSubview(refreshControl)
         }
-        getTableView().delegate = self;
         refreshControl.addTarget(self, action: #selector(refreshData(_:)),
                                  for: .valueChanged)
-        
-        deleting = !requestScheduler.isEmpty(operationType: getOperationType())
+        deleting = !requestScheduler.isEmpty(operationType: .friendsDelete)
         updateButton()
-        requestScheduler.addCallbacks(operationType: getOperationType(),
-                                         successCb: {user, r in
-                                             self.removeFromDataAndTable(user: user)
-                                             self.didDeleteUserSuccess(user: user)
-                                             },
-                                         errorCb: {user, e, enabledDeletion in
-                                             if enabledDeletion {
-                                                 self.removeFromDataAndTable(user: user)
-                                                 self.didDeleteUserFailure(user: user)
-                                            }})
-        BGTaskPerformer.shared().addCallbacks(operationType: getOperationType(),
-                                              successCb: {users, r in
-                                                self.removeFromDataAndTable(users: users)
-                                                self.didDeleteUserSuccess(users: users)
-        },
-                                              errorCb:{users, r in
-                                                self.removeFromDataAndTable(users: users)
-                                                self.didDeleteUserSuccess(users: users)
-        })
-        setupVkData()
-    }
-    
-    func setupVkData() {
-        let SCOPE = [VK_PER_FRIENDS];
-           
-        let instance = VKSdk.initialize(withAppId: "7144627")
-        instance?.uiDelegate = self
-        instance?.register(self)
-        VKSdk.wakeUpSession(SCOPE, complete: {state, error in
-            if (state == VKAuthorizationState.authorized) {
-                self.startWorking()
-            } else if (error != nil) {
-                self.showAlert(title: "", message: error.debugDescription)
-            }
-        })
-        VKSdk.authorize(SCOPE)
-        getTableView().dataSource = getDataSource()
-    }
-    
-    func vkEntitiesToInternalEntities(_ items: [Dictionary<String, Any>]) ->
-            [RequestEntry] {
-        return []
-    }
-    
-    func startWorking() {
-        var photoParamName:[String] = []
-        switch gScaleFactor.value {
-        case 1.0:photoParamName.append("photo_50")
-                photoParamName.append("photo_100")
-        case 1.0...3.0:photoParamName.append("photo_100")
-            photoParamName.append("photo_200_orig")
-        default: break
-        }
-        print("photoParamName: \(photoParamName)")
-        let requestParams: [String:Any] = ["count":1000, "offset": 0, "out": 1,
-                                           "extended": 1, "fields": photoParamName.joined(separator: ",")]
+         
+        listeners.append(contentsOf: [
+            MainModel.shared().addListener(type: .bulkLoadRequests, listener: {_ in
+                self.tableView.reloadData()
+                self.refreshControl?.endRefreshing()
+            }),
+            MainModel.shared().addListener(type: .removeFriendRequest, listener: {_ in
+                
+            }),
+            MainModel.shared().addListener(type: .removeFromEntries, listener: {_ in
+                
+            }),
+            requestScheduler.addCallbacks(
+                operationType: .friendsDelete,
+                successCb: {user, response  in
+                    self.removeFromDataAndTable(user: user)
+            },
+                errorCb: {
+                user,eror,deleteEnabled  in
+                if (deleteEnabled) {
+                    self.removeFromDataAndTable(user: user)
+                }
+                
+            })
+        ])
         
-        VKRequest.init(method: getVKMethodName(),
-                       parameters:requestParams).execute(
-            resultBlock: { response in
-                guard let dict = response?.json as? Dictionary<String, Any> else {
-                    return
-                }
-                guard let items = dict["items"] as? [Dictionary<String, Any>] else {
-                    return
-                }
-                print("items: \(items)")
-                let parsedItems = self.vkEntitiesToInternalEntities(items)
-                print("userIds: \(self.userIds)")
-                let filtered = parsedItems.filter({e in !self.userIds.contains(e.userId)})
-                self.userIds = self.userIds.union(filtered.map({user in user.userId}))
-                print("parsed items: \(parsedItems)")
-                self.getDataSource().addData(filtered)
-                self.getTableView().reloadData()
-                if self.deleting {
-                    self.updateDeletionProcess(deleting: true)
-                }
-                self.refreshControl.endRefreshing()
-        }, errorBlock:  { error in
-            print("error: \(error)")
-            self.refreshControl.endRefreshing()
-        })
     }
 }
 

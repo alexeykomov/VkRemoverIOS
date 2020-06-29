@@ -49,7 +49,6 @@ class MainViewController:UISplitViewController, VKSdkUIDelegate, VKSdkDelegate {
             },
                                           errorCb: {user, e, enabledDeletion in}
         ))
-        
         MainModel.shared().bulkLoad(users:
             Storage.shared.getBanned().map {u in u.user}, entry: .bannedUser)
         

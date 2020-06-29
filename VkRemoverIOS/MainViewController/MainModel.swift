@@ -30,11 +30,7 @@ class MainModel {
     var listeners:Dictionary<MainModelEventType, [String:(Any) -> Void]> = [:]
     
     func bulkLoad(users: [RequestEntry], entry: UserCategory) {
-        guard var usersOfType = entries[entry] else {
-            return
-        }
-        usersOfType.append(contentsOf: users)
-        entries[entry] = usersOfType
+        entries[entry] = users
         var listeners: [String:([RequestEntry]) -> Void] = [:]
         switch entry {
         case .friendRequest: listeners = self.listeners[.bulkLoadBanned] ?? [:]
@@ -66,9 +62,17 @@ class MainModel {
         }
     }
     
-    func cancelRequest(user: RequestEntry) {
+    func removeFriendRequest(user: RequestEntry) {
         entries[.friendRequest] = entries[.friendRequest]?.filter {user in user.userId != user.userId}
-        listeners[.cancelRequest]?.forEach({kv in kv.value(user)})
+        listeners[.removeFriendRequest]?.forEach({kv in kv.value(user)})
+    }
+    
+    func removeFromEntries(user: RequestEntry, category: UserCategory) {
+        let entriesOfCategory = entries[category] ?? []
+        let userId = user.userId
+        entries[category] = entriesOfCategory.filter {r in r.userId != userId}
+        listeners[.removeFromEntries]?.forEach({kv in
+            kv.value(UserAndCategory(user: user, category: category))})
     }
     
     func addListener(type: MainModelEventType,
@@ -107,11 +111,17 @@ enum MainModelEventType {
     case bulkLoadFollower
     case ban
     case unBan
-    case cancelRequest
+    case removeFriendRequest
+    case removeFromEntries
 }
 
 enum UserCategory {
     case friendRequest
     case follower
     case bannedUser
+}
+
+struct UserAndCategory {
+    let user: RequestEntry
+    let category: UserCategory
 }

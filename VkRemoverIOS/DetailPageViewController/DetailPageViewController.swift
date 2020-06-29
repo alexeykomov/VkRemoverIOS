@@ -207,7 +207,7 @@ class DetailPageViewController:UITableViewController {
         if (indexPath.section == 1 && indexPath.row == 1) {
             let isRequested = MainModel.shared().isRequested(user: requestEntry)
             if (isRequested) {
-                MainModel.shared().cancelRequest(user: requestEntry)
+                MainModel.shared().removeFriendRequest(user: requestEntry)
             }
         }
     }

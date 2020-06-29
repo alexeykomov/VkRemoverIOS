@@ -29,6 +29,11 @@ class RequestScheduler: NSObject {
     private var successCounter = 0
     private let MAX_SUCCESSES = 5
     
+    func fetch(op: Operation, onResponse: () -> Void) {
+        scheduleOps(op, [op])
+        
+    }
+    
     func scheduleOps(operationType: OperationType,
                      ops: [Operation]) {
         processQueue[operationType] = ops
