@@ -23,20 +23,13 @@ class BasicListViewController: UITableViewController, SDWebImageManagerDelegate 
         }
     }
     
-    override init(style: UITableView.Style) {
-        super.init(style: style)
-        let refreshControl = UIRefreshControl()
-        imageManager.delegate = self
+    init(category: UserCategory) {
+        self.category = category
+        super.init(style: .plain)
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        let refreshControl = UIRefreshControl()
-        imageManager.delegate = self
-    }
-    
-    init(category: UserCategory) {
-        self.category = category
+        fatalError("init(coder:) has not been implemented")
     }
     
     private var imageManager = SDWebImageManager()
@@ -64,24 +57,8 @@ class BasicListViewController: UITableViewController, SDWebImageManagerDelegate 
         return cell
     }
     
-    func addData(_ items: [RequestEntry]) {
-        data.append(contentsOf: items)
-    }
-    
-    func getData() -> [RequestEntry] {
-        return data
-    }
-    
-    func remove(at: Int) -> Void {
-         data.remove(at: at)
-    }
-    
-    func getDataSource() ->RequestsTableDataSource {
-        return dataSource
-    }
-    
-    func getDeleteAllButton() -> UIButton! {
-        return UIButton()
+    func getDeleteAllButton() -> UIBarButtonItem! {
+        return self.navigationController?.navigationItem.leftBarButtonItem
     }
     
     func getTableView() -> UITableView! {
@@ -109,7 +86,7 @@ class BasicListViewController: UITableViewController, SDWebImageManagerDelegate 
     }
     
     func updateDeletionProcess(deleting: Bool) {
-        if deleting && getDataSource().getData().isEmpty {
+        if deleting && data.isEmpty {
             return
         }
         if deleting {
@@ -119,14 +96,15 @@ class BasicListViewController: UITableViewController, SDWebImageManagerDelegate 
                     return createOperationFriendsDelete(user: d)
                 }))
         } else {
-            requestScheduler.clearOps(operationType: getOperationType())
+            requestScheduler.clearOps(operationType:
+                mapUserCategoryToLoadRequestType(category: self.category))
         }
         self.setDeleting(deleting)
         updateButton()
     }
     
     func updateButton() {
-        getDeleteAllButton().setTitle(getDeleting() ? "Stop deleting" : "Delete All", for: .normal)
+        getDeleteAllButton().title = getDeleting() ? "Stop deleting" : "Delete All"
     }
 
     func didDeleteUserSuccess(user: RequestEntry) {
@@ -143,14 +121,23 @@ class BasicListViewController: UITableViewController, SDWebImageManagerDelegate 
     
     func removeFromDataAndTable(user: RequestEntry) {
         let userId = user.userId
-        guard let indexToDelete = self.getDataSource().getData().firstIndex(where: {r in r.userId == userId}) else {
+        guard let indexToDelete = data.firstIndex(where: {r in r.userId == userId}) else {
             print("Cannont find index in data for userId: \(userId)")
             return
         }
-        getDataSource().remove(at: indexToDelete)
         self.getTableView().deleteRows(at: [IndexPath(row: indexToDelete, section: 0)],
                              with: UITableView.RowAnimation.automatic)
-        if self.getDataSource().getData().isEmpty {
+        if data.isEmpty {
+            updateDeletionProcess(deleting: false)
+        }
+    }
+    
+    func removeFromDataAndTable(indicesToDelete: [(Int, Int)]) {
+        self.getTableView().deleteRows(at:
+            indicesToDelete.map { indexUserIdPair in
+                IndexPath(row: indexUserIdPair.0, section: 0)},
+                                       with: UITableView.RowAnimation.none)
+        if data.isEmpty {
             updateDeletionProcess(deleting: false)
         }
     }
@@ -165,47 +152,30 @@ class BasicListViewController: UITableViewController, SDWebImageManagerDelegate 
         guard let detailPageViewController = first as? DetailPageViewController else {
             return
         }
-        detailPageViewController.requestEntry = self.getDataSource().getData()[indexPath.row]
+        detailPageViewController.requestEntry = data[indexPath.row]
         splitViewControllerParent?.showDetailViewController(vc, sender: nil)
     }
     
-    func removeFromDataAndTable(users: [RequestEntry]) {
-        let indicesToDelete:[(Int, Int)] = users.reduce([], { res, user in
-            let userId = user.userId
-            guard let indexToDelete = self.data
-                .firstIndex(where: {r in r.userId == userId}) else {
-               print("Cannont find index in data for userId: \(userId)")
-               return res
-            }
-            return res + [(indexToDelete, userId)]
-        })
-        print("Indexes to delete: \(indicesToDelete)")
-        let sortedIndicesToDelete = indicesToDelete.sorted(by: { indexUserIdPairA, indexUserIdPairB in
-                indexUserIdPairA.0 > indexUserIdPairB.0
-            })
-        print("Sorted indexes to delete: \(sortedIndicesToDelete)")
-        sortedIndicesToDelete.forEach { indexUserIdPair in
-            getDataSource().remove(at: indexUserIdPair.0)
-            userIds.remove(indexUserIdPair.1)
-        }
-        self.getTableView().deleteRows(at:
-        indicesToDelete.map { indexUserIdPair in
-            IndexPath(row: indexUserIdPair.0, section: 0)},
-                                   with: UITableView.RowAnimation.none)
-        
-        if self.getDataSource().getData().isEmpty {
-            updateDeletionProcess(deleting: false)
-        }
-    }
-    
-    
     @objc private func refreshData(_ sender: Any) {
-        requestScheduler.scheduleOps(operationType: .friendsGetRequests, ops: [createOperationFriendsGetRequests()])
+        guard let loadRequestType = mapUserCategoryToLoadRequestType(category: category) else {
+            return
+        }
+        guard let loadOperation = mapUserCategoryToLoadOperation(category: category) else {
+            return
+        }
+        requestScheduler.scheduleOps(
+            operationType: loadRequestType,
+            ops: [loadOperation])
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        imageManager.delegate = self
+        self.refreshControl = UIRefreshControl()
+        guard let refreshControl = self.refreshControl else {
+            return
+        }
         if #available(iOS 10.0, *) {
             tableView.refreshControl = refreshControl
         } else {
@@ -216,31 +186,70 @@ class BasicListViewController: UITableViewController, SDWebImageManagerDelegate 
         deleting = !requestScheduler.isEmpty(operationType: .friendsDelete)
         updateButton()
          
+        // NOTE: Listeners.
+        subscribeToEvents()
+    }
+    
+    func subscribeToEvents() {
         listeners.append(contentsOf: [
-            MainModel.shared().addListener(type: .bulkLoadRequests, listener: {_ in
-                self.tableView.reloadData()
-                self.refreshControl?.endRefreshing()
+            MainModel.shared().addListener(
+                type: mapUserCategoryToBulkLoadModelEventType(category: self.category),
+                listener: {event in
+                    guard let usersAndCategory = event as? UsersAndCategory else {
+                        return
+                    }
+                    guard usersAndCategory.category == self.category else {
+                        return
+                    }
+                    self.tableView.reloadData()
+                    self.refreshControl?.endRefreshing()
             }),
-            MainModel.shared().addListener(type: .removeFriendRequest, listener: {_ in
-                
+            MainModel.shared().addListener(type: .removeFromEntries, listener: {event in
+                guard let userAndCategory = event as? UserAndCategory else {
+                    return
+                }
+                guard userAndCategory.category == self.category else {
+                    return
+                }
+                self.removeFromDataAndTable(user: userAndCategory.user)
             }),
-            MainModel.shared().addListener(type: .removeFromEntries, listener: {_ in
-                
+            MainModel.shared().addListener(type: .removeFromEntriesBulk, listener: {event in
+                guard let indicesToDeleteForCategory = event as? IndicesToDeleteForCategory else {
+                    return
+                }
+                guard indicesToDeleteForCategory.category == self.category else {
+                    return
+                }
+                self.removeFromDataAndTable(indicesToDelete: indicesToDeleteForCategory.indices)
             }),
             requestScheduler.addCallbacks(
                 operationType: .friendsDelete,
                 successCb: {user, response  in
-                    self.removeFromDataAndTable(user: user)
+                    MainModel.shared().removeFromEntries(user: user, category: self.category)
             },
                 errorCb: {
-                user,eror,deleteEnabled  in
-                if (deleteEnabled) {
-                    self.removeFromDataAndTable(user: user)
-                }
-                
+                    user, error, deleteEnabled in
+                    if (deleteEnabled) {
+                        MainModel.shared().removeFromEntries(user: user, category: self.category)
+                    }
             })
         ])
-        
+    }
+    
+    override func didReceiveMemoryWarning() {
+        while (!listeners.isEmpty) {
+            guard let unsubscriber = listeners.popLast() else {
+                continue
+            }
+            unsubscriber()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if (listeners.isEmpty) {
+            subscribeToEvents()
+        }
     }
 }
 

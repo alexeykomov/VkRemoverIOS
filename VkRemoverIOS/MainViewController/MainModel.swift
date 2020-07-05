@@ -31,13 +31,14 @@ class MainModel {
     
     func bulkLoad(users: [RequestEntry], entry: UserCategory) {
         entries[entry] = users
-        var listeners: [String:([RequestEntry]) -> Void] = [:]
+        var listeners: [String:(UsersAndCategory) -> Void] = [:]
         switch entry {
         case .friendRequest: listeners = self.listeners[.bulkLoadBanned] ?? [:]
         case .follower: listeners = self.listeners[.bulkLoadFollower] ?? [:]
         case .bannedUser: listeners = self.listeners[.bulkLoadRequests] ?? [:]
         }
-        listeners.forEach {kv in kv.value(users)}
+        listeners.forEach {kv in
+            kv.value(UsersAndCategory(users: users, category: entry))}
     }
     
     func ban(user: RequestEntry) {
@@ -73,6 +74,30 @@ class MainModel {
         entries[category] = entriesOfCategory.filter {r in r.userId != userId}
         listeners[.removeFromEntries]?.forEach({kv in
             kv.value(UserAndCategory(user: user, category: category))})
+    }
+    
+    func removeFromEntriesBulk(users: [RequestEntry], category: UserCategory) {
+        var entriesOfCategory = entries[category] ?? []
+        let indicesToDelete:[(Int, Int)] = users.reduce([], { res, user in
+            let userId = user.userId
+            guard let indexToDelete = entriesOfCategory
+                .firstIndex(where: {r in r.userId == userId}) else {
+               print("Cannont find index in data for userId: \(userId)")
+               return res
+            }
+            return res + [(indexToDelete, userId)]
+        })
+        print("Indexes to delete: \(indicesToDelete)")
+        let sortedIndicesToDelete = indicesToDelete.sorted(by: { indexUserIdPairA, indexUserIdPairB in
+            indexUserIdPairA.0 > indexUserIdPairB.0
+        })
+        print("Sorted indexes to delete: \(sortedIndicesToDelete)")
+        sortedIndicesToDelete.forEach { indexUserIdPair in
+            entriesOfCategory.remove(at: indexUserIdPair.0)
+        }
+        entries[category] = entriesOfCategory
+        listeners[.removeFromEntriesBulk]?.forEach({kv in
+            kv.value(IndicesToDeleteForCategory(indices: sortedIndicesToDelete, category: category))})
     }
     
     func addListener(type: MainModelEventType,
@@ -113,6 +138,7 @@ enum MainModelEventType {
     case unBan
     case removeFriendRequest
     case removeFromEntries
+    case removeFromEntriesBulk
 }
 
 enum UserCategory {
@@ -123,5 +149,15 @@ enum UserCategory {
 
 struct UserAndCategory {
     let user: RequestEntry
+    let category: UserCategory
+}
+
+struct UsersAndCategory {
+    let users: [RequestEntry]
+    let category: UserCategory
+}
+
+struct IndicesToDeleteForCategory {
+    let indices: [(Int, Int)]
     let category: UserCategory
 }

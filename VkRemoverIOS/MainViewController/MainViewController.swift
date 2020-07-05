@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class MainViewController:UISplitViewController, VKSdkUIDelegate, VKSdkDelegate {
     var callbacks:[()->Void] = []
@@ -14,6 +15,59 @@ class MainViewController:UISplitViewController, VKSdkUIDelegate, VKSdkDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.preferredDisplayMode = .allVisible
+        
+        // Tabs.
+        let tabsController = UITabBarController()
+        
+        let requestsViewController = BasicListViewController(category: .friendRequest);
+        requestsViewController.title = "Requests";
+        let requestsViewControllerWithNavigation = UINavigationController(rootViewController: requestsViewController);
+        var requestsTabBarImage:UIImage? = UIImage()
+        if #available(iOS 13.0, *) {
+            requestsTabBarImage = UIImage(systemName: "arrow.up.circle.fill")
+        } else {
+            requestsTabBarImage = UIImage(named: "", in: nil, compatibleWith: .none)
+        }
+        let requestsTabBarItem = UITabBarItem(title: "", image: requestsTabBarImage, tag: 1)
+        requestsViewControllerWithNavigation.tabBarItem = requestsTabBarItem;
+        
+        let followersViewController = BasicListViewController(category: .follower);
+        followersViewController.title = "Followers";
+        let followersViewControllerWithNavigation = UINavigationController(rootViewController: followersViewController);
+        var followersTabBarImage:UIImage? = UIImage()
+        if #available(iOS 13.0, *) {
+            followersTabBarImage = UIImage(systemName: "arrow.down.circle.fill")
+        } else {
+            requestsTabBarImage = UIImage(named: "", in: nil, compatibleWith: .none)
+        }
+        let followersTabBarItem = UITabBarItem(title: "", image: followersTabBarImage, tag: 1)
+        followersViewControllerWithNavigation.tabBarItem = followersTabBarItem;
+        
+        let bannedViewController = BasicListViewController(category: .bannedUser);
+        bannedViewController.title = "Banned";
+        let bannedViewControllerWithNavigation = UINavigationController(rootViewController: bannedViewController);
+        var bannedTabBarImage:UIImage? = UIImage()
+        if #available(iOS 13.0, *) {
+            bannedTabBarImage = UIImage(systemName: "person.crop.circle.badge.xmark")
+        } else {
+            bannedTabBarImage = UIImage(named: "", in: nil, compatibleWith: .none)
+        }
+        let bannedTabBarItem = UITabBarItem(title: "", image: bannedTabBarImage, tag: 2)
+        bannedViewControllerWithNavigation.tabBarItem = bannedTabBarItem;
+        
+        tabsController.viewControllers = [requestsViewControllerWithNavigation,
+                                followersViewControllerWithNavigation,
+                                bannedViewControllerWithNavigation];
+        
+        tabsController.selectedIndex = 0;
+    
+        // Detail page.
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let detailPageViewController = storyboard.instantiateViewController(withIdentifier: "detailPageNavigationController") as! UINavigationController
+        
+        viewControllers = [tabsController, detailPageViewController]
+        
+        // Get data.
         subscribeToEvents()
         setupVkData()
     }

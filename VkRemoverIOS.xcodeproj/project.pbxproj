@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		45802CDC5D71051D0316200D /* libPods-VkRemoverIOSUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8718D1D33C2203C264F0BAF /* libPods-VkRemoverIOSUITests.a */; };
 		5A0AE05D24152801001D1CB7 /* BGTaskPerformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0AE05C24152801001D1CB7 /* BGTaskPerformer.swift */; };
+		5A0E649E24AF618200085766 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E649D24AF618200085766 /* RootViewController.swift */; };
+		5A1C4F6E24B228DE00D13CBF /* BasicListViewControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1C4F6D24B228DE00D13CBF /* BasicListViewControllerUtils.swift */; };
 		5A20A3B92460A5760012807A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A20A3B82460A5760012807A /* MainViewController.swift */; };
 		5A3D1AC624545DC70018AA0C /* SchedulerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3D1AC524545DC70018AA0C /* SchedulerState.swift */; };
 		5A3D1AC9245460FD0018AA0C /* RequestEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3D1AC8245460FD0018AA0C /* RequestEntry.swift */; };
@@ -82,6 +84,8 @@
 		1031D97B093BCFD183E19D6D /* Pods-VkRemoverIOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VkRemoverIOS.debug.xcconfig"; path = "Target Support Files/Pods-VkRemoverIOS/Pods-VkRemoverIOS.debug.xcconfig"; sourceTree = "<group>"; };
 		497F433992A0D829E1AE14B6 /* Pods-VkRemoverIOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VkRemoverIOSTests.debug.xcconfig"; path = "Target Support Files/Pods-VkRemoverIOSTests/Pods-VkRemoverIOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5A0AE05C24152801001D1CB7 /* BGTaskPerformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BGTaskPerformer.swift; sourceTree = "<group>"; };
+		5A0E649D24AF618200085766 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		5A1C4F6D24B228DE00D13CBF /* BasicListViewControllerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicListViewControllerUtils.swift; sourceTree = "<group>"; };
 		5A20A3B82460A5760012807A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5A3D1ABE245451B60018AA0C /* VkRemoverIOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VkRemoverIOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		5A3D1AC524545DC70018AA0C /* SchedulerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerState.swift; sourceTree = "<group>"; };
@@ -169,6 +173,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A0E649F24AF625D00085766 /* BasicListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5A8EE69423CA0704006EE05B /* BasicListViewController.swift */,
+				5A1C4F6D24B228DE00D13CBF /* BasicListViewControllerUtils.swift */,
+			);
+			path = BasicListViewController;
+			sourceTree = "<group>";
+		};
 		5A24710124635D6B00B10827 /* DetailPageViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -243,13 +256,14 @@
 				5A7B54212466EF9100B3A420 /* Image */,
 				5A3FCF962365A72700203C0E /* AppDelegate.swift */,
 				5A3FCF982365A72700203C0E /* SceneDelegate.swift */,
+				5A0E649D24AF618200085766 /* RootViewController.swift */,
+				5A3D1AD92454856E0018AA0C /* HelloScreenViewController.swift */,
+				5A63BFC32474644800BF5B1A /* MainViewController */,
+				5A0E649F24AF625D00085766 /* BasicListViewController */,
 				5A3D1AC424545D9C0018AA0C /* RequestScheduler */,
 				5A3D1ACF24546AE90018AA0C /* BGTaskPerformer */,
 				5A3D1AC7245460C30018AA0C /* RequestsTableDataSource */,
-				5A3D1AD92454856E0018AA0C /* HelloScreenViewController.swift */,
-				5A63BFC32474644800BF5B1A /* MainViewController */,
 				5A24710124635D6B00B10827 /* DetailPageViewController */,
-				5A8EE69423CA0704006EE05B /* BasicListViewController.swift */,
 				5A3FCF9A2365A72700203C0E /* RequestsViewController.swift */,
 				5AF5314623B4C73A008D01E4 /* SubscribersViewController.swift */,
 				5AD9378323D33AD5007879B0 /* BannedViewController.swift */,
@@ -591,6 +605,7 @@
 			files = (
 				5A3D1AC9245460FD0018AA0C /* RequestEntry.swift in Sources */,
 				5A3D1ACD245462F60018AA0C /* RequestsTableDataSourceUtils.swift in Sources */,
+				5A0E649E24AF618200085766 /* RootViewController.swift in Sources */,
 				5AD3A68D2496310A001D5AD8 /* MainModelConstants.swift in Sources */,
 				5A3FCF9B2365A72700203C0E /* RequestsViewController.swift in Sources */,
 				5A3D1AD624546C150018AA0C /* RequestSchedulerConstants.swift in Sources */,
@@ -611,6 +626,7 @@
 				5AF5314923B4F9C8008D01E4 /* RemovablesViewController.swift in Sources */,
 				5A3FCF972365A72700203C0E /* AppDelegate.swift in Sources */,
 				5AF5314723B4C73A008D01E4 /* SubscribersViewController.swift in Sources */,
+				5A1C4F6E24B228DE00D13CBF /* BasicListViewControllerUtils.swift in Sources */,
 				5A4248EC236EDB3400223AB0 /* InitialTabsViewController.swift in Sources */,
 				5A3FCF992365A72700203C0E /* SceneDelegate.swift in Sources */,
 				5AF5314D23B76302008D01E4 /* RequestScheduler.swift in Sources */,
