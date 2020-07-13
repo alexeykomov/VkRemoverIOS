@@ -127,7 +127,7 @@ struct Operation: Hashable, Equatable {
 }
 
 struct OperationCallbacks {
-    let successCb: (RequestEntry, VKResponse<VKApiObject>?) -> Void
-    let errorCb: (RequestEntry, Error?, Bool) -> Void
+    let successCb: (Operation, VKResponse<VKApiObject>?) -> Void
+    let errorCb: (Operation, Error?, Bool) -> Void
     let uuid: String
 }

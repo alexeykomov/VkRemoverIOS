@@ -25,6 +25,6 @@ let alphabet = "abcdefghijklmnopqrstuvwxyz"
 let MAXIMUM_NUMBER_OF_API_CALLS = min(5, alphabet.count)
 
 struct BgOperationCallbacks {
-    let successCb: ([RequestEntry], VKResponse<VKApiObject>?) -> Void
-    let errorCb: ([RequestEntry], Error?) -> Void
+    let successCb: ([Int], VKResponse<VKApiObject>?) -> Void
+    let errorCb: ([Int], Error?) -> Void
 }

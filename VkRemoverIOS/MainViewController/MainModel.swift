@@ -68,18 +68,16 @@ class MainModel {
         listeners[.removeFriendRequest]?.forEach({kv in kv.value(user)})
     }
     
-    func removeFromEntries(user: RequestEntry, category: UserCategory) {
+    func removeFromEntries(userId: Int, category: UserCategory) {
         let entriesOfCategory = entries[category] ?? []
-        let userId = user.userId
         entries[category] = entriesOfCategory.filter {r in r.userId != userId}
         listeners[.removeFromEntries]?.forEach({kv in
-            kv.value(UserAndCategory(user: user, category: category))})
+            kv.value(UserIdAndCategory(userId: userId, category: category))})
     }
     
-    func removeFromEntriesBulk(users: [RequestEntry], category: UserCategory) {
+    func removeFromEntriesBulk(usersIds: [Int], category: UserCategory) {
         var entriesOfCategory = entries[category] ?? []
-        let indicesToDelete:[(Int, Int)] = users.reduce([], { res, user in
-            let userId = user.userId
+        let indicesToDelete:[(Int, Int)] = usersIds.reduce([], { res, userId in
             guard let indexToDelete = entriesOfCategory
                 .firstIndex(where: {r in r.userId == userId}) else {
                print("Cannont find index in data for userId: \(userId)")
@@ -147,8 +145,8 @@ enum UserCategory {
     case bannedUser
 }
 
-struct UserAndCategory {
-    let user: RequestEntry
+struct UserIdAndCategory {
+    let userId: Int
     let category: UserCategory
 }
 

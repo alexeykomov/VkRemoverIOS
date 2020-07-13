@@ -29,11 +29,6 @@ class RequestScheduler: NSObject {
     private var successCounter = 0
     private let MAX_SUCCESSES = 5
     
-    func fetch(op: Operation, onResponse: () -> Void) {
-        scheduleOps(op, [op])
-        
-    }
-    
     func scheduleOps(operationType: OperationType,
                      ops: [Operation]) {
         processQueue[operationType] = ops
@@ -59,8 +54,8 @@ class RequestScheduler: NSObject {
         }
     }
     
-    func addCallbacks(operationType: OperationType, successCb: @escaping (RequestEntry, VKResponse<VKApiObject>?) -> Void,
-                         errorCb: @escaping (RequestEntry, Error?, Bool) -> Void) -> () -> Void {
+    func addCallbacks(operationType: OperationType, successCb: @escaping (Operation, VKResponse<VKApiObject>?) -> Void,
+                         errorCb: @escaping (Operation, Error?, Bool) -> Void) -> () -> Void {
         let uuid = UUID().uuidString
         callbacks[operationType] = (callbacks[operationType] ?? []) + [
             OperationCallbacks(successCb: successCb, errorCb: errorCb,
@@ -129,7 +124,7 @@ class RequestScheduler: NSObject {
             if !opsOfType.isEmpty {
                 let first = opsOfType[0]
                 processQueue[opType] = Array(opsOfType.dropFirst())
-                print("first.userId: \(first.user.userId)")
+                print("first.userId: \(first)")
                 VKRequest.init(method: first.name.rawValue,
                                parameters:first.getParams()).execute(
                     resultBlock: { response in
@@ -140,7 +135,7 @@ class RequestScheduler: NSObject {
                             return
                         }
                         callbacks.forEach { callback in 
-                            callback.successCb(first.user, response)
+                            callback.successCb(first, response)
                         }
                         
                 }, errorBlock:  { error in
@@ -172,7 +167,7 @@ class RequestScheduler: NSObject {
                         return
                     }
                     callbacks.forEach { callback in
-                        callback.errorCb(first.user, error, enabledDeletion)
+                        callback.errorCb(first, error, enabledDeletion)
                     }
                 })
                 found = true

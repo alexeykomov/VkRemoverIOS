@@ -89,18 +89,19 @@ class BasicListViewController: UITableViewController, SDWebImageManagerDelegate 
         if deleting && data.isEmpty {
             return
         }
-        if deleting {
-            requestScheduler.scheduleOps(operationType: .friendsDelete,
-                ops: data.map({d in
-                    print("user: \(d.userId) \(d.firstName) \(d.lastName)")
-                    return createOperationFriendsDelete(user: d)
-                }))
-        } else {
-            requestScheduler.clearOps(operationType:
-                mapUserCategoryToLoadRequestType(category: self.category))
-        }
         self.setDeleting(deleting)
         updateButton()
+        let removeRequestType = mapUserCategoryToRemoveRequestType(category: self.category)
+        if deleting {
+            requestScheduler.scheduleOps(operationType: removeRequestType,
+                ops: data.map({d in
+                    print("user: \(d.userId) \(d.firstName) \(d.lastName)")
+                    return mapUserCategoryToRemoveOperation(category: self.category, user: d)
+                }))
+        } else {
+            
+            requestScheduler.clearOps(operationType: removeRequestType)
+        }
     }
     
     func updateButton() {
@@ -119,8 +120,7 @@ class BasicListViewController: UITableViewController, SDWebImageManagerDelegate 
     func didDeleteUserFailure(users: [RequestEntry]) {
     }
     
-    func removeFromDataAndTable(user: RequestEntry) {
-        let userId = user.userId
+    func removeFromDataAndTable(userId: Int) {
         guard let indexToDelete = data.firstIndex(where: {r in r.userId == userId}) else {
             print("Cannont find index in data for userId: \(userId)")
             return
@@ -205,13 +205,13 @@ class BasicListViewController: UITableViewController, SDWebImageManagerDelegate 
                     self.refreshControl?.endRefreshing()
             }),
             MainModel.shared().addListener(type: .removeFromEntries, listener: {event in
-                guard let userAndCategory = event as? UserAndCategory else {
+                guard let userIdAndCategory = event as? UserIdAndCategory else {
                     return
                 }
-                guard userAndCategory.category == self.category else {
+                guard userIdAndCategory.category == self.category else {
                     return
                 }
-                self.removeFromDataAndTable(user: userAndCategory.user)
+                self.removeFromDataAndTable(userId: userIdAndCategory.userId)
             }),
             MainModel.shared().addListener(type: .removeFromEntriesBulk, listener: {event in
                 guard let indicesToDeleteForCategory = event as? IndicesToDeleteForCategory else {
@@ -223,14 +223,20 @@ class BasicListViewController: UITableViewController, SDWebImageManagerDelegate 
                 self.removeFromDataAndTable(indicesToDelete: indicesToDeleteForCategory.indices)
             }),
             requestScheduler.addCallbacks(
-                operationType: .friendsDelete,
-                successCb: {user, response  in
-                    MainModel.shared().removeFromEntries(user: user, category: self.category)
+                operationType: mapUserCategoryToRemoveRequestType(category: category),
+                successCb: {operation, response  in
+                    guard let userId = getUserIdFrom(operation: operation) else {
+                        return
+                    }
+                    MainModel.shared().removeFromEntries(userId: userId, category: self.category)
             },
                 errorCb: {
-                    user, error, deleteEnabled in
+                    operation, error, deleteEnabled in
+                    guard let userId = getUserIdFrom(operation: operation) else {
+                        return
+                    }
                     if (deleteEnabled) {
-                        MainModel.shared().removeFromEntries(user: user, category: self.category)
+                        MainModel.shared().removeFromEntries(userId: userId, category: self.category)
                     }
             })
         ])

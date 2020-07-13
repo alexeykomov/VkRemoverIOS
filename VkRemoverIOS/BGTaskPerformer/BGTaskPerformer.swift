@@ -97,8 +97,16 @@ class BGTaskPerformer: NSObject {
                         return
                     }
                     callbacks.forEach { callback in
-                        callback.successCb(operationTypeAndOps.value.map { o in
-                            o.user }, response)
+                        callback.successCb(operationTypeAndOps.value.reduce([], { res, o in
+                            var params = o.params
+                            guard let param = params.popLast() else {
+                                return res
+                            }
+                            guard let userId = Int(param.paramValue) else {
+                                return res
+                            }
+                            return res + [userId]
+                        }), response)
                     }
                 }
                 
@@ -110,8 +118,8 @@ class BGTaskPerformer: NSObject {
         return request
     }
     
-    func addCallbacks(operationType: OperationType, successCb: @escaping ([RequestEntry], VKResponse<VKApiObject>?) -> Void,
-                         errorCb: @escaping ([RequestEntry], Error?) -> Void) {
+    func addCallbacks(operationType: OperationType, successCb: @escaping ([Int], VKResponse<VKApiObject>?) -> Void,
+                         errorCb: @escaping ([Int], Error?) -> Void) {
         callbacks[operationType] = (callbacks[operationType] ?? []) + [
             BgOperationCallbacks(successCb: successCb, errorCb: errorCb)]
     }

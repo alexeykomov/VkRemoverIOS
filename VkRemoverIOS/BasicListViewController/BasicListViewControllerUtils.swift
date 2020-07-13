@@ -16,6 +16,14 @@ func mapUserCategoryToLoadRequestType(category: UserCategory) -> OperationType? 
     }
 }
 
+func mapUserCategoryToRemoveRequestType(category: UserCategory) -> OperationType {
+    switch (category) {
+    case .friendRequest: return .friendsDelete
+    case .follower: return .accountBan
+    case .bannedUser: return .accountUnban
+    }
+}
+
 func mapUserCategoryToBulkLoadModelEventType(category: UserCategory) -> MainModelEventType {
     switch (category) {
     case .friendRequest: return .bulkLoadRequests
@@ -30,5 +38,12 @@ func mapUserCategoryToLoadOperation(category: UserCategory) -> Operation? {
     case .follower: return createOperationUserGetFollowers()
     case .bannedUser: return nil
     }
-    
+}
+
+func mapUserCategoryToRemoveOperation(category: UserCategory, user: RequestEntry) -> Operation {
+    switch (category) {
+    case .friendRequest: return createOperationFriendsDelete(user: user)
+    case .follower: return createOperationAccountBan(user: user)
+    case .bannedUser: return createOperationAccountUnban(user: user)
+    }
 }

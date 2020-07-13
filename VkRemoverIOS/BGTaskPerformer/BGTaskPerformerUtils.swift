@@ -37,7 +37,11 @@ func formCodeFromOperations(state:SchedulerState) -> CodeWitрState {
                 let start = alphabet.index(alphabet.startIndex, offsetBy: letterCounter)
                 letterCounter += 1
                 let varName = alphabet[start]
-                let code = "var \(varName) = API.\(opType.rawValue)({'\(first.paramName.rawValue)': \(first.user.userId)});"
+                var params = first.params
+                guard let param = params.popLast() else {
+                    continue
+                }
+                let code = "var \(varName) = API.\(opType.rawValue)({'\(param.paramName)': \(param.paramValue)});"
                 modifiedState = SchedulerState(operations: modifiedOperations)
                 codeStatements.append(code)
                 operations[opType] = (operations[opType] ?? []) + [first]

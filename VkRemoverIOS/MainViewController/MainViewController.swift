@@ -73,9 +73,9 @@ class MainViewController:UISplitViewController, VKSdkUIDelegate, VKSdkDelegate {
     }
     
     func subscribeToEvents() {
-        callbacks.append(
+        callbacks.append(contentsOf:[
             requestScheduler.addCallbacks(operationType: .friendsGetRequests,
-                                          successCb: {user, response in
+                                          successCb: {operation, response in
                                             guard let dict = response?.json as? Dictionary<String, Any> else {
                                                 return
                                             }
@@ -86,11 +86,10 @@ class MainViewController:UISplitViewController, VKSdkUIDelegate, VKSdkDelegate {
                                             let parsedItems = RequestEntry.fromRequestsList(items)
                                             MainModel.shared().bulkLoad(users: parsedItems, entry: .friendRequest)
             },
-                                          errorCb: {user, e, enabledDeletion in}
-        ))
-        callbacks.append(
+                                          errorCb: {operation, e, enabledDeletion in}
+            ),
             requestScheduler.addCallbacks(operationType: .userGetFollowers,
-                                          successCb: {user, response in
+                                          successCb: {operation, response in
                                             guard let dict = response?.json as? Dictionary<String, Any> else {
                                                 return
                                             }
@@ -98,19 +97,22 @@ class MainViewController:UISplitViewController, VKSdkUIDelegate, VKSdkDelegate {
                                                 return
                                             }
                                             print("items: \(items)")
-                                            let parsedItems = RequestEntry.fromRequestsList(items)
+                                            let parsedItems = RequestEntry.fromFollowersList(items)
                                             MainModel.shared().bulkLoad(users: parsedItems, entry: .follower)
             },
-                                          errorCb: {user, e, enabledDeletion in}
-        ))
+                                          errorCb: {operation, e, enabledDeletion in}
+            )])
         MainModel.shared().bulkLoad(users:
             Storage.shared.getBanned().map {u in u.user}, entry: .bannedUser)
         
-        BGTaskPerformer.shared().addCallbacks(operationType: .friendsGetRequests,
-                                              successCb: {users, r in },
+        BGTaskPerformer.shared().addCallbacks(operationType: .friendsDelete,
+                                              successCb: {users, r in MainModel.shared().removeFromEntriesBulk(usersIds: users, category: .friendRequest)},
                                               errorCb:{users, r in })
-        BGTaskPerformer.shared().addCallbacks(operationType: .userGetFollowers,
-                                              successCb: {users, r in },
+        BGTaskPerformer.shared().addCallbacks(operationType: .accountBan,
+                                              successCb: {users, r in MainModel.shared().removeFromEntriesBulk(usersIds: users, category: .follower)},
+                                              errorCb:{users, r in })
+        BGTaskPerformer.shared().addCallbacks(operationType: .accountUnban,
+                                              successCb: {users, r in MainModel.shared().removeFromEntriesBulk(usersIds: users, category: .bannedUser)},
                                               errorCb:{users, r in })
     }
     

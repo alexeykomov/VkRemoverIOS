@@ -75,3 +75,14 @@ func createOperationUserGetFollowers() -> Operation {
                                      paramType: .number)
     ])
 }
+
+func getUserIdFrom(operation: Operation) -> Int? {
+    var params = operation.params
+    guard let param = params.popLast() else {
+        return nil
+    }
+    guard let userId = Int(param.paramValue) else {
+        return nil
+    }
+    return userId
+}

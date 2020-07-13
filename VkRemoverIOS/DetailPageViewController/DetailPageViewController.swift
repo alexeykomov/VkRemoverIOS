@@ -65,14 +65,15 @@ class DetailPageViewController:UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        listeners.append(contentsOf: [
-            MainModel.shared().addListener(opType: .accountBan, listener:
-                { user in self.onBan(user: user, ban: true) } ),
-            MainModel.shared().addListener(opType: .accountUnban, listener:
-                { user in self.onBan(user: user, ban: false) } ),
-            MainModel.shared().addListener(opType: .friendsDelete, listener: onFriendsDelete)
-        ])
+        let unsubscribers:[() -> Void] = [
+            MainModel.shared().addListener(type: .ban, listener:
+                { event in self.onBan(event: event, ban: true) } ),
+            MainModel.shared().addListener(type: .unBan, listener:
+                { event in self.onBan(event: event, ban: false) } ),
+            MainModel.shared().addListener(type: .removeFriendRequest,
+                                           listener: self.onFriendsDelete)
+        ]
+        listeners.append(contentsOf: unsubscribers)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -115,7 +116,10 @@ class DetailPageViewController:UITableViewController {
         listeners.forEach {listener in listener()}
     }
     
-    func onBan(user: RequestEntry, ban: Bool) {
+    func onBan(event: Any, ban: Bool) {
+        guard let user = event as? RequestEntry else {
+            return
+        }
         guard user.userId == requestEntry.userId else {
             return
         }
@@ -126,7 +130,10 @@ class DetailPageViewController:UITableViewController {
         updateBanLabel(buttonCell)
     }
     
-    func onFriendsDelete(_ user: RequestEntry) {
+    func onFriendsDelete(_ event: Any) {
+        guard let user = event as? RequestEntry else {
+            return
+        }
         guard user.userId == requestEntry.userId else {
             return
         }

@@ -21,9 +21,9 @@ class RequestTableCell: UITableViewCell {
     }
     
     func loadImage(url: String) {
-        DispatchQueue.global(qos: .default).async {
+        DispatchQueue.global(qos: .utility).async {
             self.operation = SDWebImageManager.shared.loadImage(with: URL(string: url), options: [], progress: nil) { (image, data, error, cacheType, finished, url) in
-                DispatchQueue.global(qos: .default).async {
+                DispatchQueue.global(qos: .utility).async {
                     
                     guard let resizedImage = self.resizeImage(image) else {
                         return
